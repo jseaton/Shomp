@@ -1,0 +1,98 @@
+<!doctype html>
+<head>
+  <meta charset="utf-8">
+  
+  <title></title>
+  
+  <link rel="stylesheet" href="css/style.css">
+
+  <script src="lib/jquery-1.6.4.js"></script>
+  <script src="lib/Three.js"></script>
+
+  <script src="lib/codemirror.js"></script>  
+  <link rel="stylesheet" href="lib/codemirror.css">
+  <script src="mode/clike/clike.js"></script>
+  <link rel="stylesheet" href="lib/cmirror-default.css">
+
+  <link type="text/css" href="lib/jquery-ui-1.8.16.custom.css" rel="Stylesheet" />	
+  <script type="text/javascript" src="lib/jquery-ui-1.8.16.custom.min.js"></script>
+  <script>
+	
+
+  var WIDTH = 400,HEIGHT = 300;
+var VIEW_ANGLE = 45, ASPECT = WIDTH / HEIGHT, NEAR = 0.1, FAR = 10000;
+
+var renderer;
+var camera;
+var scene;
+var sphereMaterial;
+var sphere;
+var container;
+
+function getShaders() {
+        sphereMaterial = new THREE.ShaderMaterial({
+        vertexShader:   $('#vertexshader').val(),
+        fragmentShader: $('#fragmentshader').val()
+        });
+}
+
+function redo() {
+        getShaders();
+        sphere.materials = [sphereMaterial];
+        renderer.render(scene, camera);
+}
+
+$(document).ready(function() {
+var myCodeMirrorV = CodeMirror.fromTextArea(document.getElementById('vertexshader'));
+var myCodeMirrorF = CodeMirror.fromTextArea(document.getElementById('fragmentshader'));
+
+        container = $('#container');
+
+        renderer = new THREE.WebGLRenderer();
+        camera = new THREE.PerspectiveCamera(VIEW_ANGLE, ASPECT, NEAR, FAR);
+        scene = new THREE.Scene();
+        camera.position.z = 300;
+        renderer.setSize(WIDTH, HEIGHT);
+
+        container.append(renderer.domElement);
+
+        getShaders(); //sphereMaterial = new THREE.MeshLambertMaterial({color: 0x00CC00});
+
+        var radius = 50, segments = 16, rings = 16;
+        sphere = new THREE.Mesh(
+        new THREE.SphereGeometry(radius, segments, rings),
+        sphereMaterial);
+        sphere.dynamic = true;
+
+        var pointLight = new THREE.PointLight( 0xFFFFFF );
+        pointLight.position.x = 10;
+        pointLight.position.y = 50;
+        pointLight.position.z = 130;
+
+        scene.add(sphere);
+        scene.add(pointLight);
+
+        renderer.render(scene, camera);
+});
+
+  </script>
+</head>
+<body>
+
+<textarea id="vertexshader" cols="60" rows="20">
+void main() {
+    gl_Position = projectionMatrix *
+                  modelViewMatrix *
+                  vec4(position,1.0);
+}
+</textarea>
+<textarea id="fragmentshader" cols="60" rows="20">
+void main() {
+    gl_FragColor = vec4(1.0, 0.0, 1.0, 1.0);
+}
+</textarea>
+<button onclick="redo()">Update Shaders</button>
+<div id="container" style="background-color:black;"></div>
+
+</body>
+</html>
