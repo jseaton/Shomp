@@ -1,0 +1,49 @@
+/~ ~~~~~~~ Token Defns ~~~~~~~~ ~/
+
+/~ whitespace ~/
+!	' |\t'
+;
+
+'attribute'	ATTRIBUTE
+'const'		CONST
+'true|false'	BOOL
+'[0-9]+\.[0-9]+' FLOAT	[* %match = parseFloat(%match); *]
+'[0-9]+'	INT	[* %match = parseInt(%match); *]
+'break'		BREAK
+'continue'	CONTINUE
+'do'		DO
+'else'		ELSE
+'for'		FOR
+'if'		IF
+'discard'	DISCARD
+'return'	RETURN
+'bvec2'		BVEC2
+'bvec3'		BVEC3
+'bvec4'		BVEC4
+'ivec2'		IVEC2
+'ivec3'		IVEC3
+'ivec4'		IVEC4
+'vec2'		VEC2
+'vec3'		VEC3
+'vec4'		VEC4
+'mat2'		MAT2
+'mat3'		MAT3
+'mat4'		MAT4
+'in'		IN
+'out'		OUT
+'inout'		INOUT
+'uniform'	UNIFORM
+'varying'	VARYING
+'sampler2d'	SAMPLER2D
+'samplercube'	SAMPLERCUBE
+'struct'	STRUCT
+'void'		VOID
+'while'		WHILE
+;
+
+##
+
+/~ ~~~~~~~~~ Grammar ~~~~~~~~~ ~/
+
+e: FLOAT [* print(%1) *]
+;
