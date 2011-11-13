@@ -43,11 +43,12 @@
 'struct'	return 'STRUCT';
 'void'		return 'VOID';
 'while'		return 'WHILE';
-[a-zA-Z\_]+[0-9]* return 'IDENTIFIER'; /* identifiers of the form identifier : nondigit | identifier nondigit | identifier digit */ /*'void'|'bool'|'int'|'float'|('b'|'i')?'vec'[2-4]|'mat'[2-4]|'sampler2D'|'samplerCube'*/
-'usertype'  return 'TYPE_NAME';
+'magic_type_name'  return 'TYPE_NAME';
+[a-zA-Z\_]+[0-9]* return 'IDENTIFIER'; /* identifiers of the form identifier : nondigit | identifier nondigit | identifier digit */
 ([0-9]+'.'[0-9]+|[0-9]+'.'|'.'[0-9]+)(('e'|'E')('+'|'-')?[0-9]+)?|[0-9]+('e'|'E')('+'|'-')?[0-9]+ return 'FLOATCONSTANT'; /* float constants (conveniently the same format as accepted by parseFloat) floating-constant : fractional-constant [exponent-part] | digit-sequence exponent-part */
 [1-9][0-9]'+'|'0'[0-7]+|'0'('x'|'X')[0-9a-fA-F]+ return 'INTCONSTANT'; /* integer constants (same as parseInt) integer-constant : decimal-constant | octal-constant | hexadecimal-constant */
-'true'|'false' return 'BOOLCONSTANT'; /* FIELD_SELECTION TODO */
+'true'|'false' return 'BOOLCONSTANT';
+'field_selection' return 'FIELD_SELECTION'; 
 '<<' return 'LEFT_OP';
 '>>' return 'RIGHT_OP';
 '++' return 'INC_OP';
@@ -62,7 +63,7 @@
 '/=' return 'DIV_ASSIGN';
 '+=' return 'ADD_ASSIGN';
 '%=' return 'MOD_ASSIGN'; /* reserved LEFT_ASSIGN RIGHT_ASSIGN AND_ASSIGN XOR_ASSIGN OR_ASSIGN */
-'=' return 'SUB_ASSIGN';
+'-=' return 'SUB_ASSIGN';
 '(' return 'LEFT_PAREN';
 ')' return 'RIGHT_PAREN';
 '[' return 'LEFT_BRACKET';
@@ -329,8 +330,8 @@ parameter_declaration:
 	;
 
 parameter_qualifier:
-        /* TODO also empty */
-        IN 
+        /* empty */
+        | IN 
         | OUT 
         | INOUT
 	;
@@ -403,7 +404,7 @@ precision_qualifier:
 	;
 
 struct_specifier:
-        STRUCT IDENTIFIER LEFT_BRACE struct_declaration_list RIGHT_BRACE 
+        STRUCT IDENTIFIER LEFT_BRACE struct_declaration_list RIGHT_BRACE { r = $2 + '\b'; console.log(r.toString()); lexer.rules[36] = new RegExp(lexer.rules[36].toString().slice(1,-3).toString() + '|'.toString() + $2.toString() + "\\b".toString()); }
         | STRUCT LEFT_BRACE struct_declaration_list RIGHT_BRACE 
 	;
 
@@ -498,8 +499,8 @@ for_init_statement:
 	;
 
 conditionopt:
-        condition 
-        /* TODO empty */
+        /* empty */
+	| condition 
 	;
 
 for_rest_statement:
