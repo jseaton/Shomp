@@ -342,7 +342,7 @@ parameter_type_specifier:
 	;
 
 init_declarator_list:
-        single_declaration 
+        single_declaration
         | init_declarator_list COMMA IDENTIFIER 
         | init_declarator_list COMMA IDENTIFIER LEFT_BRACKET constant_expression RIGHT_BRACKET
         | init_declarator_list COMMA IDENTIFIER EQUAL initializer 
