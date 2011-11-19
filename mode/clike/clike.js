@@ -1,3 +1,5 @@
+//This is from CodeMirror. TODO licence
+
 CodeMirror.defineMode("clike", function(config, parserConfig) {
   var indentUnit = config.indentUnit,
       keywords = parserConfig.keywords || {},
@@ -244,4 +246,17 @@ CodeMirror.defineMode("clike", function(config, parserConfig) {
       }
     }
   });
+    CodeMirror.defineMIME("text/x-glsl", {
+	name: "clike",
+	keywords: words("attribute const uniform varying break continue do for while if else in out inout " +
+                        "float int void bool lowp mediump highp precision invariant discard return " +
+                        "mat2 mat3 mat4 vec2 vec3 vec4 ivec2 ivec3 ivec4 bvec2 bvec3 bvec4 sampler2D samplerCube struct"),
+	atoms: words("true false"),
+	hooks: {
+      "@": function(stream, state) {
+        stream.eatWhile(/[\w\$_]/);
+        return "meta";
+      }
+	}
+    });
 }());
