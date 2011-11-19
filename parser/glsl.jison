@@ -38,15 +38,20 @@
 'inout'		return 'INOUT';
 'uniform'	return 'UNIFORM';
 'varying'	return 'VARYING';
-'sampler2d'	return 'SAMPLER2D';
+'sampler2D'	return 'SAMPLER2D';
 'samplercube'	return 'SAMPLERCUBE';
 'struct'	return 'STRUCT';
 'void'		return 'VOID';
 'while'		return 'WHILE';
+'invariant' return 'INVARIANT';
+'highp' return 'HIGH_PRECISION';
+'mediump' return 'MEDIUM_PRECISION';
+'lowp' return 'LOW_PRECISION';
+'precision' return 'PRECISION';
 'magic_type_name'  return 'TYPE_NAME';
 [a-zA-Z\_]+[0-9]* return 'IDENTIFIER'; /* identifiers of the form identifier : nondigit | identifier nondigit | identifier digit */
 ([0-9]+'.'[0-9]+|[0-9]+'.'|'.'[0-9]+)(('e'|'E')('+'|'-')?[0-9]+)?|[0-9]+('e'|'E')('+'|'-')?[0-9]+ return 'FLOATCONSTANT'; /* float constants (conveniently the same format as accepted by parseFloat) floating-constant : fractional-constant [exponent-part] | digit-sequence exponent-part */
-[1-9][0-9]'+'|'0'[0-7]+|'0'('x'|'X')[0-9a-fA-F]+ return 'INTCONSTANT'; /* integer constants (same as parseInt) integer-constant : decimal-constant | octal-constant | hexadecimal-constant */
+[1-9][0-9]*|'0'[0-7]+|'0'('x'|'X')[0-9a-fA-F]+ return 'INTCONSTANT'; /* integer constants (same as parseInt) integer-constant : decimal-constant | octal-constant | hexadecimal-constant */
 'true'|'false' return 'BOOLCONSTANT';
 'field_selection' return 'FIELD_SELECTION'; 
 '<<' return 'LEFT_OP';
@@ -89,8 +94,6 @@
 '&' return 'AMPERSAND';
 '?' return 'QUESTION';
 'invariant' return 'INVARIANT';
-;
-
 'highp' return 'HIGH_PRECISION';
 'mediump' return 'MEDIUM_PRECISION';
 'lowp' return 'LOW_PRECISION';
@@ -114,9 +117,9 @@ variable_identifier:
 
 primary_expression:
 	variable_identifier 
-        | INTCONSTANT 
-        | FLOATCONSTANT 
-        | BOOLCONSTANT 
+        | INTCONSTANT { $$ = parseInt($1); }
+        | FLOATCONSTANT { $$ = parseFloat($1); }
+        | BOOLCONSTANT { $$ = $1 == 'true'; }
         | LEFT_PAREN expression RIGHT_PAREN
 	;
 
@@ -294,8 +297,8 @@ constant_expression:
 	;
 
 declaration:
-        function_prototype SEMICOLON 
-        | init_declarator_list SEMICOLON 
+        function_prototype SEMICOLON
+        | init_declarator_list SEMICOLON  { console.log("!" + JSON.stringify($$)); }
         | PRECISION precision_qualifier type_specifier_no_prec SEMICOLON
 	;
 
@@ -318,13 +321,13 @@ function_header:
 	;
 
 parameter_declarator:
-        type_specifier IDENTIFIER { $$ = $2; }
-        | type_specifier IDENTIFIER LEFT_BRACKET constant_expression RIGHT_BRACKET { $$ = $2; }
+        type_specifier IDENTIFIER
+        | type_specifier IDENTIFIER LEFT_BRACKET constant_expression RIGHT_BRACKET
 	;
 
 parameter_declaration:
-        type_qualifier parameter_qualifier parameter_declarator { console.log($3); }
-        | parameter_qualifier parameter_declarator { console.log($2); }
+        type_qualifier parameter_qualifier parameter_declarator
+        | parameter_qualifier parameter_declarator
         | type_qualifier parameter_qualifier parameter_type_specifier
         | parameter_qualifier parameter_type_specifier
 	;
@@ -337,22 +340,22 @@ parameter_qualifier:
 	;
 
 parameter_type_specifier:
-        type_specifier 
+        type_specifier
         | type_specifier LEFT_BRACKET constant_expression RIGHT_BRACKET
 	;
 
 init_declarator_list:
         single_declaration
-        | init_declarator_list COMMA IDENTIFIER 
-        | init_declarator_list COMMA IDENTIFIER LEFT_BRACKET constant_expression RIGHT_BRACKET
-        | init_declarator_list COMMA IDENTIFIER EQUAL initializer 
+        | init_declarator_list COMMA IDENTIFIER { $$ = $1.concat([[$3]]); }
+        | init_declarator_list COMMA IDENTIFIER LEFT_BRACKET constant_expression RIGHT_BRACKET { $$ = $1.concat([[$3,$5]]); }
+        | init_declarator_list COMMA IDENTIFIER EQUAL initializer { $$ = $1.concat([[$3,null,$5]]); }
 	;
 
 single_declaration:
         fully_specified_type 
-        | fully_specified_type IDENTIFIER 
-        | fully_specified_type IDENTIFIER LEFT_BRACKET constant_expression RIGHT_BRACKET 
-        | fully_specified_type IDENTIFIER EQUAL initializer 
+        | fully_specified_type IDENTIFIER { $$ = [$1,[$2]]; }
+        | fully_specified_type IDENTIFIER LEFT_BRACKET constant_expression RIGHT_BRACKET { $$ = [$1,[$2,$4]] }
+        | fully_specified_type IDENTIFIER EQUAL initializer { $$ = [$1,[$2,null,$4]]; }
         | INVARIANT IDENTIFIER   /* TODO Vertex only. */
 	;
 
@@ -370,7 +373,7 @@ type_qualifier:
 	;
 
 type_specifier:
-        type_specifier_no_prec { $$ = ['',$1]; }
+        type_specifier_no_prec { $$ = [null,$1]; }
         | precision_qualifier type_specifier_no_prec { $$ = [$1, $2]; }
 	;
 
@@ -404,27 +407,32 @@ precision_qualifier:
 	;
 
 struct_specifier:
-        STRUCT IDENTIFIER LEFT_BRACE struct_declaration_list RIGHT_BRACE { lexer.rules[36] = new RegExp(lexer.rules[36].toString().slice(1,-3).toString() + "\\b|^" + $2 + "\\b"); }
-        | STRUCT LEFT_BRACE struct_declaration_list RIGHT_BRACE 
+        STRUCT IDENTIFIER LEFT_BRACE struct_declaration_list RIGHT_BRACE { 
+	lexer.rules[36] = new RegExp(lexer.rules[36].toString().slice(1,-3).toString() + "\\b|^" + $2 + "\\b"); 
+	$$ = $4;
+	if (typeof lexer.structs == 'undefined') { lexer.structs = {}; }
+	lexer.structs[$2] = $4;
+	}
+        | STRUCT LEFT_BRACE struct_declaration_list RIGHT_BRACE { $$ = $3; }
 	;
 
 struct_declaration_list:
-        struct_declaration 
-        | struct_declaration_list struct_declaration 
+        struct_declaration
+        | struct_declaration_list struct_declaration { $$ = [$1].concat([$2]); }
 	;
 
 struct_declaration:
-        type_specifier struct_declarator_list SEMICOLON
+        type_specifier struct_declarator_list SEMICOLON { $$ = [$1,$2]; }
 	;
 
 struct_declarator_list:
         struct_declarator 
-        | struct_declarator_list COMMA struct_declarator
+        | struct_declarator_list COMMA struct_declarator { $$ = $1.concat([$2]); }
 	;
  
 struct_declarator:
-        IDENTIFIER 
-        | IDENTIFIER LEFT_BRACKET constant_expression RIGHT_BRACKET
+        IDENTIFIER { $$ = [$1]; }
+        | IDENTIFIER LEFT_BRACKET constant_expression RIGHT_BRACKET { $$ = [$1,$3]; }
 	;
  
 initializer:
