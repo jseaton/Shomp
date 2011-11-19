@@ -28,11 +28,13 @@ var scene;
 var sphereMaterial;
 var sphere;
 var container;
+var vertexShader;
+var fragmentShader;
 
 function getShaders() {
         sphereMaterial = new THREE.ShaderMaterial({
-        vertexShader:   $('#vertexshader').val(),
-        fragmentShader: $('#fragmentshader').val()
+        vertexShader:   vertexShader.getValue(),
+        fragmentShader: fragmentShader.getValue()
         });
 }
 
@@ -43,8 +45,8 @@ function redo() {
 }
 
 $(document).ready(function() {
-var myCodeMirrorV = CodeMirror.fromTextArea(document.getElementById('vertexshader'),{'mode':'text/x-glsl'});
-var myCodeMirrorF = CodeMirror.fromTextArea(document.getElementById('fragmentshader'),{'mode':'text/x-glsl'});
+vertexShader   = CodeMirror.fromTextArea(document.getElementById('vertexshader'),{'mode':'text/x-glsl'});
+fragmentShader = CodeMirror.fromTextArea(document.getElementById('fragmentshader'),{'mode':'text/x-glsl'});
 
         container = $('#container');
 
