@@ -43,7 +43,7 @@
 'struct'	return 'STRUCT';
 'void'		return 'VOID';
 'while'		return 'WHILE';
-'magic_type_name'|'ladidah'  return 'TYPE_NAME';
+'magic_type_name'  return 'TYPE_NAME';
 [a-zA-Z\_]+[0-9]* return 'IDENTIFIER'; /* identifiers of the form identifier : nondigit | identifier nondigit | identifier digit */
 ([0-9]+'.'[0-9]+|[0-9]+'.'|'.'[0-9]+)(('e'|'E')('+'|'-')?[0-9]+)?|[0-9]+('e'|'E')('+'|'-')?[0-9]+ return 'FLOATCONSTANT'; /* float constants (conveniently the same format as accepted by parseFloat) floating-constant : fractional-constant [exponent-part] | digit-sequence exponent-part */
 [1-9][0-9]'+'|'0'[0-7]+|'0'('x'|'X')[0-9a-fA-F]+ return 'INTCONSTANT'; /* integer constants (same as parseInt) integer-constant : decimal-constant | octal-constant | hexadecimal-constant */
@@ -104,7 +104,7 @@
 
 %% /* ~~~~~~~~~ Grammar ~~~~~~~~~ */
 
-expressions:
+expressions: 
 	translation_unit EOF
 	;
 
@@ -318,15 +318,15 @@ function_header:
 	;
 
 parameter_declarator:
-        type_specifier IDENTIFIER 
-        | type_specifier IDENTIFIER LEFT_BRACKET constant_expression RIGHT_BRACKET 
+        type_specifier IDENTIFIER { $$ = $2; }
+        | type_specifier IDENTIFIER LEFT_BRACKET constant_expression RIGHT_BRACKET { $$ = $2; }
 	;
 
 parameter_declaration:
-        type_qualifier parameter_qualifier parameter_declarator 
-        | parameter_qualifier parameter_declarator 
-        | type_qualifier parameter_qualifier parameter_type_specifier 
-        | parameter_qualifier parameter_type_specifier 
+        type_qualifier parameter_qualifier parameter_declarator { console.log($3); }
+        | parameter_qualifier parameter_declarator { console.log($2); }
+        | type_qualifier parameter_qualifier parameter_type_specifier
+        | parameter_qualifier parameter_type_specifier
 	;
 
 parameter_qualifier:
@@ -357,8 +357,8 @@ single_declaration:
 	;
 
 fully_specified_type:
-        type_specifier 
-        | type_qualifier type_specifier
+        type_specifier { $$ = ['',$1]; } 
+        | type_qualifier type_specifier { $$ = [$1, $2]; }
 	; 
 
 type_qualifier:
@@ -366,12 +366,12 @@ type_qualifier:
         | ATTRIBUTE   /* TODO Vertex only. */
         | VARYING 
         | INVARIANT VARYING
-        | UNIFORM 
+        | UNIFORM
 	;
 
 type_specifier:
-        type_specifier_no_prec
-        | precision_qualifier type_specifier_no_prec
+        type_specifier_no_prec { $$ = ['',$1]; }
+        | precision_qualifier type_specifier_no_prec { $$ = [$1, $2]; }
 	;
 
 type_specifier_no_prec:
@@ -404,7 +404,7 @@ precision_qualifier:
 	;
 
 struct_specifier:
-        STRUCT IDENTIFIER LEFT_BRACE struct_declaration_list RIGHT_BRACE { r = $2 + '\b'; console.log(r.toString()); lexer.rules[36] = new RegExp(lexer.rules[36].toString().slice(1,-3).toString() + '|'.toString() + $2.toString() + "\\b".toString()); }
+        STRUCT IDENTIFIER LEFT_BRACE struct_declaration_list RIGHT_BRACE { lexer.rules[36] = new RegExp(lexer.rules[36].toString().slice(1,-3).toString() + "\\b|^" + $2 + "\\b"); }
         | STRUCT LEFT_BRACE struct_declaration_list RIGHT_BRACE 
 	;
 
