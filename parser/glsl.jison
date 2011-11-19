@@ -43,7 +43,7 @@
 'struct'	return 'STRUCT';
 'void'		return 'VOID';
 'while'		return 'WHILE';
-'magic_type_name'  return 'TYPE_NAME';
+'magic_type_name'|'ladidah'  return 'TYPE_NAME';
 [a-zA-Z\_]+[0-9]* return 'IDENTIFIER'; /* identifiers of the form identifier : nondigit | identifier nondigit | identifier digit */
 ([0-9]+'.'[0-9]+|[0-9]+'.'|'.'[0-9]+)(('e'|'E')('+'|'-')?[0-9]+)?|[0-9]+('e'|'E')('+'|'-')?[0-9]+ return 'FLOATCONSTANT'; /* float constants (conveniently the same format as accepted by parseFloat) floating-constant : fractional-constant [exponent-part] | digit-sequence exponent-part */
 [1-9][0-9]'+'|'0'[0-7]+|'0'('x'|'X')[0-9a-fA-F]+ return 'INTCONSTANT'; /* integer constants (same as parseInt) integer-constant : decimal-constant | octal-constant | hexadecimal-constant */
