@@ -93,11 +93,6 @@
 '^' return 'CARET';
 '&' return 'AMPERSAND';
 '?' return 'QUESTION';
-'invariant' return 'INVARIANT';
-'highp' return 'HIGH_PRECISION';
-'mediump' return 'MEDIUM_PRECISION';
-'lowp' return 'LOW_PRECISION';
-'precision' return 'PRECISION';
 
 <<EOF>> return 'EOF';
 
@@ -127,7 +122,13 @@ postfix_expression:
         primary_expression 
         | postfix_expression LEFT_BRACKET integer_expression RIGHT_BRACKET 
         | function_call 
-        /* | postfix_expression DOT FIELD_SELECTION TODO */
+        | postfix_expression DOT IDENTIFIER { /*FIELD_SELECTION*/
+	  if (lexer.structs[$1] && lexer.structs[$1][$3]) {
+	     $$ = lexer.structs[$1][$3][1];
+	  } else {
+	     yyerror();
+	  }
+	}
         | postfix_expression INC_OP 
         | postfix_expression DEC_OP
 	;
@@ -180,7 +181,7 @@ constructor_identifier:
         | MAT2
         | MAT3
         | MAT4
-	| TYPE_NAME
+	| IDENTIFIER { if (!lexer.structs[$1]) yyerror(); } /* TYPE_NAME */
 	;
 
 unary_expression:
@@ -346,22 +347,22 @@ parameter_type_specifier:
 
 init_declarator_list:
         single_declaration
-        | init_declarator_list COMMA IDENTIFIER { $$ = $1.concat([[$3]]); }
-        | init_declarator_list COMMA IDENTIFIER LEFT_BRACKET constant_expression RIGHT_BRACKET { $$ = $1.concat([[$3,$5]]); }
-        | init_declarator_list COMMA IDENTIFIER EQUAL initializer { $$ = $1.concat([[$3,null,$5]]); }
+        | init_declarator_list COMMA IDENTIFIER { $$ = $1; $$.list.push({id:$3}); }
+        | init_declarator_list COMMA IDENTIFIER LEFT_BRACKET constant_expression RIGHT_BRACKET { $$ = $1; $$.list.push({id:$3,n:$5}); }
+        | init_declarator_list COMMA IDENTIFIER EQUAL initializer { $$ = $1; $$.list.push({id:$3,init:$5}); }
 	;
 
 single_declaration:
         fully_specified_type 
-        | fully_specified_type IDENTIFIER { $$ = [$1,[$2]]; }
-        | fully_specified_type IDENTIFIER LEFT_BRACKET constant_expression RIGHT_BRACKET { $$ = [$1,[$2,$4]] }
-        | fully_specified_type IDENTIFIER EQUAL initializer { $$ = [$1,[$2,null,$4]]; }
+        | fully_specified_type IDENTIFIER { $$ = {ftype:$1,list:[{id:$2}]}; }
+        | fully_specified_type IDENTIFIER LEFT_BRACKET constant_expression RIGHT_BRACKET { $$ = {ftype:$1,list:[{id:$2,n:$4}]}; }
+        | fully_specified_type IDENTIFIER EQUAL initializer { $$ = {ftype:$1,list:[{id:$2,init:$4}]}; }
         | INVARIANT IDENTIFIER   /* TODO Vertex only. */
 	;
 
 fully_specified_type:
-        type_specifier { $$ = ['',$1]; } 
-        | type_qualifier type_specifier { $$ = [$1, $2]; }
+        type_specifier { $$ = {ptype:$1}; } 
+        | type_qualifier type_specifier { $$ = {qual:$1, ptype:$2}; }
 	; 
 
 type_qualifier:
@@ -373,8 +374,8 @@ type_qualifier:
 	;
 
 type_specifier:
-        type_specifier_no_prec { $$ = [null,$1]; }
-        | precision_qualifier type_specifier_no_prec { $$ = [$1, $2]; }
+        type_specifier_no_prec { $$ = {type:$1}; }
+        | precision_qualifier type_specifier_no_prec { $$ = {prec:$1, type:$2}; }
 	;
 
 type_specifier_no_prec:
@@ -397,7 +398,7 @@ type_specifier_no_prec:
         | SAMPLER2D
         | SAMPLERCUBE
         | struct_specifier
-        | TYPE_NAME
+        | IDENTIFIER { if (!lexer.structs[$1]) yyerror(); } /* TYPE_NAME */
 	;
  
 precision_qualifier:
@@ -408,8 +409,8 @@ precision_qualifier:
 
 struct_specifier:
         STRUCT IDENTIFIER LEFT_BRACE struct_declaration_list RIGHT_BRACE { 
-	lexer.rules[36] = new RegExp(lexer.rules[36].toString().slice(1,-3).toString() + "\\b|^" + $2 + "\\b"); 
-	$$ = $4;
+	/*lexer.rules[36] = new RegExp(lexer.rules[36].toString().slice(1,-3).toString() + "\\b|^" + $2 + "\\b");*/
+	$$ = {struct:true,body:$4};
 	if (typeof lexer.structs == 'undefined') { lexer.structs = {}; }
 	lexer.structs[$2] = $4;
 	}
@@ -417,22 +418,36 @@ struct_specifier:
 	;
 
 struct_declaration_list:
-        struct_declaration
-        | struct_declaration_list struct_declaration { $$ = [$1].concat([$2]); }
+        struct_declaration {
+ console.log("!!" + JSON.stringify($1));
+          $$ = {};
+	  for (i=0; i<$1.list.length; i++) {
+	    $$[$1.list[i].id] = $1.type;
+	    if ($1.list[i])  $$[$1.list[i].id].n = $1.list[i].n;
+          }
+ console.log("!?" + JSON.stringify($$));
+	}
+        | struct_declaration_list struct_declaration {
+	  for (i=0; i<$2.list.length; i++) {
+	    $1[$2.list[i].id] = $2.type;
+	    if ($2.list[i])  $$[$2.list[i].id].n = $2.list[i].n
+          }
+	  $$ = $1;
+	}
 	;
 
 struct_declaration:
-        type_specifier struct_declarator_list SEMICOLON { $$ = [$1,$2]; }
+        type_specifier struct_declarator_list SEMICOLON { $$ = {type:$1,list:$2}; }
 	;
 
 struct_declarator_list:
-        struct_declarator 
-        | struct_declarator_list COMMA struct_declarator { $$ = $1.concat([$2]); }
+        struct_declarator { $$ = [$1]; }
+        | struct_declarator_list COMMA struct_declarator { $$ = $1.concat([$3]); }
 	;
  
 struct_declarator:
-        IDENTIFIER { $$ = [$1]; }
-        | IDENTIFIER LEFT_BRACKET constant_expression RIGHT_BRACKET { $$ = [$1,$3]; }
+        IDENTIFIER { $$ = {id:$1}; }
+        | IDENTIFIER LEFT_BRACKET constant_expression RIGHT_BRACKET { $$ = {id:$1,n:$3}; }
 	;
  
 initializer:
