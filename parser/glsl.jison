@@ -47,8 +47,7 @@
 'highp' return 'HIGH_PRECISION';
 'mediump' return 'MEDIUM_PRECISION';
 'lowp' return 'LOW_PRECISION';
-'precision' return 'PRECISION';
-'magic_type_name'  return 'TYPE_NAME';
+'precision' return 'PRECISION'; /*'magic_type_name'  return 'TYPE_NAME';*/
 [a-zA-Z\_]+[0-9]* return 'IDENTIFIER'; /* identifiers of the form identifier : nondigit | identifier nondigit | identifier digit */
 ([0-9]+'.'[0-9]+|[0-9]+'.'|'.'[0-9]+)(('e'|'E')('+'|'-')?[0-9]+)?|[0-9]+('e'|'E')('+'|'-')?[0-9]+ return 'FLOATCONSTANT'; /* float constants (conveniently the same format as accepted by parseFloat) floating-constant : fractional-constant [exponent-part] | digit-sequence exponent-part */
 [1-9][0-9]*|'0'[0-7]+|'0'('x'|'X')[0-9a-fA-F]+ return 'INTCONSTANT'; /* integer constants (same as parseInt) integer-constant : decimal-constant | octal-constant | hexadecimal-constant */
@@ -111,7 +110,7 @@ variable_identifier:
 	;
 
 primary_expression:
-	variable_identifier 
+	variable_identifier
         | INTCONSTANT { $$ = parseInt($1); }
         | FLOATCONSTANT { $$ = parseFloat($1); }
         | BOOLCONSTANT { $$ = $1 == 'true'; }
@@ -119,7 +118,7 @@ primary_expression:
 	;
 
 postfix_expression:
-        primary_expression 
+        primary_expression
         | postfix_expression LEFT_BRACKET integer_expression RIGHT_BRACKET 
         | function_call 
         | postfix_expression DOT IDENTIFIER { /*FIELD_SELECTION*/
@@ -281,11 +280,11 @@ assignment_operator:
         | MOD_ASSIGN
         | ADD_ASSIGN 
         | SUB_ASSIGN 
-/~      | LEFT_ASSIGN  Reserved
+/*      | LEFT_ASSIGN  Reserved
         | RIGHT_ASSIGN
         | AND_ASSIGN  
         | XOR_ASSIGN  
-        | OR_ASSIGN ~/
+        | OR_ASSIGN */
 	;
 
 expression:
@@ -299,7 +298,9 @@ constant_expression:
 
 declaration:
         function_prototype SEMICOLON
-        | init_declarator_list SEMICOLON  { console.log("!" + JSON.stringify($$)); }
+        | init_declarator_list SEMICOLON  {
+	    yy.params.push($1);
+	  }
         | PRECISION precision_qualifier type_specifier_no_prec SEMICOLON
 	;
 
@@ -398,7 +399,7 @@ type_specifier_no_prec:
         | SAMPLER2D
         | SAMPLERCUBE
         | struct_specifier
-        | IDENTIFIER { if (!lexer.structs[$1]) yyerror(); } /* TYPE_NAME */
+/*        | IDENTIFIER { if (!yy.structs[$1]) yy.errors.push("Struct not found"); } /* TYPE_NAME */
 	;
  
 precision_qualifier:
@@ -411,21 +412,18 @@ struct_specifier:
         STRUCT IDENTIFIER LEFT_BRACE struct_declaration_list RIGHT_BRACE { 
 	/*lexer.rules[36] = new RegExp(lexer.rules[36].toString().slice(1,-3).toString() + "\\b|^" + $2 + "\\b");*/
 	$$ = {struct:true,body:$4};
-	if (typeof lexer.structs == 'undefined') { lexer.structs = {}; }
-	lexer.structs[$2] = $4;
+	yy.structs[$2] = $4;
 	}
         | STRUCT LEFT_BRACE struct_declaration_list RIGHT_BRACE { $$ = $3; }
 	;
 
 struct_declaration_list:
         struct_declaration {
- console.log("!!" + JSON.stringify($1));
           $$ = {};
 	  for (i=0; i<$1.list.length; i++) {
 	    $$[$1.list[i].id] = $1.type;
 	    if ($1.list[i])  $$[$1.list[i].id].n = $1.list[i].n;
           }
- console.log("!?" + JSON.stringify($$));
 	}
         | struct_declaration_list struct_declaration {
 	  for (i=0; i<$2.list.length; i++) {
@@ -493,7 +491,7 @@ statement_list:
 
 expression_statement:
         SEMICOLON 
-        expression SEMICOLON
+        | expression SEMICOLON { console.log("Expression statement!"); }
 	;
 
 selection_statement:

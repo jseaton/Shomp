@@ -1,0 +1,447 @@
+Conflict in grammar: multiple actions possible when lookahead token is SEMICOLON in state 115
+- reduce by rule: constructor_identifier -> FLOAT
+- reduce by rule: type_specifier_no_prec -> FLOAT
+Conflict in grammar: multiple actions possible when lookahead token is IDENTIFIER in state 115
+- reduce by rule: constructor_identifier -> FLOAT
+- reduce by rule: type_specifier_no_prec -> FLOAT
+Conflict in grammar: multiple actions possible when lookahead token is COMMA in state 115
+- reduce by rule: constructor_identifier -> FLOAT
+- reduce by rule: type_specifier_no_prec -> FLOAT
+Conflict in grammar: multiple actions possible when lookahead token is LEFT_PAREN in state 115
+- reduce by rule: constructor_identifier -> FLOAT
+- reduce by rule: type_specifier_no_prec -> FLOAT
+Conflict in grammar: multiple actions possible when lookahead token is SEMICOLON in state 116
+- reduce by rule: constructor_identifier -> INT
+- reduce by rule: type_specifier_no_prec -> INT
+Conflict in grammar: multiple actions possible when lookahead token is IDENTIFIER in state 116
+- reduce by rule: constructor_identifier -> INT
+- reduce by rule: type_specifier_no_prec -> INT
+Conflict in grammar: multiple actions possible when lookahead token is COMMA in state 116
+- reduce by rule: constructor_identifier -> INT
+- reduce by rule: type_specifier_no_prec -> INT
+Conflict in grammar: multiple actions possible when lookahead token is LEFT_PAREN in state 116
+- reduce by rule: constructor_identifier -> INT
+- reduce by rule: type_specifier_no_prec -> INT
+Conflict in grammar: multiple actions possible when lookahead token is SEMICOLON in state 117
+- reduce by rule: constructor_identifier -> BOOL
+- reduce by rule: type_specifier_no_prec -> BOOL
+Conflict in grammar: multiple actions possible when lookahead token is IDENTIFIER in state 117
+- reduce by rule: constructor_identifier -> BOOL
+- reduce by rule: type_specifier_no_prec -> BOOL
+Conflict in grammar: multiple actions possible when lookahead token is COMMA in state 117
+- reduce by rule: constructor_identifier -> BOOL
+- reduce by rule: type_specifier_no_prec -> BOOL
+Conflict in grammar: multiple actions possible when lookahead token is LEFT_PAREN in state 117
+- reduce by rule: constructor_identifier -> BOOL
+- reduce by rule: type_specifier_no_prec -> BOOL
+Conflict in grammar: multiple actions possible when lookahead token is SEMICOLON in state 118
+- reduce by rule: constructor_identifier -> VEC2
+- reduce by rule: type_specifier_no_prec -> VEC2
+Conflict in grammar: multiple actions possible when lookahead token is IDENTIFIER in state 118
+- reduce by rule: constructor_identifier -> VEC2
+- reduce by rule: type_specifier_no_prec -> VEC2
+Conflict in grammar: multiple actions possible when lookahead token is COMMA in state 118
+- reduce by rule: constructor_identifier -> VEC2
+- reduce by rule: type_specifier_no_prec -> VEC2
+Conflict in grammar: multiple actions possible when lookahead token is LEFT_PAREN in state 118
+- reduce by rule: constructor_identifier -> VEC2
+- reduce by rule: type_specifier_no_prec -> VEC2
+Conflict in grammar: multiple actions possible when lookahead token is SEMICOLON in state 119
+- reduce by rule: constructor_identifier -> VEC3
+- reduce by rule: type_specifier_no_prec -> VEC3
+Conflict in grammar: multiple actions possible when lookahead token is IDENTIFIER in state 119
+- reduce by rule: constructor_identifier -> VEC3
+- reduce by rule: type_specifier_no_prec -> VEC3
+Conflict in grammar: multiple actions possible when lookahead token is COMMA in state 119
+- reduce by rule: constructor_identifier -> VEC3
+- reduce by rule: type_specifier_no_prec -> VEC3
+Conflict in grammar: multiple actions possible when lookahead token is LEFT_PAREN in state 119
+- reduce by rule: constructor_identifier -> VEC3
+- reduce by rule: type_specifier_no_prec -> VEC3
+Conflict in grammar: multiple actions possible when lookahead token is SEMICOLON in state 120
+- reduce by rule: constructor_identifier -> VEC4
+- reduce by rule: type_specifier_no_prec -> VEC4
+Conflict in grammar: multiple actions possible when lookahead token is IDENTIFIER in state 120
+- reduce by rule: constructor_identifier -> VEC4
+- reduce by rule: type_specifier_no_prec -> VEC4
+Conflict in grammar: multiple actions possible when lookahead token is COMMA in state 120
+- reduce by rule: constructor_identifier -> VEC4
+- reduce by rule: type_specifier_no_prec -> VEC4
+Conflict in grammar: multiple actions possible when lookahead token is LEFT_PAREN in state 120
+- reduce by rule: constructor_identifier -> VEC4
+- reduce by rule: type_specifier_no_prec -> VEC4
+Conflict in grammar: multiple actions possible when lookahead token is SEMICOLON in state 121
+- reduce by rule: constructor_identifier -> BVEC2
+- reduce by rule: type_specifier_no_prec -> BVEC2
+Conflict in grammar: multiple actions possible when lookahead token is IDENTIFIER in state 121
+- reduce by rule: constructor_identifier -> BVEC2
+- reduce by rule: type_specifier_no_prec -> BVEC2
+Conflict in grammar: multiple actions possible when lookahead token is COMMA in state 121
+- reduce by rule: constructor_identifier -> BVEC2
+- reduce by rule: type_specifier_no_prec -> BVEC2
+Conflict in grammar: multiple actions possible when lookahead token is LEFT_PAREN in state 121
+- reduce by rule: constructor_identifier -> BVEC2
+- reduce by rule: type_specifier_no_prec -> BVEC2
+Conflict in grammar: multiple actions possible when lookahead token is SEMICOLON in state 122
+- reduce by rule: constructor_identifier -> BVEC3
+- reduce by rule: type_specifier_no_prec -> BVEC3
+Conflict in grammar: multiple actions possible when lookahead token is IDENTIFIER in state 122
+- reduce by rule: constructor_identifier -> BVEC3
+- reduce by rule: type_specifier_no_prec -> BVEC3
+Conflict in grammar: multiple actions possible when lookahead token is COMMA in state 122
+- reduce by rule: constructor_identifier -> BVEC3
+- reduce by rule: type_specifier_no_prec -> BVEC3
+Conflict in grammar: multiple actions possible when lookahead token is LEFT_PAREN in state 122
+- reduce by rule: constructor_identifier -> BVEC3
+- reduce by rule: type_specifier_no_prec -> BVEC3
+Conflict in grammar: multiple actions possible when lookahead token is SEMICOLON in state 123
+- reduce by rule: constructor_identifier -> BVEC4
+- reduce by rule: type_specifier_no_prec -> BVEC4
+Conflict in grammar: multiple actions possible when lookahead token is IDENTIFIER in state 123
+- reduce by rule: constructor_identifier -> BVEC4
+- reduce by rule: type_specifier_no_prec -> BVEC4
+Conflict in grammar: multiple actions possible when lookahead token is COMMA in state 123
+- reduce by rule: constructor_identifier -> BVEC4
+- reduce by rule: type_specifier_no_prec -> BVEC4
+Conflict in grammar: multiple actions possible when lookahead token is LEFT_PAREN in state 123
+- reduce by rule: constructor_identifier -> BVEC4
+- reduce by rule: type_specifier_no_prec -> BVEC4
+Conflict in grammar: multiple actions possible when lookahead token is SEMICOLON in state 124
+- reduce by rule: constructor_identifier -> IVEC2
+- reduce by rule: type_specifier_no_prec -> IVEC2
+Conflict in grammar: multiple actions possible when lookahead token is IDENTIFIER in state 124
+- reduce by rule: constructor_identifier -> IVEC2
+- reduce by rule: type_specifier_no_prec -> IVEC2
+Conflict in grammar: multiple actions possible when lookahead token is COMMA in state 124
+- reduce by rule: constructor_identifier -> IVEC2
+- reduce by rule: type_specifier_no_prec -> IVEC2
+Conflict in grammar: multiple actions possible when lookahead token is LEFT_PAREN in state 124
+- reduce by rule: constructor_identifier -> IVEC2
+- reduce by rule: type_specifier_no_prec -> IVEC2
+Conflict in grammar: multiple actions possible when lookahead token is SEMICOLON in state 125
+- reduce by rule: constructor_identifier -> IVEC3
+- reduce by rule: type_specifier_no_prec -> IVEC3
+Conflict in grammar: multiple actions possible when lookahead token is IDENTIFIER in state 125
+- reduce by rule: constructor_identifier -> IVEC3
+- reduce by rule: type_specifier_no_prec -> IVEC3
+Conflict in grammar: multiple actions possible when lookahead token is COMMA in state 125
+- reduce by rule: constructor_identifier -> IVEC3
+- reduce by rule: type_specifier_no_prec -> IVEC3
+Conflict in grammar: multiple actions possible when lookahead token is LEFT_PAREN in state 125
+- reduce by rule: constructor_identifier -> IVEC3
+- reduce by rule: type_specifier_no_prec -> IVEC3
+Conflict in grammar: multiple actions possible when lookahead token is SEMICOLON in state 126
+- reduce by rule: constructor_identifier -> IVEC4
+- reduce by rule: type_specifier_no_prec -> IVEC4
+Conflict in grammar: multiple actions possible when lookahead token is IDENTIFIER in state 126
+- reduce by rule: constructor_identifier -> IVEC4
+- reduce by rule: type_specifier_no_prec -> IVEC4
+Conflict in grammar: multiple actions possible when lookahead token is COMMA in state 126
+- reduce by rule: constructor_identifier -> IVEC4
+- reduce by rule: type_specifier_no_prec -> IVEC4
+Conflict in grammar: multiple actions possible when lookahead token is LEFT_PAREN in state 126
+- reduce by rule: constructor_identifier -> IVEC4
+- reduce by rule: type_specifier_no_prec -> IVEC4
+Conflict in grammar: multiple actions possible when lookahead token is SEMICOLON in state 127
+- reduce by rule: constructor_identifier -> MAT2
+- reduce by rule: type_specifier_no_prec -> MAT2
+Conflict in grammar: multiple actions possible when lookahead token is IDENTIFIER in state 127
+- reduce by rule: constructor_identifier -> MAT2
+- reduce by rule: type_specifier_no_prec -> MAT2
+Conflict in grammar: multiple actions possible when lookahead token is COMMA in state 127
+- reduce by rule: constructor_identifier -> MAT2
+- reduce by rule: type_specifier_no_prec -> MAT2
+Conflict in grammar: multiple actions possible when lookahead token is LEFT_PAREN in state 127
+- reduce by rule: constructor_identifier -> MAT2
+- reduce by rule: type_specifier_no_prec -> MAT2
+Conflict in grammar: multiple actions possible when lookahead token is SEMICOLON in state 128
+- reduce by rule: constructor_identifier -> MAT3
+- reduce by rule: type_specifier_no_prec -> MAT3
+Conflict in grammar: multiple actions possible when lookahead token is IDENTIFIER in state 128
+- reduce by rule: constructor_identifier -> MAT3
+- reduce by rule: type_specifier_no_prec -> MAT3
+Conflict in grammar: multiple actions possible when lookahead token is COMMA in state 128
+- reduce by rule: constructor_identifier -> MAT3
+- reduce by rule: type_specifier_no_prec -> MAT3
+Conflict in grammar: multiple actions possible when lookahead token is LEFT_PAREN in state 128
+- reduce by rule: constructor_identifier -> MAT3
+- reduce by rule: type_specifier_no_prec -> MAT3
+Conflict in grammar: multiple actions possible when lookahead token is SEMICOLON in state 129
+- reduce by rule: constructor_identifier -> MAT4
+- reduce by rule: type_specifier_no_prec -> MAT4
+Conflict in grammar: multiple actions possible when lookahead token is IDENTIFIER in state 129
+- reduce by rule: constructor_identifier -> MAT4
+- reduce by rule: type_specifier_no_prec -> MAT4
+Conflict in grammar: multiple actions possible when lookahead token is COMMA in state 129
+- reduce by rule: constructor_identifier -> MAT4
+- reduce by rule: type_specifier_no_prec -> MAT4
+Conflict in grammar: multiple actions possible when lookahead token is LEFT_PAREN in state 129
+- reduce by rule: constructor_identifier -> MAT4
+- reduce by rule: type_specifier_no_prec -> MAT4
+Conflict in grammar: multiple actions possible when lookahead token is SUB_ASSIGN in state 131
+- reduce by rule: function_identifier -> IDENTIFIER
+- reduce by rule: variable_identifier -> IDENTIFIER
+Conflict in grammar: multiple actions possible when lookahead token is ADD_ASSIGN in state 131
+- reduce by rule: function_identifier -> IDENTIFIER
+- reduce by rule: variable_identifier -> IDENTIFIER
+Conflict in grammar: multiple actions possible when lookahead token is MOD_ASSIGN in state 131
+- reduce by rule: function_identifier -> IDENTIFIER
+- reduce by rule: variable_identifier -> IDENTIFIER
+Conflict in grammar: multiple actions possible when lookahead token is DIV_ASSIGN in state 131
+- reduce by rule: function_identifier -> IDENTIFIER
+- reduce by rule: variable_identifier -> IDENTIFIER
+Conflict in grammar: multiple actions possible when lookahead token is MUL_ASSIGN in state 131
+- reduce by rule: function_identifier -> IDENTIFIER
+- reduce by rule: variable_identifier -> IDENTIFIER
+Conflict in grammar: multiple actions possible when lookahead token is EQUAL in state 131
+- reduce by rule: function_identifier -> IDENTIFIER
+- reduce by rule: variable_identifier -> IDENTIFIER
+Conflict in grammar: multiple actions possible when lookahead token is LEFT_BRACKET in state 131
+- reduce by rule: function_identifier -> IDENTIFIER
+- reduce by rule: variable_identifier -> IDENTIFIER
+Conflict in grammar: multiple actions possible when lookahead token is DOT in state 131
+- reduce by rule: function_identifier -> IDENTIFIER
+- reduce by rule: variable_identifier -> IDENTIFIER
+Conflict in grammar: multiple actions possible when lookahead token is INC_OP in state 131
+- reduce by rule: function_identifier -> IDENTIFIER
+- reduce by rule: variable_identifier -> IDENTIFIER
+Conflict in grammar: multiple actions possible when lookahead token is DEC_OP in state 131
+- reduce by rule: function_identifier -> IDENTIFIER
+- reduce by rule: variable_identifier -> IDENTIFIER
+Conflict in grammar: multiple actions possible when lookahead token is QUESTION in state 131
+- reduce by rule: function_identifier -> IDENTIFIER
+- reduce by rule: variable_identifier -> IDENTIFIER
+Conflict in grammar: multiple actions possible when lookahead token is SEMICOLON in state 131
+- reduce by rule: function_identifier -> IDENTIFIER
+- reduce by rule: variable_identifier -> IDENTIFIER
+Conflict in grammar: multiple actions possible when lookahead token is STAR in state 131
+- reduce by rule: function_identifier -> IDENTIFIER
+- reduce by rule: variable_identifier -> IDENTIFIER
+Conflict in grammar: multiple actions possible when lookahead token is SLASH in state 131
+- reduce by rule: function_identifier -> IDENTIFIER
+- reduce by rule: variable_identifier -> IDENTIFIER
+Conflict in grammar: multiple actions possible when lookahead token is PERCENT in state 131
+- reduce by rule: function_identifier -> IDENTIFIER
+- reduce by rule: variable_identifier -> IDENTIFIER
+Conflict in grammar: multiple actions possible when lookahead token is LEFT_OP in state 131
+- reduce by rule: function_identifier -> IDENTIFIER
+- reduce by rule: variable_identifier -> IDENTIFIER
+Conflict in grammar: multiple actions possible when lookahead token is RIGHT_OP in state 131
+- reduce by rule: function_identifier -> IDENTIFIER
+- reduce by rule: variable_identifier -> IDENTIFIER
+Conflict in grammar: multiple actions possible when lookahead token is EQ_OP in state 131
+- reduce by rule: function_identifier -> IDENTIFIER
+- reduce by rule: variable_identifier -> IDENTIFIER
+Conflict in grammar: multiple actions possible when lookahead token is NE_OP in state 131
+- reduce by rule: function_identifier -> IDENTIFIER
+- reduce by rule: variable_identifier -> IDENTIFIER
+Conflict in grammar: multiple actions possible when lookahead token is CARET in state 131
+- reduce by rule: function_identifier -> IDENTIFIER
+- reduce by rule: variable_identifier -> IDENTIFIER
+Conflict in grammar: multiple actions possible when lookahead token is AND_OP in state 131
+- reduce by rule: function_identifier -> IDENTIFIER
+- reduce by rule: variable_identifier -> IDENTIFIER
+Conflict in grammar: multiple actions possible when lookahead token is COMMA in state 131
+- reduce by rule: function_identifier -> IDENTIFIER
+- reduce by rule: variable_identifier -> IDENTIFIER
+Conflict in grammar: multiple actions possible when lookahead token is OR_OP in state 131
+- reduce by rule: function_identifier -> IDENTIFIER
+- reduce by rule: variable_identifier -> IDENTIFIER
+Conflict in grammar: multiple actions possible when lookahead token is VERTICAL_BAR in state 131
+- reduce by rule: function_identifier -> IDENTIFIER
+- reduce by rule: variable_identifier -> IDENTIFIER
+Conflict in grammar: multiple actions possible when lookahead token is AMPERSAND in state 131
+- reduce by rule: function_identifier -> IDENTIFIER
+- reduce by rule: variable_identifier -> IDENTIFIER
+Conflict in grammar: multiple actions possible when lookahead token is GE_OP in state 131
+- reduce by rule: function_identifier -> IDENTIFIER
+- reduce by rule: variable_identifier -> IDENTIFIER
+Conflict in grammar: multiple actions possible when lookahead token is LE_OP in state 131
+- reduce by rule: function_identifier -> IDENTIFIER
+- reduce by rule: variable_identifier -> IDENTIFIER
+Conflict in grammar: multiple actions possible when lookahead token is RIGHT_ANGLE in state 131
+- reduce by rule: function_identifier -> IDENTIFIER
+- reduce by rule: variable_identifier -> IDENTIFIER
+Conflict in grammar: multiple actions possible when lookahead token is LEFT_ANGLE in state 131
+- reduce by rule: function_identifier -> IDENTIFIER
+- reduce by rule: variable_identifier -> IDENTIFIER
+Conflict in grammar: multiple actions possible when lookahead token is DASH in state 131
+- reduce by rule: function_identifier -> IDENTIFIER
+- reduce by rule: variable_identifier -> IDENTIFIER
+Conflict in grammar: multiple actions possible when lookahead token is PLUS in state 131
+- reduce by rule: function_identifier -> IDENTIFIER
+- reduce by rule: variable_identifier -> IDENTIFIER
+Conflict in grammar: multiple actions possible when lookahead token is LEFT_PAREN in state 131
+- reduce by rule: function_identifier -> IDENTIFIER
+- reduce by rule: variable_identifier -> IDENTIFIER
+Conflict in grammar: multiple actions possible when lookahead token is RIGHT_BRACKET in state 131
+- reduce by rule: function_identifier -> IDENTIFIER
+- reduce by rule: variable_identifier -> IDENTIFIER
+Conflict in grammar: multiple actions possible when lookahead token is COLON in state 131
+- reduce by rule: function_identifier -> IDENTIFIER
+- reduce by rule: variable_identifier -> IDENTIFIER
+Conflict in grammar: multiple actions possible when lookahead token is RIGHT_PAREN in state 131
+- reduce by rule: function_identifier -> IDENTIFIER
+- reduce by rule: variable_identifier -> IDENTIFIER
+Conflict in grammar: multiple actions possible when lookahead token is SUB_ASSIGN in state 131
+- reduce by rule: constructor_identifier -> IDENTIFIER
+- reduce by rule: variable_identifier -> IDENTIFIER
+Conflict in grammar: multiple actions possible when lookahead token is ADD_ASSIGN in state 131
+- reduce by rule: constructor_identifier -> IDENTIFIER
+- reduce by rule: variable_identifier -> IDENTIFIER
+Conflict in grammar: multiple actions possible when lookahead token is MOD_ASSIGN in state 131
+- reduce by rule: constructor_identifier -> IDENTIFIER
+- reduce by rule: variable_identifier -> IDENTIFIER
+Conflict in grammar: multiple actions possible when lookahead token is DIV_ASSIGN in state 131
+- reduce by rule: constructor_identifier -> IDENTIFIER
+- reduce by rule: variable_identifier -> IDENTIFIER
+Conflict in grammar: multiple actions possible when lookahead token is MUL_ASSIGN in state 131
+- reduce by rule: constructor_identifier -> IDENTIFIER
+- reduce by rule: variable_identifier -> IDENTIFIER
+Conflict in grammar: multiple actions possible when lookahead token is EQUAL in state 131
+- reduce by rule: constructor_identifier -> IDENTIFIER
+- reduce by rule: variable_identifier -> IDENTIFIER
+Conflict in grammar: multiple actions possible when lookahead token is LEFT_BRACKET in state 131
+- reduce by rule: constructor_identifier -> IDENTIFIER
+- reduce by rule: variable_identifier -> IDENTIFIER
+Conflict in grammar: multiple actions possible when lookahead token is DOT in state 131
+- reduce by rule: constructor_identifier -> IDENTIFIER
+- reduce by rule: variable_identifier -> IDENTIFIER
+Conflict in grammar: multiple actions possible when lookahead token is INC_OP in state 131
+- reduce by rule: constructor_identifier -> IDENTIFIER
+- reduce by rule: variable_identifier -> IDENTIFIER
+Conflict in grammar: multiple actions possible when lookahead token is DEC_OP in state 131
+- reduce by rule: constructor_identifier -> IDENTIFIER
+- reduce by rule: variable_identifier -> IDENTIFIER
+Conflict in grammar: multiple actions possible when lookahead token is QUESTION in state 131
+- reduce by rule: constructor_identifier -> IDENTIFIER
+- reduce by rule: variable_identifier -> IDENTIFIER
+Conflict in grammar: multiple actions possible when lookahead token is SEMICOLON in state 131
+- reduce by rule: constructor_identifier -> IDENTIFIER
+- reduce by rule: variable_identifier -> IDENTIFIER
+Conflict in grammar: multiple actions possible when lookahead token is STAR in state 131
+- reduce by rule: constructor_identifier -> IDENTIFIER
+- reduce by rule: variable_identifier -> IDENTIFIER
+Conflict in grammar: multiple actions possible when lookahead token is SLASH in state 131
+- reduce by rule: constructor_identifier -> IDENTIFIER
+- reduce by rule: variable_identifier -> IDENTIFIER
+Conflict in grammar: multiple actions possible when lookahead token is PERCENT in state 131
+- reduce by rule: constructor_identifier -> IDENTIFIER
+- reduce by rule: variable_identifier -> IDENTIFIER
+Conflict in grammar: multiple actions possible when lookahead token is LEFT_OP in state 131
+- reduce by rule: constructor_identifier -> IDENTIFIER
+- reduce by rule: variable_identifier -> IDENTIFIER
+Conflict in grammar: multiple actions possible when lookahead token is RIGHT_OP in state 131
+- reduce by rule: constructor_identifier -> IDENTIFIER
+- reduce by rule: variable_identifier -> IDENTIFIER
+Conflict in grammar: multiple actions possible when lookahead token is EQ_OP in state 131
+- reduce by rule: constructor_identifier -> IDENTIFIER
+- reduce by rule: variable_identifier -> IDENTIFIER
+Conflict in grammar: multiple actions possible when lookahead token is NE_OP in state 131
+- reduce by rule: constructor_identifier -> IDENTIFIER
+- reduce by rule: variable_identifier -> IDENTIFIER
+Conflict in grammar: multiple actions possible when lookahead token is CARET in state 131
+- reduce by rule: constructor_identifier -> IDENTIFIER
+- reduce by rule: variable_identifier -> IDENTIFIER
+Conflict in grammar: multiple actions possible when lookahead token is AND_OP in state 131
+- reduce by rule: constructor_identifier -> IDENTIFIER
+- reduce by rule: variable_identifier -> IDENTIFIER
+Conflict in grammar: multiple actions possible when lookahead token is COMMA in state 131
+- reduce by rule: constructor_identifier -> IDENTIFIER
+- reduce by rule: variable_identifier -> IDENTIFIER
+Conflict in grammar: multiple actions possible when lookahead token is OR_OP in state 131
+- reduce by rule: constructor_identifier -> IDENTIFIER
+- reduce by rule: variable_identifier -> IDENTIFIER
+Conflict in grammar: multiple actions possible when lookahead token is VERTICAL_BAR in state 131
+- reduce by rule: constructor_identifier -> IDENTIFIER
+- reduce by rule: variable_identifier -> IDENTIFIER
+Conflict in grammar: multiple actions possible when lookahead token is AMPERSAND in state 131
+- reduce by rule: constructor_identifier -> IDENTIFIER
+- reduce by rule: variable_identifier -> IDENTIFIER
+Conflict in grammar: multiple actions possible when lookahead token is GE_OP in state 131
+- reduce by rule: constructor_identifier -> IDENTIFIER
+- reduce by rule: variable_identifier -> IDENTIFIER
+Conflict in grammar: multiple actions possible when lookahead token is LE_OP in state 131
+- reduce by rule: constructor_identifier -> IDENTIFIER
+- reduce by rule: variable_identifier -> IDENTIFIER
+Conflict in grammar: multiple actions possible when lookahead token is RIGHT_ANGLE in state 131
+- reduce by rule: constructor_identifier -> IDENTIFIER
+- reduce by rule: variable_identifier -> IDENTIFIER
+Conflict in grammar: multiple actions possible when lookahead token is LEFT_ANGLE in state 131
+- reduce by rule: constructor_identifier -> IDENTIFIER
+- reduce by rule: variable_identifier -> IDENTIFIER
+Conflict in grammar: multiple actions possible when lookahead token is DASH in state 131
+- reduce by rule: constructor_identifier -> IDENTIFIER
+- reduce by rule: variable_identifier -> IDENTIFIER
+Conflict in grammar: multiple actions possible when lookahead token is PLUS in state 131
+- reduce by rule: constructor_identifier -> IDENTIFIER
+- reduce by rule: variable_identifier -> IDENTIFIER
+Conflict in grammar: multiple actions possible when lookahead token is LEFT_PAREN in state 131
+- reduce by rule: constructor_identifier -> IDENTIFIER
+- reduce by rule: variable_identifier -> IDENTIFIER
+Conflict in grammar: multiple actions possible when lookahead token is RIGHT_BRACKET in state 131
+- reduce by rule: constructor_identifier -> IDENTIFIER
+- reduce by rule: variable_identifier -> IDENTIFIER
+Conflict in grammar: multiple actions possible when lookahead token is COLON in state 131
+- reduce by rule: constructor_identifier -> IDENTIFIER
+- reduce by rule: variable_identifier -> IDENTIFIER
+Conflict in grammar: multiple actions possible when lookahead token is RIGHT_PAREN in state 131
+- reduce by rule: constructor_identifier -> IDENTIFIER
+- reduce by rule: variable_identifier -> IDENTIFIER
+Conflict in grammar: multiple actions possible when lookahead token is ELSE in state 307
+- reduce by rule: selection_rest_statement -> statement_with_scope
+- shift token (then go to state 316)
+
+States with conflicts:
+State 115
+  type_specifier_no_prec -> FLOAT . #lookaheads= SEMICOLON IDENTIFIER COMMA LEFT_PAREN
+  constructor_identifier -> FLOAT . #lookaheads= SEMICOLON IDENTIFIER COMMA LEFT_PAREN
+State 116
+  type_specifier_no_prec -> INT . #lookaheads= SEMICOLON IDENTIFIER COMMA LEFT_PAREN
+  constructor_identifier -> INT . #lookaheads= SEMICOLON IDENTIFIER COMMA LEFT_PAREN
+State 117
+  type_specifier_no_prec -> BOOL . #lookaheads= SEMICOLON IDENTIFIER COMMA LEFT_PAREN
+  constructor_identifier -> BOOL . #lookaheads= SEMICOLON IDENTIFIER COMMA LEFT_PAREN
+State 118
+  type_specifier_no_prec -> VEC2 . #lookaheads= SEMICOLON IDENTIFIER COMMA LEFT_PAREN
+  constructor_identifier -> VEC2 . #lookaheads= SEMICOLON IDENTIFIER COMMA LEFT_PAREN
+State 119
+  type_specifier_no_prec -> VEC3 . #lookaheads= SEMICOLON IDENTIFIER COMMA LEFT_PAREN
+  constructor_identifier -> VEC3 . #lookaheads= SEMICOLON IDENTIFIER COMMA LEFT_PAREN
+State 120
+  type_specifier_no_prec -> VEC4 . #lookaheads= SEMICOLON IDENTIFIER COMMA LEFT_PAREN
+  constructor_identifier -> VEC4 . #lookaheads= SEMICOLON IDENTIFIER COMMA LEFT_PAREN
+State 121
+  type_specifier_no_prec -> BVEC2 . #lookaheads= SEMICOLON IDENTIFIER COMMA LEFT_PAREN
+  constructor_identifier -> BVEC2 . #lookaheads= SEMICOLON IDENTIFIER COMMA LEFT_PAREN
+State 122
+  type_specifier_no_prec -> BVEC3 . #lookaheads= SEMICOLON IDENTIFIER COMMA LEFT_PAREN
+  constructor_identifier -> BVEC3 . #lookaheads= SEMICOLON IDENTIFIER COMMA LEFT_PAREN
+State 123
+  type_specifier_no_prec -> BVEC4 . #lookaheads= SEMICOLON IDENTIFIER COMMA LEFT_PAREN
+  constructor_identifier -> BVEC4 . #lookaheads= SEMICOLON IDENTIFIER COMMA LEFT_PAREN
+State 124
+  type_specifier_no_prec -> IVEC2 . #lookaheads= SEMICOLON IDENTIFIER COMMA LEFT_PAREN
+  constructor_identifier -> IVEC2 . #lookaheads= SEMICOLON IDENTIFIER COMMA LEFT_PAREN
+State 125
+  type_specifier_no_prec -> IVEC3 . #lookaheads= SEMICOLON IDENTIFIER COMMA LEFT_PAREN
+  constructor_identifier -> IVEC3 . #lookaheads= SEMICOLON IDENTIFIER COMMA LEFT_PAREN
+State 126
+  type_specifier_no_prec -> IVEC4 . #lookaheads= SEMICOLON IDENTIFIER COMMA LEFT_PAREN
+  constructor_identifier -> IVEC4 . #lookaheads= SEMICOLON IDENTIFIER COMMA LEFT_PAREN
+State 127
+  type_specifier_no_prec -> MAT2 . #lookaheads= SEMICOLON IDENTIFIER COMMA LEFT_PAREN
+  constructor_identifier -> MAT2 . #lookaheads= SEMICOLON IDENTIFIER COMMA LEFT_PAREN
+State 128
+  type_specifier_no_prec -> MAT3 . #lookaheads= SEMICOLON IDENTIFIER COMMA LEFT_PAREN
+  constructor_identifier -> MAT3 . #lookaheads= SEMICOLON IDENTIFIER COMMA LEFT_PAREN
+State 129
+  type_specifier_no_prec -> MAT4 . #lookaheads= SEMICOLON IDENTIFIER COMMA LEFT_PAREN
+  constructor_identifier -> MAT4 . #lookaheads= SEMICOLON IDENTIFIER COMMA LEFT_PAREN
+State 131
+  variable_identifier -> IDENTIFIER . #lookaheads= SUB_ASSIGN ADD_ASSIGN MOD_ASSIGN DIV_ASSIGN MUL_ASSIGN EQUAL LEFT_BRACKET DOT INC_OP DEC_OP QUESTION SEMICOLON STAR SLASH PERCENT LEFT_OP RIGHT_OP EQ_OP NE_OP CARET AND_OP COMMA OR_OP VERTICAL_BAR AMPERSAND GE_OP LE_OP RIGHT_ANGLE LEFT_ANGLE DASH PLUS LEFT_PAREN RIGHT_BRACKET COLON RIGHT_PAREN
+  function_identifier -> IDENTIFIER . #lookaheads= SUB_ASSIGN ADD_ASSIGN MOD_ASSIGN DIV_ASSIGN MUL_ASSIGN EQUAL LEFT_BRACKET DOT INC_OP DEC_OP QUESTION SEMICOLON STAR SLASH PERCENT LEFT_OP RIGHT_OP EQ_OP NE_OP CARET AND_OP COMMA OR_OP VERTICAL_BAR AMPERSAND GE_OP LE_OP RIGHT_ANGLE LEFT_ANGLE DASH PLUS LEFT_PAREN RIGHT_BRACKET COLON RIGHT_PAREN
+  constructor_identifier -> IDENTIFIER . #lookaheads= SUB_ASSIGN ADD_ASSIGN MOD_ASSIGN DIV_ASSIGN MUL_ASSIGN EQUAL LEFT_BRACKET DOT INC_OP DEC_OP QUESTION SEMICOLON STAR SLASH PERCENT LEFT_OP RIGHT_OP EQ_OP NE_OP CARET AND_OP COMMA OR_OP VERTICAL_BAR AMPERSAND GE_OP LE_OP RIGHT_ANGLE LEFT_ANGLE DASH PLUS LEFT_PAREN RIGHT_BRACKET COLON RIGHT_PAREN
+State 307
+  selection_rest_statement -> statement_with_scope .ELSE statement_with_scope #lookaheads= RIGHT_BRACE LEFT_BRACE VOID FLOAT INT BOOL VEC2 VEC3 VEC4 BVEC2 BVEC3 BVEC4 IVEC2 IVEC3 IVEC4 MAT2 MAT3 MAT4 SAMPLER2D SAMPLERCUBE HIGH_PRECISION MEDIUM_PRECISION LOW_PRECISION CONST ATTRIBUTE VARYING INVARIANT UNIFORM STRUCT PRECISION SEMICOLON IDENTIFIER INTCONSTANT FLOATCONSTANT BOOLCONSTANT LEFT_PAREN INC_OP DEC_OP PLUS DASH BANG TILDE IF WHILE DO FOR CONTINUE BREAK RETURN DISCARD ELSE
+  selection_rest_statement -> statement_with_scope . #lookaheads= RIGHT_BRACE LEFT_BRACE VOID FLOAT INT BOOL VEC2 VEC3 VEC4 BVEC2 BVEC3 BVEC4 IVEC2 IVEC3 IVEC4 MAT2 MAT3 MAT4 SAMPLER2D SAMPLERCUBE HIGH_PRECISION MEDIUM_PRECISION LOW_PRECISION CONST ATTRIBUTE VARYING INVARIANT UNIFORM STRUCT PRECISION SEMICOLON IDENTIFIER INTCONSTANT FLOATCONSTANT BOOLCONSTANT LEFT_PAREN INC_OP DEC_OP PLUS DASH BANG TILDE IF WHILE DO FOR CONTINUE BREAK RETURN DISCARD ELSE
