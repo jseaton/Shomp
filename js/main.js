@@ -12,7 +12,7 @@ function parse(s) {
     return glsl.yy;
 }
 
-function genParams(p) {
+function genParams(p, prev) {
     rp = p.filter(function(e) {
 	return e.ftype.qual == 'uniform';
     });
@@ -24,7 +24,10 @@ function genParams(p) {
 		params[rp[i].list[j].id] = new GLOW.Vector3(0,1,2);
 		break;
 	    case "mat4":
-		params[rp[i].list[j].id] = GLOW.defaultCamera.inverse;
+		params[rp[i].list[j].id] = {cameraInverse:GLOW.defaultCamera.inverse,cameraProjection:GLOW.defaultCamera.projection,undefined:new GLOW.Matrix4()}[rp[i].list[j].id];
+		break;
+	    case "sampler2D":
+		params[rp[i].list[j].id] = prev != undefined ? prev : new GLOW.Texture({url:"cube.png"});
 		break;
 	    }
 	}
@@ -37,8 +40,9 @@ function render() {
     //$('#vertexinfo').append(JSON.stringify(parse(cubeShaderInfo.vertexShader).params));
     cubeShaderInfo.fragmentShader =  fragmentShader.getValue();
     //$('#fragmentinfo').append(JSON.stringify(parse(cubeShaderInfo.fragmentShader).params));
-    parseData = parse(cubeShaderInfo.vertexShader);
-    cubeShaderInfo.data = $.extend({vertices:cubeShaderInfo.data.vertices},genParams(parseData.params));
+    parseData = parse(cubeShaderInfo.vertexShader).params;
+    //parseData = parseData.concat(parse(cubeShaderInfo.fragmentShader).params);
+    cubeShaderInfo.data = $.extend({vertices:cubeShaderInfo.data.vertices},genParams(parseData));
 
     cube = new GLOW.Shader( cubeShaderInfo );
 
@@ -61,8 +65,8 @@ $(document).ready(function() {
 	vertexShader: vertexShader.getValue(),
 	fragmentShader: fragmentShader.getValue(),
 	data: {vertices:GLOW.Geometry.Cube.vertices(500),
-	       cameraInverse: GLOW.defaultCamera.inverse,
-	       cameraProjection: GLOW.defaultCamera.projection,
+	       //cameraInverse: GLOW.defaultCamera.inverse,
+	       //cameraProjection: GLOW.defaultCamera.projection,
 	      },
 
 	elements: GLOW.Geometry.Cube.elements() //this specifies how to make triangles from vertices, indexed by vertices/3

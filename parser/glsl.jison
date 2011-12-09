@@ -48,7 +48,7 @@
 'mediump' return 'MEDIUM_PRECISION';
 'lowp' return 'LOW_PRECISION';
 'precision' return 'PRECISION'; /*'magic_type_name'  return 'TYPE_NAME';*/
-[a-zA-Z\_]+[0-9]* return 'IDENTIFIER'; /* identifiers of the form identifier : nondigit | identifier nondigit | identifier digit */
+[a-zA-Z\_]+[a-zA-Z0-9]* return 'IDENTIFIER'; /* identifiers of the form identifier : nondigit | identifier nondigit | identifier digit */
 ([0-9]+'.'[0-9]+|[0-9]+'.'|'.'[0-9]+)(('e'|'E')('+'|'-')?[0-9]+)?|[0-9]+('e'|'E')('+'|'-')?[0-9]+ return 'FLOATCONSTANT'; /* float constants (conveniently the same format as accepted by parseFloat) floating-constant : fractional-constant [exponent-part] | digit-sequence exponent-part */
 [1-9][0-9]*|'0'[0-7]+|'0'('x'|'X')[0-9a-fA-F]+ return 'INTCONSTANT'; /* integer constants (same as parseInt) integer-constant : decimal-constant | octal-constant | hexadecimal-constant */
 'true'|'false' return 'BOOLCONSTANT';
@@ -122,11 +122,11 @@ postfix_expression:
         | postfix_expression LEFT_BRACKET integer_expression RIGHT_BRACKET 
         | function_call 
         | postfix_expression DOT IDENTIFIER { /*FIELD_SELECTION*/
-	  if (lexer.structs[$1] && lexer.structs[$1][$3]) {
+/*	  if (lexer.structs[$1] && lexer.structs[$1][$3]) {
 	     $$ = lexer.structs[$1][$3][1];
 	  } else {
 	     yyerror();
-	  }
+	  }*/
 	}
         | postfix_expression INC_OP 
         | postfix_expression DEC_OP
@@ -399,7 +399,7 @@ type_specifier_no_prec:
         | SAMPLER2D
         | SAMPLERCUBE
         | struct_specifier
-/*        | IDENTIFIER { if (!yy.structs[$1]) yy.errors.push("Struct not found"); } /* TYPE_NAME */
+//        | IDENTIFIER { if (!yy.structs[$1]) yy.errors.push("Struct not found"); } /* TYPE_NAME */
 	;
  
 precision_qualifier:

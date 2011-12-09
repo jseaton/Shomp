@@ -17,11 +17,11 @@ break;
 case 6: this.$ = $$[$0] == 'true'; 
 break;
 case 11: /*FIELD_SELECTION*/
-	  if (lexer.structs[$$[$0-2]] && lexer.structs[$$[$0-2]][$$[$0]]) {
+/*	  if (lexer.structs[$$[$0-2]] && lexer.structs[$$[$0-2]][$$[$0]]) {
 	     this.$ = lexer.structs[$$[$0-2]][$$[$0]][1];
 	  } else {
 	     yyerror();
-	  }
+	  }*/
 	
 break;
 case 40: if (!lexer.structs[$$[$0]]) yyerror(); 
@@ -568,7 +568,7 @@ case 85:return 5;
 break;
 }
 };
-lexer.rules = [/^\s+/,/^attribute\b/,/^const\b/,/^bool\b/,/^float\b/,/^int\b/,/^break\b/,/^continue\b/,/^do\b/,/^else\b/,/^for\b/,/^if\b/,/^discard\b/,/^return\b/,/^bvec2\b/,/^bvec3\b/,/^bvec4\b/,/^ivec2\b/,/^ivec3\b/,/^ivec4\b/,/^vec2\b/,/^vec3\b/,/^vec4\b/,/^mat2\b/,/^mat3\b/,/^mat4\b/,/^in\b/,/^out\b/,/^inout\b/,/^uniform\b/,/^varying\b/,/^sampler2D\b/,/^samplercube\b/,/^struct\b/,/^void\b/,/^while\b/,/^invariant\b/,/^highp\b/,/^mediump\b/,/^lowp\b/,/^precision\b/,/^[a-zA-Z\_]+[0-9]*/,/^([0-9]+\.[0-9]+|[0-9]+\.|\.[0-9]+)((e|E)(\+|-)?[0-9]+)?|[0-9]+(e|E)(\+|-)?[0-9]+/,/^[1-9][0-9]*|0[0-7]+|0(x|X)[0-9a-fA-F]+/,/^true|false\b/,/^field_selection\b/,/^<</,/^>>/,/^\+\+/,/^--/,/^<=/,/^>=/,/^==/,/^!=/,/^&&/,/^\|\|/,/^\*=/,/^\/=/,/^\+=/,/^%=/,/^-=/,/^\(/,/^\)/,/^\[/,/^\]/,/^\{/,/^\}/,/^\./,/^,/,/^:/,/^=/,/^;/,/^!/,/^-/,/^~/,/^\+/,/^\*/,/^\//,/^%/,/^</,/^>/,/^\|/,/^\^/,/^&/,/^\?/,/^$/];
+lexer.rules = [/^\s+/,/^attribute\b/,/^const\b/,/^bool\b/,/^float\b/,/^int\b/,/^break\b/,/^continue\b/,/^do\b/,/^else\b/,/^for\b/,/^if\b/,/^discard\b/,/^return\b/,/^bvec2\b/,/^bvec3\b/,/^bvec4\b/,/^ivec2\b/,/^ivec3\b/,/^ivec4\b/,/^vec2\b/,/^vec3\b/,/^vec4\b/,/^mat2\b/,/^mat3\b/,/^mat4\b/,/^in\b/,/^out\b/,/^inout\b/,/^uniform\b/,/^varying\b/,/^sampler2D\b/,/^samplercube\b/,/^struct\b/,/^void\b/,/^while\b/,/^invariant\b/,/^highp\b/,/^mediump\b/,/^lowp\b/,/^precision\b/,/^[a-zA-Z\_]+[a-zA-Z0-9]*/,/^([0-9]+\.[0-9]+|[0-9]+\.|\.[0-9]+)((e|E)(\+|-)?[0-9]+)?|[0-9]+(e|E)(\+|-)?[0-9]+/,/^[1-9][0-9]*|0[0-7]+|0(x|X)[0-9a-fA-F]+/,/^true|false\b/,/^field_selection\b/,/^<</,/^>>/,/^\+\+/,/^--/,/^<=/,/^>=/,/^==/,/^!=/,/^&&/,/^\|\|/,/^\*=/,/^\/=/,/^\+=/,/^%=/,/^-=/,/^\(/,/^\)/,/^\[/,/^\]/,/^\{/,/^\}/,/^\./,/^,/,/^:/,/^=/,/^;/,/^!/,/^-/,/^~/,/^\+/,/^\*/,/^\//,/^%/,/^</,/^>/,/^\|/,/^\^/,/^&/,/^\?/,/^$/];
 lexer.conditions = {"INITIAL":{"rules":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85],"inclusive":true}};return lexer;})()
 parser.lexer = lexer;
 return parser;
