@@ -27,7 +27,7 @@ function genParams(p, prev) {
 		params[rp[i].list[j].id] = {cameraInverse:GLOW.defaultCamera.inverse,cameraProjection:GLOW.defaultCamera.projection,undefined:new GLOW.Matrix4()}[rp[i].list[j].id];
 		break;
 	    case "sampler2D":
-		params[rp[i].list[j].id] = prev != undefined ? prev : new GLOW.Texture({url:"cube.png"});
+		params[rp[i].list[j].id] = prev != undefined ? prev : new GLOW.Texture({ url:"cube.JPG" });
 		break;
 	    }
 	}
@@ -42,7 +42,7 @@ function render() {
     //$('#fragmentinfo').append(JSON.stringify(parse(cubeShaderInfo.fragmentShader).params));
     parseData = parse(cubeShaderInfo.vertexShader).params;
     //parseData = parseData.concat(parse(cubeShaderInfo.fragmentShader).params);
-    cubeShaderInfo.data = $.extend({vertices:cubeShaderInfo.data.vertices},genParams(parseData));
+    cubeShaderInfo.data = $.extend({vertices:cubeShaderInfo.data.vertices,uvs:GLOW.Geometry.Cube.uvs()},genParams(parseData));
 
     cube = new GLOW.Shader( cubeShaderInfo );
 
@@ -52,7 +52,6 @@ function render() {
 }
 
 $(document).ready(function() {
-    glsl.yy = {structs:{},params:[],errors:[]};
 
     vertexShader   = CodeMirror.fromTextArea(document.getElementById('vertexshader'),{'mode':'text/x-glsl'});
     fragmentShader = CodeMirror.fromTextArea(document.getElementById('fragmentshader'),{'mode':'text/x-glsl'});
@@ -62,23 +61,11 @@ $(document).ready(function() {
     container.appendChild( context.domElement );
 
     cubeShaderInfo = {
-	vertexShader: vertexShader.getValue(),
-	fragmentShader: fragmentShader.getValue(),
-	data: {vertices:GLOW.Geometry.Cube.vertices(500),
-	       //cameraInverse: GLOW.defaultCamera.inverse,
-	       //cameraProjection: GLOW.defaultCamera.projection,
-	      },
-
+	data: {vertices:GLOW.Geometry.Cube.vertices(500)},
 	elements: GLOW.Geometry.Cube.elements() //this specifies how to make triangles from vertices, indexed by vertices/3
     }
-
-    cube = new GLOW.Shader( cubeShaderInfo );
-    //cube.transform.setPosition( 100, 100, 100 );
-
     GLOW.defaultCamera.localMatrix.setPosition( 0, 0, 1500 );
     GLOW.defaultCamera.update();
-
-    //setInterval( render, 1000 / 60 );
 
 
 });

@@ -24,15 +24,21 @@
 <br />
 <textarea id="vertexshader" cols="60" rows="20">
 attribute vec3 vertices;
+attribute vec2 uvs;
 uniform mat4 cameraInverse;
 uniform mat4 cameraProjection;
+uniform sampler2D img;
+varying mediump vec2 uv;
 void main() {
-    gl_Position = cameraProjection * cameraInverse * vec4(vertices,1.0);
+   gl_Position = cameraProjection * cameraInverse * vec4(vertices,1.0);
+   uv = uvs;
 }
 </textarea>
 <textarea id="fragmentshader" cols="60" rows="20">
+uniform sampler2D img;
+varying mediump vec2 uv;
 void main() {
-    gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
+    gl_FragColor = texture2D(img,uv);
 }
 </textarea>
 <button onclick="render()">Update Shaders</button>
