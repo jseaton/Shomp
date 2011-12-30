@@ -1,10 +1,6 @@
 var context;
 var container;
-var vertexShader;
-var fragmentShader;
-var cubeShaderInfo;
-var cube;
-var parseData;
+var shaders;
 
 function parse(s) {
     glsl.yy = {structs:{},params:[],errors:[]};
@@ -35,37 +31,42 @@ function genParams(p, prev) {
     return params;
 }
 
+function updateShaders() {
+    for (var i=0;i<shaders.length;i++) {
+	shaders[i].vertexShader   = shaders[i].vertexShaderEditor.getValue();
+	shaders[i].fragmentShader = shaders[i].fragmentShaderEditor.getValue();
+	shaders[i].data = $.extend({vertices:GLOW.Geometry.Cube.vertices(500),uvs:GLOW.Geometry.Cube.uvs()},
+					genParams(parse(shaders[i].vertexShader).params),i==0 ? undefined : shaders[i-1].fbo);
+	if (i<shaders.length-1) shaders[i].fbo = new GLOW.FBO();
+    }
+}
+
 function render() {
-    cubeShaderInfo.vertexShader =  vertexShader.getValue();
-    //$('#vertexinfo').append(JSON.stringify(parse(cubeShaderInfo.vertexShader).params));
-    cubeShaderInfo.fragmentShader =  fragmentShader.getValue();
-    //$('#fragmentinfo').append(JSON.stringify(parse(cubeShaderInfo.fragmentShader).params));
-    parseData = parse(cubeShaderInfo.vertexShader).params;
-    //parseData = parseData.concat(parse(cubeShaderInfo.fragmentShader).params);
-    cubeShaderInfo.data = $.extend({vertices:cubeShaderInfo.data.vertices,uvs:GLOW.Geometry.Cube.uvs()},genParams(parseData));
-
-    cube = new GLOW.Shader( cubeShaderInfo );
-
     context.cache.clear();
     context.clear();
-    cube.draw();
+
+    for (var i=0;i<shaders.length;i++) {
+	if (shaders[i].fbo) shaders[i].fbo.bind();
+	new GLOW.Shader(shaders[i]).draw();
+	if (shaders[i].fbo) shaders[i].fbo.unbind();
+    }
 }
 
 $(document).ready(function() {
+    shaders = [
+	{
+	    vertexShaderEditor   : CodeMirror.fromTextArea(document.getElementById('vertexshader'),{'mode':'text/x-glsl'}),
+	    fragmentShaderEditor : CodeMirror.fromTextArea(document.getElementById('fragmentshader'),{'mode':'text/x-glsl'}),
+	    elements             : GLOW.Geometry.Cube.elements(),
+	    data                 : {}
+	}
+    ]
 
-    vertexShader   = CodeMirror.fromTextArea(document.getElementById('vertexshader'),{'mode':'text/x-glsl'});
-    fragmentShader = CodeMirror.fromTextArea(document.getElementById('fragmentshader'),{'mode':'text/x-glsl'});
     context = new GLOW.Context();
     context.setupClear( { red: 1, green: 1, blue: 1 } );
     container = document.getElementById( "container" );
     container.appendChild( context.domElement );
 
-    cubeShaderInfo = {
-	data: {vertices:GLOW.Geometry.Cube.vertices(500)},
-	elements: GLOW.Geometry.Cube.elements() //this specifies how to make triangles from vertices, indexed by vertices/3
-    }
     GLOW.defaultCamera.localMatrix.setPosition( 0, 0, 1500 );
     GLOW.defaultCamera.update();
-
-
 });
