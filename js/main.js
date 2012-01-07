@@ -1,6 +1,8 @@
 var context;
 var container;
 var shaders;
+var chain;
+var tree;
 
 function parse(s) {
     glsl.yy = {structs:{},params:[],errors:[]};
@@ -23,7 +25,8 @@ function genParams(p, prev) {
 		params[rp[i].list[j].id] = {cameraInverse:GLOW.defaultCamera.inverse,cameraProjection:GLOW.defaultCamera.projection,undefined:new GLOW.Matrix4()}[rp[i].list[j].id];
 		break;
 	    case "sampler2D":
-		params[rp[i].list[j].id] = prev != undefined ? prev : new GLOW.Texture({ url:"cube.JPG" });
+		console.log(prev);
+		params[rp[i].list[j].id] = prev != undefined ? prev.fbo : new GLOW.Texture({ url:"cube.JPG" });
 		break;
 	    }
 	}
@@ -32,35 +35,57 @@ function genParams(p, prev) {
 }
 
 function updateShaders() {
-    for (var i=0;i<shaders.length;i++) {
-	shaders[i].vertexShader   = shaders[i].vertexShaderEditor.getValue();
-	shaders[i].fragmentShader = shaders[i].fragmentShaderEditor.getValue();
-	shaders[i].data = $.extend({vertices:GLOW.Geometry.Cube.vertices(500),uvs:GLOW.Geometry.Cube.uvs()},
-					genParams(parse(shaders[i].vertexShader).params),i==0 ? undefined : shaders[i-1].fbo);
-	if (i<shaders.length-1) shaders[i].fbo = new GLOW.FBO();
+    for (var i=0;i<chain.length;i++) {
+	chain[i].update();
+	chain[i].data = $.extend({vertices:GLOW.Geometry.Cube.vertices(500),uvs:GLOW.Geometry.Cube.uvs()},
+				   genParams(parse(chain[i].vertexShader).params, i==0 ? undefined : chain[i-1]));
+	if (i<chain.length-1) chain[i].fbo = new GLOW.FBO();
     }
+}
+
+function updateTree() {
+    chain = []
+    done = {}
+    updateNode = function(node) {
+	console.log(JSON.stringify(node));
+	if (done[node.name]) return;
+	done[node.name] = true;
+	for (i in node.attr) updateNode(node.attr[i])
+	chain.push(node);
+    }
+    updateNode(tree);
 }
 
 function render() {
     context.cache.clear();
-    context.clear();
 
-    for (var i=0;i<shaders.length;i++) {
-	if (shaders[i].fbo) shaders[i].fbo.bind();
-	new GLOW.Shader(shaders[i]).draw();
-	if (shaders[i].fbo) shaders[i].fbo.unbind();
+    for (var i=0;i<chain.length-1;i++) {
+	chain[i].fbo.bind();
+	context.clear();
+	new GLOW.Shader(chain[i]).draw();
+	chain[i].fbo.unbind();
     }
+
+    new GLOW.Shader(chain[-1]).draw();
+}
+
+function Shader(vEditor,fEditor) {
+    this.vertexShaderEditor = vEditor;
+    this.fragmentShaderEditor = fEditor;
+}
+
+Shader.prototype.update = function() {
+    this.vertexShader = vertexShaderEditor.getValue();
+    this.fragmentShader = fragmentShaderEditor.getValue();
 }
 
 $(document).ready(function() {
-    shaders = [
-	{
-	    vertexShaderEditor   : CodeMirror.fromTextArea(document.getElementById('vertexshader'),{'mode':'text/x-glsl'}),
-	    fragmentShaderEditor : CodeMirror.fromTextArea(document.getElementById('fragmentshader'),{'mode':'text/x-glsl'}),
-	    elements             : GLOW.Geometry.Cube.elements(),
-	    data                 : {}
-	}
-    ]
+    shaders = {
+	first : new Shader(
+	    CodeMirror.fromTextArea(document.getElementById('vertexshader'),{'mode':'text/x-glsl'}),
+	    CodeMirror.fromTextArea(document.getElementById('fragmentshader'),{'mode':'text/x-glsl'})
+	)
+    }
 
     context = new GLOW.Context();
     context.setupClear( { red: 1, green: 1, blue: 1 } );
