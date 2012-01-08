@@ -9,18 +9,20 @@ var lookup;
 function parse(s) {
     glsl.yy = {structs:{},params:[],errors:[]};
     glsl.parse(s);
+    glsl.yy.params = $.extend.apply($,glsl.yy.params);
     return glsl.yy;
 }
 
 function Shader(vEditor,fEditor) {
-    this.vertexShaderEditor = vEditor;
+    this.vertexShaderEditor   = vEditor;
     this.fragmentShaderEditor = fEditor;
+    this.update();
 }
 
 Shader.prototype.update = function() {
-    this.vertexShader = vertexShaderEditor.getValue();
-    this.fragmentShader = fragmentShaderEditor.getValue();
-    this.parseData = parse(this.vertexShader);
+    this.vertexShader   = this.vertexShaderEditor.getValue();
+    this.fragmentShader = this.fragmentShaderEditor.getValue();
+    this.parseData      = parse(this.vertexShader);
 }
 
 Shader.prototype.create = function(name, attr) {
@@ -28,61 +30,69 @@ Shader.prototype.create = function(name, attr) {
 }
 
 function ShaderInstance(name, shader, attr) {
-    this.name = name;
-    this.vertexShader = shader.vertexShader;
+    this.name           = name;
+    this.vertexShader   = shader.vertexShader;
     this.fragmentShader = shader.fragmentShader;
-    this.shader = shader;
-    this.attr = attr;
+    this.shader         = shader;
+    this.attr           = attr;
+    this.elements       = GLOW.Geometry.Cube.elements(); //TODO
 }
 
 ShaderInstance.prototype.genParams = function() { 
-    this.data = this.shader.genParams(this.attr);
+    this.data = $.extend(this.shader.genParams(this.attr),this.attr); //TODO separation
 }
 
 Shader.prototype.genParams = function(attr) {
-    rp = this.shader.parseData.params.filter(function(e) {
-	return e.ftype.qual == 'uniform';
-    });
+    p = this.parseData.params
     params = {}
-    for (var i=0;i<rp.length;i++) {
-	for (var j=0;j<rp[i].list.length;j++) {
-	    id = rp[i].list[j].id;
-	    switch(rp[i].ftype.ptype.type) {
-	    case "vec3":
-		params[id] = new GLOW.Vector3(0,1,2);
-		break;
-	    case "mat4":
-		params[id] = {cameraInverse:GLOW.defaultCamera.inverse,cameraProjection:GLOW.defaultCamera.projection,undefined:new GLOW.Matrix4()}[id];
-		break;
-	    case "sampler2D":
-		params[id] = attr[id] ? lookup[attr[id]].fbo : new GLOW.Texture({ url:"cube.JPG" });
-		break;
-	    }
+    for (id in p) {
+	if (p[id].qual != 'uniform') continue;
+	switch(p[id].type) {
+	case "vec3":
+	    params[id] = new GLOW.Vector3(0,1,2);
+	    break;
+	case "mat4":
+	    params[id] = {cameraInverse:GLOW.defaultCamera.inverse,cameraProjection:GLOW.defaultCamera.projection,undefined:new GLOW.Matrix4()}[id];
+	    break;
+	case "sampler2D":
+	    params[id] = attr[id] ? lookup[attr[id]].fbo : new GLOW.Texture({ url:"cube.JPG" });
+	    break;
 	}
     }
     return params;
 }
 
-function updateShaderChain() {
-    chain = []
-    for (var i=0;i<chainProto.length;i++) {
-	chainProto[i].genParams();
-	chain[i].data = $.extend({vertices:GLOW.Geometry.Cube.vertices(500),uvs:GLOW.Geometry.Cube.uvs()},
-				chain[i].data);
+//Note order - fbo of node must be generated before 
+//any potential usage
+function generateChainParams() {
+    for (var i=0;i<chain.length;i++) {
+	chain[i].genParams();
 	if (i<chain.length-1) chain[i].fbo = new GLOW.FBO();
     }
 }
 
-function updateTree() {
-    chainProto = []
-    done = {}
+//Topological sort on tree
+function generateChain() {
+    chain = []
+    lookup = {} //This is also marks nodes
     updateNode = function(node) {
-	if (done[node.name]) return;
-	done[node.name] = true;
+	if (!node.name || lookup[node.name]) return;
+	console.log(node);
+	lookup[node.name] = node;
 	for (i in node.attr) updateNode(node.attr[i])
-	chainProto.push(node);
+	chain.push(node);
     }
     updateNode(tree);
+}
+
+function updateShaders() {
+    for (i in shaders) shaders[i].update();
+}
+
+function update() {
+    updateShaders();
+    generateChain();
+    generateChainParams();
 }
 
 function render() {
@@ -95,18 +105,22 @@ function render() {
 	chain[i].fbo.unbind();
     }
 
-    new GLOW.Shader(chain[-1]).draw();
+    new GLOW.Shader(chain[chain.length-1]).draw();
 }
 
 
 
 $(document).ready(function() {
+    $('#accordion').accordion();
+
     shaders = {
 	first : new Shader(
 	    CodeMirror.fromTextArea(document.getElementById('vertexshader'),{'mode':'text/x-glsl'}),
 	    CodeMirror.fromTextArea(document.getElementById('fragmentshader'),{'mode':'text/x-glsl'})
 	)
     }
+
+    tree = new ShaderInstance('test',shaders.first,{vertices:GLOW.Geometry.Cube.vertices(500),uvs:GLOW.Geometry.Cube.uvs()});
 
     context = new GLOW.Context();
     context.setupClear( { red: 1, green: 1, blue: 1 } );

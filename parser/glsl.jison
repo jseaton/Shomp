@@ -121,13 +121,13 @@ postfix_expression:
         primary_expression
         | postfix_expression LEFT_BRACKET integer_expression RIGHT_BRACKET 
         | function_call 
-        | postfix_expression DOT IDENTIFIER { /*FIELD_SELECTION*/
-/*	  if (lexer.structs[$1] && lexer.structs[$1][$3]) {
+/*        | postfix_expression DOT IDENTIFIER { FIELD_SELECTION
+	  if (lexer.structs[$1] && lexer.structs[$1][$3]) {
 	     $$ = lexer.structs[$1][$3][1];
 	  } else {
 	     yyerror();
-	  }*/
-	}
+	  }
+	}*/
         | postfix_expression INC_OP 
         | postfix_expression DEC_OP
 	;
@@ -180,7 +180,7 @@ constructor_identifier:
         | MAT2
         | MAT3
         | MAT4
-	| IDENTIFIER { if (!lexer.structs[$1]) yyerror(); } /* TYPE_NAME */
+/*	| IDENTIFIER { if (!lexer.structs[$1]) yyerror(); }  TYPE_NAME */
 	;
 
 unary_expression:
@@ -348,22 +348,42 @@ parameter_type_specifier:
 
 init_declarator_list:
         single_declaration
-        | init_declarator_list COMMA IDENTIFIER { $$ = $1; $$.list.push({id:$3}); }
-        | init_declarator_list COMMA IDENTIFIER LEFT_BRACKET constant_expression RIGHT_BRACKET { $$ = $1; $$.list.push({id:$3,n:$5}); }
-        | init_declarator_list COMMA IDENTIFIER EQUAL initializer { $$ = $1; $$.list.push({id:$3,init:$5}); }
+        | init_declarator_list COMMA IDENTIFIER {
+	  		       prev; for (i in $1) { prev = i; break; }
+	 		       $1[$3] = prev.type;
+ 	}
+        | init_declarator_list COMMA IDENTIFIER LEFT_BRACKET constant_expression RIGHT_BRACKET {
+	  		       prev; for (i in $1) { prev = i; break; }
+			       $1[$3] = {type:prev.type,qual:prev.qual,prec:prev.prec,n:$4}
+	}
+        | init_declarator_list COMMA IDENTIFIER EQUAL initializer {
+	  		       prev; for (i in $1) { prev = i; break; }
+			       $1[$3] = {type:prev.type,qual:prev.qual,prec:prev.prec,init:$4}
+	}
 	;
 
 single_declaration:
         fully_specified_type 
-        | fully_specified_type IDENTIFIER { $$ = {ftype:$1,list:[{id:$2}]}; }
-        | fully_specified_type IDENTIFIER LEFT_BRACKET constant_expression RIGHT_BRACKET { $$ = {ftype:$1,list:[{id:$2,n:$4}]}; }
-        | fully_specified_type IDENTIFIER EQUAL initializer { $$ = {ftype:$1,list:[{id:$2,init:$4}]}; }
-        | INVARIANT IDENTIFIER   /* TODO Vertex only. */
+        | fully_specified_type IDENTIFIER {
+	  $$ = {};
+	  $$[$2] = $1;
+	}
+        | fully_specified_type IDENTIFIER LEFT_BRACKET constant_expression RIGHT_BRACKET {
+	  $$ = {};
+	  $1.n = $4;
+	  $$[$2] = $1;
+	}
+        | fully_specified_type IDENTIFIER EQUAL initializer {
+	  $$ = {};
+	  $1.init = $4;
+	  $$[$2] = $1;
+	}
+        | INVARIANT IDENTIFIER  /* TODO Vertex only. */
 	;
 
 fully_specified_type:
-        type_specifier { $$ = {ptype:$1}; } 
-        | type_qualifier type_specifier { $$ = {qual:$1, ptype:$2}; }
+        type_specifier { $$ = $1; } 
+        | type_qualifier type_specifier { $2.qual = $1; $$ = $2; }
 	; 
 
 type_qualifier:
@@ -376,7 +396,7 @@ type_qualifier:
 
 type_specifier:
         type_specifier_no_prec { $$ = {type:$1}; }
-        | precision_qualifier type_specifier_no_prec { $$ = {prec:$1, type:$2}; }
+        | precision_qualifier type_specifier_no_prec { $$ = {type:$2,prec:$1}; }
 	;
 
 type_specifier_no_prec:
