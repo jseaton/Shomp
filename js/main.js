@@ -34,7 +34,7 @@ function ShaderInstance(name, shader, attr) {
     this.vertexShader   = shader.vertexShader;
     this.fragmentShader = shader.fragmentShader;
     this.shader         = shader;
-    this.attr           = attr;
+    this.data           = attr; //TODO
     this.elements       = GLOW.Geometry.Cube.elements(); //TODO
 }
 
@@ -71,7 +71,7 @@ Shader.prototype.genParams = function(attr) {
 //any potential usage
 function generateChainParams() {
     for (var i=0;i<chain.length;i++) {
-	chain[i].genParams();
+	//chain[i].genParams();
 	if (i<chain.length-1) chain[i].fbo = new GLOW.FBO();
     }
 }
@@ -93,9 +93,12 @@ function updateShaders() {
     for (i in shaders) shaders[i].update();
 }
 
-function update() {
-    updateShaders();
+function updateTree() {
     tree = new ShaderInstance('test',shaders.first,{vertices:GLOW.Geometry.Cube.vertices(500),uvs:GLOW.Geometry.Cube.uvs()});
+    $('#params').append(generateStructUI(tree.shader.parseData.params,{},tree.data));
+}
+
+function updateChain() {
     generateChain();
     generateChainParams();
 }

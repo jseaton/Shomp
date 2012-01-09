@@ -19,6 +19,12 @@ function generateUI(node,structs,callback,name) {
 		    callback[name] = new GLOW.Texture({ url:$(this).val() });
 		}
 	    ));
+	} else if (match=node.type.match(/mat([234])/)) {
+	    r.append($('<input type="text" />').change(
+		function() {
+		    callback[name] = eval($(this).val());
+		}
+	    ));
 	} else if (structs[node.type]) {
 	    r.append(generateStructUI(structs[node.type],structs,callback[name]));
 	}
@@ -32,6 +38,7 @@ function generateUI(node,structs,callback,name) {
 function generateStructUI(nodes,structs,callback) {
     ret = $('<div/>');
     for (i in nodes) {
+	if (nodes[i].qual != 'uniform') continue;
 	sub = $('<div><h4>'+i+'</h4></div>').attr('class',i);
 	callback[i] = {};
 	sub.append(generateUI(nodes[i],structs,callback,i));
