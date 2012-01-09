@@ -38,6 +38,11 @@ function ShaderInstance(name, shader, attr) {
     this.elements       = GLOW.Geometry.Cube.elements(); //TODO
 }
 
+ShaderInstance.prototype.update = function() {
+    this.vertexShader   = this.shader.vertexShader;
+    this.fragmentShader = this.shader.fragmentShader;
+}
+
 ShaderInstance.prototype.genParams = function() { 
     this.data = $.extend(this.shader.genParams(this.attr),this.attr); //TODO separation
 }
@@ -77,7 +82,6 @@ function generateChain() {
     lookup = {} //This is also marks nodes
     updateNode = function(node) {
 	if (!node.name || lookup[node.name]) return;
-	console.log(node);
 	lookup[node.name] = node;
 	for (i in node.attr) updateNode(node.attr[i])
 	chain.push(node);
@@ -91,6 +95,7 @@ function updateShaders() {
 
 function update() {
     updateShaders();
+    tree = new ShaderInstance('test',shaders.first,{vertices:GLOW.Geometry.Cube.vertices(500),uvs:GLOW.Geometry.Cube.uvs()});
     generateChain();
     generateChainParams();
 }
@@ -119,8 +124,6 @@ $(document).ready(function() {
 	    CodeMirror.fromTextArea(document.getElementById('fragmentshader'),{'mode':'text/x-glsl'})
 	)
     }
-
-    tree = new ShaderInstance('test',shaders.first,{vertices:GLOW.Geometry.Cube.vertices(500),uvs:GLOW.Geometry.Cube.uvs()});
 
     context = new GLOW.Context();
     context.setupClear( { red: 1, green: 1, blue: 1 } );
