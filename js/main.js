@@ -2,7 +2,6 @@ var context;
 var container;
 var shaders;
 var chain;
-var chainProto;
 var tree;
 var lookup;
 
