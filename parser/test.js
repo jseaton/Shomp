@@ -1,4 +1,4 @@
-p = require('./glsl').parser
+p = require('./min').parser
 p.yy =  {structs:{},params:[],errors:[]};
 
 sym = {};

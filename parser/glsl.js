@@ -143,7 +143,7 @@ parse: function parse(input) {
             token = self.symbols_[token] || token;
         }
         return token;
-    };
+    }
 
     var symbol, preErrorSymbol, state, action, a, r, yyval={},p,len,newState, expected;
     while (true) {
@@ -161,6 +161,7 @@ parse: function parse(input) {
         }
 
         // handle parse error
+        _handle_error:
         if (typeof action === 'undefined' || !action.length || !action[0]) {
 
             if (!recovering) {
@@ -171,7 +172,7 @@ parse: function parse(input) {
                 }
                 var errStr = '';
                 if (this.lexer.showPosition) {
-                    errStr = 'Parse error on line '+(yylineno+1)+":\n"+this.lexer.showPosition()+'\nExpecting '+expected.join(', ');
+                    errStr = 'Parse error on line '+(yylineno+1)+":\n"+this.lexer.showPosition()+"\nExpecting "+expected.join(', ') + ", got '" + this.terminals_[symbol]+ "'";
                 } else {
                     errStr = 'Parse error on line '+(yylineno+1)+": Unexpected " +
                                   (symbol == 1 /*EOF*/ ? "end of input" :
@@ -399,6 +400,12 @@ popState:function popState() {
     },
 _currentRules:function _currentRules() {
         return this.conditions[this.conditionStack[this.conditionStack.length-1]].rules;
+    },
+topState:function () {
+        return this.conditionStack[this.conditionStack.length-2];
+    },
+pushState:function begin(condition) {
+        this.begin(condition);
     }});
 lexer.performAction = function anonymous(yy,yy_,$avoiding_name_collisions,YY_START) {
 
@@ -486,100 +493,102 @@ case 39:return 121;
 break;
 case 40:return 93; /*'magic_type_name'  return 'TYPE_NAME';*/
 break;
-case 41:return 7; /* identifiers of the form identifier : nondigit | identifier nondigit | identifier digit */
+case 41:return 'FIELD_SELECTION'; 
 break;
-case 42:return 10; /* float constants (conveniently the same format as accepted by parseFloat) floating-constant : fractional-constant [exponent-part] | digit-sequence exponent-part */
+case 42:return 58;
 break;
-case 43:return 9; /* integer constants (same as parseInt) integer-constant : decimal-constant | octal-constant | hexadecimal-constant */
+case 43:return 59;
 break;
-case 44:return 11;
+case 44:return 20;
 break;
-case 45:return 'FIELD_SELECTION'; 
+case 45:return 21;
 break;
-case 46:return 58;
+case 46:return 63;
 break;
-case 47:return 59;
+case 47:return 64;
 break;
-case 48:return 20;
+case 48:return 66;
 break;
-case 49:return 21;
+case 49:return 67;
 break;
-case 50:return 63;
+case 50:return 75;
 break;
-case 51:return 64;
+case 51:return 77; /* '^^' XOR_OP TODO: is this valid? */
 break;
-case 52:return 66;
+case 52:return 83;
 break;
-case 53:return 67;
+case 53:return 84;
 break;
-case 54:return 75;
+case 54:return 86;
 break;
-case 55:return 77; /* '^^' XOR_OP TODO: is this valid? */
+case 55:return 85; /* reserved LEFT_ASSIGN RIGHT_ASSIGN AND_ASSIGN XOR_ASSIGN OR_ASSIGN */
 break;
-case 56:return 83;
+case 56:return 87;
 break;
-case 57:return 84;
+case 57:return 12;
 break;
-case 58:return 86;
+case 58:return 14;
 break;
-case 59:return 85; /* reserved LEFT_ASSIGN RIGHT_ASSIGN AND_ASSIGN XOR_ASSIGN OR_ASSIGN */
+case 59:return 16;
 break;
-case 60:return 87;
+case 60:return 18;
 break;
-case 61:return 12;
+case 61:return 123;
 break;
-case 62:return 14;
+case 62:return 125;
 break;
-case 63:return 16;
+case 63:return 'DOT';
 break;
-case 64:return 18;
+case 64:return 28;
 break;
-case 65:return 123;
+case 65:return 80;
 break;
-case 66:return 125;
+case 66:return 82;
 break;
-case 67:return 'DOT';
+case 67:return 91;
 break;
-case 68:return 28;
+case 68:return 50;
 break;
-case 69:return 80;
+case 69:return 49;
 break;
-case 70:return 82;
+case 70:return 51;
 break;
-case 71:return 91;
+case 71:return 48;
 break;
-case 72:return 50;
+case 72:return 53;
 break;
-case 73:return 49;
+case 73:return 54;
 break;
-case 74:return 51;
+case 74:return 55;
 break;
-case 75:return 48;
+case 75:return 61;
 break;
-case 76:return 53;
+case 76:return 62;
 break;
-case 77:return 54;
+case 77:return 73;
 break;
-case 78:return 55;
+case 78:return 71;
 break;
-case 79:return 61;
+case 79:return 69;
 break;
-case 80:return 62;
+case 80:return 79;
 break;
-case 81:return 73;
+case 81:return 11;
 break;
-case 82:return 71;
+case 82:return 11;
 break;
-case 83:return 69;
+case 83:return 7; /* identifiers of the form identifier : nondigit | identifier nondigit | identifier digit */
 break;
-case 84:return 79;
+case 84:return 10; /* float constants (conveniently the same format as accepted by parseFloat) floating-constant : fractional-constant [exponent-part] | digit-sequence exponent-part */
 break;
-case 85:return 5;
+case 85:return 9; /* integer constants (same as parseInt) integer-constant : decimal-constant | octal-constant | hexadecimal-constant */
+break;
+case 86:return 5;
 break;
 }
 };
-lexer.rules = [/^\s+/,/^attribute\b/,/^const\b/,/^bool\b/,/^float\b/,/^int\b/,/^break\b/,/^continue\b/,/^do\b/,/^else\b/,/^for\b/,/^if\b/,/^discard\b/,/^return\b/,/^bvec2\b/,/^bvec3\b/,/^bvec4\b/,/^ivec2\b/,/^ivec3\b/,/^ivec4\b/,/^vec2\b/,/^vec3\b/,/^vec4\b/,/^mat2\b/,/^mat3\b/,/^mat4\b/,/^in\b/,/^out\b/,/^inout\b/,/^uniform\b/,/^varying\b/,/^sampler2D\b/,/^samplercube\b/,/^struct\b/,/^void\b/,/^while\b/,/^invariant\b/,/^highp\b/,/^mediump\b/,/^lowp\b/,/^precision\b/,/^[a-zA-Z\_]+[a-zA-Z0-9]*/,/^([0-9]+\.[0-9]+|[0-9]+\.|\.[0-9]+)((e|E)(\+|-)?[0-9]+)?|[0-9]+(e|E)(\+|-)?[0-9]+/,/^[1-9][0-9]*|0[0-7]+|0(x|X)[0-9a-fA-F]+|0\b/,/^true|false\b/,/^field_selection\b/,/^<</,/^>>/,/^\+\+/,/^--/,/^<=/,/^>=/,/^==/,/^!=/,/^&&/,/^\|\|/,/^\*=/,/^\/=/,/^\+=/,/^%=/,/^-=/,/^\(/,/^\)/,/^\[/,/^\]/,/^\{/,/^\}/,/^\./,/^,/,/^:/,/^=/,/^;/,/^!/,/^-/,/^~/,/^\+/,/^\*/,/^\//,/^%/,/^</,/^>/,/^\|/,/^\^/,/^&/,/^\?/,/^$/];
-lexer.conditions = {"INITIAL":{"rules":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85],"inclusive":true}};return lexer;})()
+lexer.rules = [/^\s+/,/^attribute\b/,/^const\b/,/^bool\b/,/^float\b/,/^int\b/,/^break\b/,/^continue\b/,/^do\b/,/^else\b/,/^for\b/,/^if\b/,/^discard\b/,/^return\b/,/^bvec2\b/,/^bvec3\b/,/^bvec4\b/,/^ivec2\b/,/^ivec3\b/,/^ivec4\b/,/^vec2\b/,/^vec3\b/,/^vec4\b/,/^mat2\b/,/^mat3\b/,/^mat4\b/,/^in\b/,/^out\b/,/^inout\b/,/^uniform\b/,/^varying\b/,/^sampler2D\b/,/^samplercube\b/,/^struct\b/,/^void\b/,/^while\b/,/^invariant\b/,/^highp\b/,/^mediump\b/,/^lowp\b/,/^precision\b/,/^field_selection\b/,/^<</,/^>>/,/^\+\+/,/^--/,/^<=/,/^>=/,/^==/,/^!=/,/^&&/,/^\|\|/,/^\*=/,/^\/=/,/^\+=/,/^%=/,/^-=/,/^\(/,/^\)/,/^\[/,/^\]/,/^\{/,/^\}/,/^\./,/^,/,/^:/,/^=/,/^;/,/^!/,/^-/,/^~/,/^\+/,/^\*/,/^\//,/^%/,/^</,/^>/,/^\|/,/^\^/,/^&/,/^\?/,/^true\b/,/^false\b/,/^[a-zA-Z\_]+[a-zA-Z0-9]*/,/^([0-9]+\.[0-9]+|[0-9]+\.|\.[0-9]+)((e|E)(\+|-)?[0-9]+)?|[0-9]+(e|E)(\+|-)?[0-9]+/,/^[1-9][0-9]*|0[0-7]+|0(x|X)[0-9a-fA-F]+|0\b/,/^$/];
+lexer.conditions = {"INITIAL":{"rules":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86],"inclusive":true}};return lexer;})()
 parser.lexer = lexer;
 return parser;
 })();
