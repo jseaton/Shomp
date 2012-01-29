@@ -47,7 +47,7 @@ ShaderInstance.prototype.genParams = function() {
 }
 
 Shader.prototype.genParams = function(attr) {
-    p = this.parseData.params
+    var p = this.parseData.params
     params = {}
     for (id in p) {
 	if (p[id].qual != 'uniform') continue;

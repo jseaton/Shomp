@@ -116,6 +116,7 @@ primary_expression:
 
 postfix_expression:
         primary_expression
+        | function_call
 	;
  
 integer_expression:
@@ -151,7 +152,7 @@ function_identifier:
 	;
 
 constructor_identifier:
-        FLOAT
+        INT
 	;
 
 unary_expression:
@@ -219,9 +220,6 @@ parameter_declaration:
 
 parameter_qualifier:
         /* empty */
-        | IN 
-        | OUT 
-        | INOUT
 	;
 
 parameter_type_specifier:
@@ -231,124 +229,24 @@ parameter_type_specifier:
 
 init_declarator_list:
         single_declaration
-        | init_declarator_list COMMA IDENTIFIER {
-	  		       prev; for (i in $1) { prev = i; break; }
-	 		       $1[$3] = prev.type;
- 	}
-        | init_declarator_list COMMA IDENTIFIER LEFT_BRACKET constant_expression RIGHT_BRACKET {
-	  		       prev; for (i in $1) { prev = i; break; }
-			       $1[$3] = {type:prev.type,qual:prev.qual,prec:prev.prec,n:$4}
-	}
-        | init_declarator_list COMMA IDENTIFIER EQUAL initializer {
-	  		       prev; for (i in $1) { prev = i; break; }
-			       $1[$3] = {type:prev.type,qual:prev.qual,prec:prev.prec,init:$4}
-	}
 	;
 
 single_declaration:
         fully_specified_type 
-        | fully_specified_type IDENTIFIER {
-	  $$ = {};
-	  $$[$2] = $1;
-	}
-        | fully_specified_type IDENTIFIER LEFT_BRACKET constant_expression RIGHT_BRACKET {
-	  $$ = {};
-	  $1.n = $4;
-	  $$[$2] = $1;
-	}
-        | fully_specified_type IDENTIFIER EQUAL initializer {
-	  $$ = {};
-	  $1.init = $4;
-	  $$[$2] = $1;
-	}
-        | INVARIANT IDENTIFIER  /* TODO Vertex only. */
+        | fully_specified_type IDENTIFIER
+        | fully_specified_type IDENTIFIER EQUAL initializer
 	;
 
 fully_specified_type:
         type_specifier { $$ = $1; } 
-        | type_qualifier type_specifier { $2.qual = $1; $$ = $2; }
 	; 
-
-type_qualifier:
-        CONST 
-        | ATTRIBUTE   /* TODO Vertex only. */
-        | VARYING 
-        | INVARIANT VARYING
-        | UNIFORM
-	;
 
 type_specifier:
         type_specifier_no_prec { $$ = {type:$1}; }
-        | precision_qualifier type_specifier_no_prec { $$ = {type:$2,prec:$1}; }
 	;
 
 type_specifier_no_prec:
-        VOID 
-        | FLOAT 
-        | INT 
-        | BOOL 
-        | VEC2 
-        | VEC3 
-        | VEC4 
-        | BVEC2 
-        | BVEC3 
-        | BVEC4 
-        | IVEC2 
-        | IVEC3 
-        | IVEC4 
-        | MAT2
-        | MAT3
-        | MAT4
-        | SAMPLER2D
-        | SAMPLERCUBE
-        | struct_specifier
-//        | IDENTIFIER { if (!yy.structs[$1]) yy.errors.push("Struct not found"); } /* TYPE_NAME */
-	;
- 
-precision_qualifier:
-        HIGH_PRECISION
-        | MEDIUM_PRECISION
-        | LOW_PRECISION
-	;
-
-struct_specifier:
-        STRUCT IDENTIFIER LEFT_BRACE struct_declaration_list RIGHT_BRACE { 
-	/*lexer.rules[36] = new RegExp(lexer.rules[36].toString().slice(1,-3).toString() + "\\b|^" + $2 + "\\b");*/
-	$$ = {struct:true,body:$4};
-	yy.structs[$2] = $4;
-	}
-        | STRUCT LEFT_BRACE struct_declaration_list RIGHT_BRACE { $$ = $3; }
-	;
-
-struct_declaration_list:
-        struct_declaration {
-          $$ = {};
-	  for (i=0; i<$1.list.length; i++) {
-	    $$[$1.list[i].id] = $1.type;
-	    if ($1.list[i])  $$[$1.list[i].id].n = $1.list[i].n;
-          }
-	}
-        | struct_declaration_list struct_declaration {
-	  for (i=0; i<$2.list.length; i++) {
-	    $1[$2.list[i].id] = $2.type;
-	    if ($2.list[i])  $$[$2.list[i].id].n = $2.list[i].n
-          }
-	  $$ = $1;
-	}
-	;
-
-struct_declaration:
-        type_specifier struct_declarator_list SEMICOLON { $$ = {type:$1,list:$2}; }
-	;
-
-struct_declarator_list:
-        struct_declarator { $$ = [$1]; }
-        | struct_declarator_list COMMA struct_declarator { $$ = $1.concat([$3]); }
-	;
- 
-struct_declarator:
-        IDENTIFIER { $$ = {id:$1}; }
-        | IDENTIFIER LEFT_BRACKET constant_expression RIGHT_BRACKET { $$ = {id:$1,n:$3}; }
+        INT 
 	;
  
 initializer:
@@ -395,49 +293,6 @@ statement_list:
 expression_statement:
         SEMICOLON 
         | expression SEMICOLON { console.log("Expression statement!"); }
-	;
-
-selection_statement:
-        IF LEFT_PAREN expression RIGHT_PAREN selection_rest_statement 
-	;
-
-selection_rest_statement:
-        statement_with_scope ELSE statement_with_scope 
-        | statement_with_scope
-	;
-
-condition:
-        expression 
-        | fully_specified_type IDENTIFIER EQUAL initializer 
-	;
-
-iteration_statement:
-        WHILE LEFT_PAREN condition RIGHT_PAREN statement_no_new_scope 
-        | DO statement_with_scope WHILE LEFT_PAREN expression RIGHT_PAREN SEMICOLON 
-        | FOR LEFT_PAREN for_init_statement for_rest_statement RIGHT_PAREN statement_no_new_scope 
-	;
-
-for_init_statement:
-        expression_statement 
-        | declaration_statement 
-	;
-
-conditionopt:
-        /* empty */
-	| condition 
-	;
-
-for_rest_statement:
-        conditionopt SEMICOLON 
-        | conditionopt SEMICOLON expression 
-	;
-
-jump_statement:
-        CONTINUE SEMICOLON 
-        | BREAK SEMICOLON 
-        | RETURN SEMICOLON 
-        | RETURN expression SEMICOLON 
-        | DISCARD SEMICOLON   /* TODO Fragment shader only. */
 	;
 
 translation_unit:
