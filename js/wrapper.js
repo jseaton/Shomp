@@ -1,5 +1,15 @@
 function evalTree(text,shaders) {
     eval(genShaderFunctions(shaders));
+
+    vec2 = GLOW.Vector2;
+    vec3 = GLOW.Vector3;
+    vec4 = GLOW.Vector4;
+
+    mat3 = GLOW.Matrix3;
+    mat4 = GLOW.Matrix4;
+
+    function sampler2D(url) { GLOW.Texture.call(this,{url:url}); }
+
     eval(text);
     return output;
 }
