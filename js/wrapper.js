@@ -15,7 +15,10 @@ function remapTree(shader,shaders) {
     var args = {};
     for (i in shader) {
 	if (i == '__name__' || i == '__shader__') continue;
-	args[i] = shader[i].__shader__ ? remapTree(shader[i],shaders) : shader[i];
+	console.log(shader);
+	console.log(i);
+	console.log(shader[i]);
+	args[i] = shader[i] && shader[i].__shader__ ? remapTree(shader[i],shaders) : shader[i];
     }
     return new ShaderInstance(shader.__name__,shaders[shader.__name__],args);
 }

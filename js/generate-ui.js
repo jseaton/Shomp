@@ -1,7 +1,5 @@
 function generateUI(node,structs,callback,name) {
-    //Interesting note: naming this ret as in generateStructUI will cause this all to fall over
-    //presumably due to some bug in JQuery
-    r = $('<span>'+node.type+'</span>');
+    var r = $('<span>'+node.type+'</span>');
     if (typeof node.type == 'string') {
 	if (match=node.type.match(/([bi]?)vec([234])/)) {
 	    for (i=0;i<match[2];i++) {
@@ -38,7 +36,7 @@ function generateUI(node,structs,callback,name) {
 function generateStructUI(nodes,structs,callback) {
     ret = $('<div/>');
     for (i in nodes) {
-	if (nodes[i].qual != 'uniform') continue;
+	if (nodes[i].qual != 'uniform' || callback[i]) continue;
 	sub = $('<div><h4>'+i+'</h4></div>').attr('class',i);
 	callback[i] = {};
 	sub.append(generateUI(nodes[i],structs,callback,i));

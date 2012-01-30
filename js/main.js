@@ -4,6 +4,7 @@ var shaders;
 var chain;
 var tree;
 var lookup;
+var pipeline;
 
 function parse(s) {
     glsl.yy = {structs:{},params:[],errors:[]};
@@ -93,7 +94,7 @@ function updateShaders() {
 }
 
 function updateTree() {
-    tree = new ShaderInstance('test',shaders.first,{vertices:GLOW.Geometry.Cube.vertices(500),uvs:GLOW.Geometry.Cube.uvs()});
+    tree = remapTree(evalTree(pipeline.getValue(),shaders),shaders);
     $('#params').append(generateStructUI(tree.shader.parseData.params,{},tree.data));
 }
 
@@ -126,6 +127,7 @@ $(document).ready(function() {
 	    CodeMirror.fromTextArea(document.getElementById('fragmentshader'),{'mode':'text/x-glsl'})
 	)
     }
+    pipeline = CodeMirror.fromTextArea(document.getElementById('pipeline'),{'mode':'text/javascript'});
 
     context = new GLOW.Context();
     context.setupClear( { red: 1, green: 1, blue: 1 } );

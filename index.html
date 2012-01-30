@@ -12,6 +12,7 @@
   <script src="lib/codemirror.js"></script>  
   <link rel="stylesheet" href="lib/codemirror.css">
   <script src="mode/clike/clike.js"></script>
+  <script src="mode/javascript/javascript.js"></script>
   <link rel="stylesheet" href="lib/cmirror-default.css">
 
   <link type="text/css" href="lib/jquery-ui-1.8.16.custom.css" rel="Stylesheet" />	
@@ -56,9 +57,15 @@
 <button onclick="updateTree();">Update Shader Tree</button>
 <button onclick="updateChain();">Update Shader Chain</button>
 <button onclick="render();">Render</button>
-
 <div id="vertexinfo"></div>
 <div id-"fragmentinfo"></div>
+<textarea id="pipeline" cols="60" rows="20">
+output = new first();
+output.vertices = GLOW.Geometry.Cube.vertices(500);
+output.uvs = GLOW.Geometry.Cube.uvs();
+output.cameraProjection = GLOW.defaultCamera.projection;
+output.cameraInverse = GLOW.defaultCamera.inverse;
+</textarea>
 <div id="container"></div>
 
 </body>
