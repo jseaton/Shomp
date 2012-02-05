@@ -8,7 +8,12 @@ var pipeline;
 
 function parse(s) {
     glsl.yy = {structs:{},params:[],errors:[]};
-    glsl.parse(s);
+    try {
+	glsl.parse(s);
+    } catch(e) {
+	console.log(e.message);
+	glsl.yy.errors.unshift(e.message);
+    }
     glsl.yy.params = $.extend.apply($,glsl.yy.params);
     return glsl.yy;
 }
@@ -116,13 +121,24 @@ function render() {
     new GLOW.Shader(chain[chain.length-1]).draw();
 }
 
+function newShader() {
+    var shaderName = 'shader';
+    var i=1;
+    while (shaders[shaderName+i]) i++;
+    shaderName += i;
 
+    var newTab = $('<h3><a href="#">' + shaderName + '</a></h3><div></div>');
+    var newShader = new Shader(CodeMirror(newTab[1],{'mode':'text/x-glsl'}),
+			       CodeMirror(newTab[1],{'mode':'text/x-glsl'}));
+    $('#accordion').append(newTab).accordion('destroy').accordion();
+    shaders[shaderName] = newShader;
+}
 
 $(document).ready(function() {
     $('#accordion').accordion();
 
     shaders = {
-	first : new Shader(
+	shader1 : new Shader(
 	    CodeMirror.fromTextArea(document.getElementById('vertexshader'),{'mode':'text/x-glsl'}),
 	    CodeMirror.fromTextArea(document.getElementById('fragmentshader'),{'mode':'text/x-glsl'})
 	)
