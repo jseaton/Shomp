@@ -170,12 +170,12 @@ function newShader(vText,hText) {
     var newShader = new Shader(CodeMirror(newTab[1],{'mode':'text/x-glsl',value:vText}),
 			       CodeMirror(newTab[1],{'mode':'text/x-glsl',value:hText}));
     newTab.find('textarea').attr('cols','60').attr('rows','20');
-    $('#accordion').append(newTab).accordion('destroy').accordion();
+    $('#accordion').append(newTab);//.accordion('destroy').accordion();
     shaders[shaderName] = newShader;
 }
 
 $(document).ready(function() {
-    $('#accordion').accordion();
+    //$('#accordion').accordion();
 
     shaders = {};
     newShader('attribute vec3 vertices;\n\
@@ -184,12 +184,14 @@ uniform mat4 cameraInverse;\n\
 uniform mat4 cameraProjection;\n\
 uniform sampler2D img;\n\
 varying mediump vec2 uv;\n\
+\n\
 void main() {\n\
   gl_Position = cameraProjection * cameraInverse * vec4(vertices,1.0);\n\
   uv = uvs;\n\
 }',
 'uniform sampler2D img;\n\
 varying mediump vec2 uv;\n\
+\n\
 void main() {\n\
   gl_FragColor = texture2D(img,uv);\n\
 }');
@@ -200,14 +202,16 @@ uniform mat4 cameraInverse;\n\
 uniform mat4 cameraProjection;\n\
 uniform sampler2D img;\n\
 varying mediump vec2 pixel;\n\
+\n\
 void main() {\n\
   gl_Position = cameraProjection * cameraInverse * vec4(vertices,1.0);\n\
   pixel = uvs;\n\
 }','uniform sampler2D img;\n\
 varying highp vec2 pixel;\n\
+\n\
 void main(void) {\n\
   highp vec4 sum = vec4(0.0);\n\
-  highp float v = 4.;\n\
+  highp float v = 0.003;\n\
   sum += texture2D(img, vec2(pixel.x, - 4.0*v + pixel.y) ) * 0.05;\n\
   sum += texture2D(img, vec2(pixel.x, - 3.0*v + pixel.y) ) * 0.09;\n\
   sum += texture2D(img, vec2(pixel.x, - 2.0*v + pixel.y) ) * 0.12;\n\
@@ -217,13 +221,42 @@ void main(void) {\n\
   sum += texture2D(img, vec2(pixel.x, + 2.0*v + pixel.y) ) * 0.12;\n\
   sum += texture2D(img, vec2(pixel.x, + 3.0*v + pixel.y) ) * 0.09;\n\
   sum += texture2D(img, vec2(pixel.x, + 4.0*v + pixel.y) ) * 0.05;\n\
-  gl_FragColor.xyz = sum.xyz;\n\
+  gl_FragColor.xyz = sum.xyz/0.98;\n\
+  gl_FragColor.a = 1.;\n\
+}');
+
+ newShader('attribute vec3 vertices;\n\
+attribute vec2 uvs;\n\
+uniform mat4 cameraInverse;\n\
+uniform mat4 cameraProjection;\n\
+uniform sampler2D img;\n\
+varying mediump vec2 pixel;\n\
+\n\
+void main() {\n\
+  gl_Position = cameraProjection * cameraInverse * vec4(vertices,1.0);\n\
+  pixel = uvs;\n\
+}','uniform sampler2D img;\n\
+varying highp vec2 pixel;\n\
+\n\
+void main(void) {\n\
+  highp vec4 sum = vec4(0.0);\n\
+  highp float h = 0.003;\n\
+  sum += texture2D(img, vec2(- 4.0*h + pixel.x, pixel.y)) * 0.05;\n\
+  sum += texture2D(img, vec2(- 3.0*h + pixel.x, pixel.y)) * 0.09;\n\
+  sum += texture2D(img, vec2(- 2.0*h + pixel.x, pixel.y)) * 0.12;\n\
+  sum += texture2D(img, vec2(- 1.0*h + pixel.x, pixel.y)) * 0.15;\n\
+  sum += texture2D(img, vec2(+ 0.0*h + pixel.x, pixel.y)) * 0.16;\n\
+  sum += texture2D(img, vec2(+ 1.0*h + pixel.x, pixel.y)) * 0.15;\n\
+  sum += texture2D(img, vec2(+ 2.0*h + pixel.x, pixel.y)) * 0.12;\n\
+  sum += texture2D(img, vec2(+ 3.0*h + pixel.x, pixel.y)) * 0.09;\n\
+  sum += texture2D(img, vec2(+ 4.0*h + pixel.x, pixel.y)) * 0.05;\n\
+  gl_FragColor.xyz = sum.xyz/0.98;\n\
   gl_FragColor.a = 1.;\n\
 }');
 
     pipeline = CodeMirror.fromTextArea(document.getElementById('pipeline'),{'mode':'text/javascript'});
 
-    context = new GLOW.Context();
+    context = new GLOW.Context()//{viewport:{width:80,height:80}});
     context.setupClear( { red: 1, green: 1, blue: 1 } );
     container = document.getElementById( "container" );
     container.appendChild( context.domElement );

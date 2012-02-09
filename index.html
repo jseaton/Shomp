@@ -38,22 +38,30 @@
 <div id="vertexinfo"></div>
 <div id="fragmentinfo"></div>
 <textarea id="pipeline" cols="60" rows="20">
-output = new shader2();
+output = new shader3(); //gaussh
 output.vertices = GLOW.Geometry.Cube.vertices(500);
 output.uvs = GLOW.Geometry.Cube.uvs();
 output.cameraProjection = GLOW.defaultCamera.projection;
 output.cameraInverse = GLOW.defaultCamera.inverse;
 
-output2 = new shader2();
-output2.vertices = GLOW.Geometry.Cube.vertices(500);
-output2.uvs = GLOW.Geometry.Cube.uvs();
-output2.cameraProjection = GLOW.defaultCamera.projection;
-output2.cameraInverse = GLOW.defaultCamera.inverse;
+gaussv = new shader2();
+gaussv.vertices = GLOW.Geometry.Cube.vertices(500);
+gaussv.uvs = GLOW.Geometry.Cube.uvs();
+gaussv.cameraProjection = GLOW.defaultCamera.projection;
+gaussv.cameraInverse = GLOW.defaultCamera.inverse;
 
-output.img = output2;
+input = new shader1();
+input.vertices = GLOW.Geometry.Cube.vertices(500);
+input.uvs = GLOW.Geometry.Cube.uvs();
+input.cameraProjection = GLOW.defaultCamera.projection;
+input.cameraInverse = GLOW.defaultCamera.inverse;
+
+output.img = gaussv;
+gaussv.img = input;
+
 
 </textarea>
-<div id="container"></div>
+<div id="container" width="80" height="80"></div>
 
 </body>
 </html>
