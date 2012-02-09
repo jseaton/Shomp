@@ -27,7 +27,8 @@ function Shader(vEditor,fEditor) {
 Shader.prototype.update = function() {
     this.vertexShader   = this.vertexShaderEditor.getValue();
     this.fragmentShader = this.fragmentShaderEditor.getValue();
-    this.parseData      = parse(this.vertexShader);
+    blat = true; //TODO this is a horrendous hack
+    this.parseData      = parse(this.vertexShader.split('\n').map(function (e) { if (e=='') blat=false; if (blat) {return e;} else {return '';}}).join('\n'));
 }
 
 Shader.prototype.create = function(name, attr) {
@@ -78,17 +79,30 @@ function generateChainParams() {
     for (var i=0;i<chain.length;i++) {
 	//chain[i].genParams();
 	if (i<chain.length-1) chain[i].fbo = new GLOW.FBO();
+	for (j in chain[i].data) {
+	    if (chain[i].data[j].name) chain[i].data[j] = chain[i].data[j].fbo;
+	}
+	chain[i].glow = new GLOW.Shader(chain[i]);
     }
 }
+
 
 //Topological sort on tree
 function generateChain() {
     chain = []
-    lookup = {} //This is also marks nodes
+    //lookup = {} //This is also marks nodes
+
+    clearLookup = function(node) {
+	if (!node.name) return;
+	node.lookup = false;
+	for (i in node.data) clearLookup(node.data[i])
+    }
+    clearLookup(tree);
+
     updateNode = function(node) {
-	if (!node.name || lookup[node.name]) return;
-	lookup[node.name] = node;
-	for (i in node.attr) updateNode(node.attr[i])
+	if (!node.name || node.lookup) return;
+	node.lookup = true;
+	for (i in node.data) updateNode(node.data[i])
 	chain.push(node);
     }
     updateNode(tree);
@@ -99,8 +113,17 @@ function updateShaders() {
 }
 
 function updateTree() {
+    $('#params').empty();
     tree = remapTree(evalTree(pipeline.getValue(),shaders),shaders);
-    $('#params').append(generateStructUI(tree.shader.parseData.params,{},tree.data));
+    console.log(tree);
+    genUI = function(node) {
+	console.log(node);
+	if (!node.name) return;
+	$('#params').append('<h3>' + node.name + '</h3>');
+	$('#params').append(generateStructUI(node.shader.parseData.params,{},node.data));
+	for (i in node.data) genUI(node.data[i]);
+    }
+    genUI(tree);
 }
 
 function updateChain() {
@@ -114,22 +137,39 @@ function render() {
     for (var i=0;i<chain.length-1;i++) {
 	chain[i].fbo.bind();
 	context.clear();
-	new GLOW.Shader(chain[i]).draw();
+	chain[i].glow.draw();
 	chain[i].fbo.unbind();
     }
 
-    new GLOW.Shader(chain[chain.length-1]).draw();
+    chain[chain.length-1].glow.draw();
 }
 
-function newShader() {
+function newShader(vText,hText) {
     var shaderName = 'shader';
     var i=1;
     while (shaders[shaderName+i]) i++;
     shaderName += i;
 
-    var newTab = $('<h3><a href="#">' + shaderName + '</a></h3><div></div>');
-    var newShader = new Shader(CodeMirror(newTab[1],{'mode':'text/x-glsl'}),
-			       CodeMirror(newTab[1],{'mode':'text/x-glsl'}));
+    var newTab = $('<h3></h3><div></div>');
+    var shaderTag = $('<a href="#"><span>' + shaderName + '</span></a>');
+    var editing = false;
+    /*shaderTag.click(
+	function() {
+	    if (editing) {
+		shaderName = $(this).find('input').val();
+		var sTag = $('<span>' + shaderName + '</span>');
+		$(this).find('input').replaceWith(sTag); 
+	    } else { 
+		var sTag = $('<input type="text">').attr('value',shaderName);
+		$(this).find('span').replaceWith(sTag); 
+	    }
+	    editing = !editing;
+	}
+    )*/
+    $(newTab[0]).append(shaderTag);
+    var newShader = new Shader(CodeMirror(newTab[1],{'mode':'text/x-glsl',value:vText}),
+			       CodeMirror(newTab[1],{'mode':'text/x-glsl',value:hText}));
+    newTab.find('textarea').attr('cols','60').attr('rows','20');
     $('#accordion').append(newTab).accordion('destroy').accordion();
     shaders[shaderName] = newShader;
 }
@@ -137,12 +177,50 @@ function newShader() {
 $(document).ready(function() {
     $('#accordion').accordion();
 
-    shaders = {
-	shader1 : new Shader(
-	    CodeMirror.fromTextArea(document.getElementById('vertexshader'),{'mode':'text/x-glsl'}),
-	    CodeMirror.fromTextArea(document.getElementById('fragmentshader'),{'mode':'text/x-glsl'})
-	)
-    }
+    shaders = {};
+    newShader('attribute vec3 vertices;\n\
+attribute vec2 uvs;\n\
+uniform mat4 cameraInverse;\n\
+uniform mat4 cameraProjection;\n\
+uniform sampler2D img;\n\
+varying mediump vec2 uv;\n\
+void main() {\n\
+  gl_Position = cameraProjection * cameraInverse * vec4(vertices,1.0);\n\
+  uv = uvs;\n\
+}',
+'uniform sampler2D img;\n\
+varying mediump vec2 uv;\n\
+void main() {\n\
+  gl_FragColor = texture2D(img,uv);\n\
+}');
+
+    newShader('attribute vec3 vertices;\n\
+attribute vec2 uvs;\n\
+uniform mat4 cameraInverse;\n\
+uniform mat4 cameraProjection;\n\
+uniform sampler2D img;\n\
+varying mediump vec2 pixel;\n\
+void main() {\n\
+  gl_Position = cameraProjection * cameraInverse * vec4(vertices,1.0);\n\
+  pixel = uvs;\n\
+}','uniform sampler2D img;\n\
+varying highp vec2 pixel;\n\
+void main(void) {\n\
+  highp vec4 sum = vec4(0.0);\n\
+  highp float v = 4.;\n\
+  sum += texture2D(img, vec2(pixel.x, - 4.0*v + pixel.y) ) * 0.05;\n\
+  sum += texture2D(img, vec2(pixel.x, - 3.0*v + pixel.y) ) * 0.09;\n\
+  sum += texture2D(img, vec2(pixel.x, - 2.0*v + pixel.y) ) * 0.12;\n\
+  sum += texture2D(img, vec2(pixel.x, - 1.0*v + pixel.y) ) * 0.15;\n\
+  sum += texture2D(img, vec2(pixel.x, + 0.0*v + pixel.y) ) * 0.16;\n\
+  sum += texture2D(img, vec2(pixel.x, + 1.0*v + pixel.y) ) * 0.15;\n\
+  sum += texture2D(img, vec2(pixel.x, + 2.0*v + pixel.y) ) * 0.12;\n\
+  sum += texture2D(img, vec2(pixel.x, + 3.0*v + pixel.y) ) * 0.09;\n\
+  sum += texture2D(img, vec2(pixel.x, + 4.0*v + pixel.y) ) * 0.05;\n\
+  gl_FragColor.xyz = sum.xyz;\n\
+  gl_FragColor.a = 1.;\n\
+}');
+
     pipeline = CodeMirror.fromTextArea(document.getElementById('pipeline'),{'mode':'text/javascript'});
 
     context = new GLOW.Context();
