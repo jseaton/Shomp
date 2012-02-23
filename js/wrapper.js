@@ -17,18 +17,18 @@ function evalTree(text,shaders) {
 function genShaderFunctions(shaders) {
     var fns = "";
     for (name in shaders)
-	fns += "function " + name + "() { this.__name__ = '" + name + "'; this.__shader__ = true;};";
+	fns += "function " + name + "(id,size) { this.__name__ = '" + name + "'; this.__shader__ = true; this.__id__ = id || ('unnamed_' + this.__name__); this.__size__ = size;};";
     return fns;
 }
 
 function remapTree(shader,shaders) {
     var args = {};
     for (i in shader) {
-	if (i == '__name__' || i == '__shader__') continue;
+	if (i.slice(0,2) == '__') continue;
 	//console.log(shader);
 	//console.log(i);
 	//console.log(shader[i]);
 	args[i] = shader[i] && shader[i].__shader__ ? remapTree(shader[i],shaders) : shader[i];
     }
-    return new ShaderInstance(shader.__name__,shaders[shader.__name__],args);
+    return new ShaderInstance(shader.__name__,shader.__id__,shaders[shader.__name__],args,shader.__size__);
 }

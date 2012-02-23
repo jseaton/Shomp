@@ -35,13 +35,15 @@ Shader.prototype.create = function(name, attr) {
     return new ShaderInstance(name, attr, this);
 }
 
-function ShaderInstance(name, shader, attr) {
+function ShaderInstance(name, id, shader, attr, size) {
     this.name           = name;
+    this.id             = id;
     this.vertexShader   = shader.vertexShader;
     this.fragmentShader = shader.fragmentShader;
     this.shader         = shader;
     this.data           = attr; //TODO
     this.elements       = GLOW.Geometry.Cube.elements(); //TODO
+    this.size           = size;
 }
 
 ShaderInstance.prototype.update = function() {
@@ -78,7 +80,7 @@ Shader.prototype.genParams = function(attr) {
 function generateChainParams() {
     for (var i=0;i<chain.length;i++) {
 	//chain[i].genParams();
-	if (i<chain.length-1) chain[i].fbo = new GLOW.FBO();
+	if (i<chain.length-1) chain[i].fbo = new GLOW.FBO(chain[i].size || {});
 	for (j in chain[i].data) {
 	    if (chain[i].data[j].name) chain[i].data[j] = chain[i].data[j].fbo;
 	}
@@ -118,8 +120,8 @@ function updateTree() {
     console.log(tree);
     genUI = function(node) {
 	console.log(node);
-	if (!node.name) return;
-	$('#params').append('<h3>' + node.name + '</h3>');
+	if (!node || !node.name) return;
+	$('#params').append('<h3>' + node.id + '</h3>');
 	$('#params').append(generateStructUI(node.shader.parseData.params,{},node.data));
 	for (i in node.data) genUI(node.data[i]);
     }
@@ -150,11 +152,13 @@ function newShader(vText,hText) {
     while (shaders[shaderName+i]) i++;
     shaderName += i;
 
-    var newTab = $('<h3></h3><div></div>');
-    var shaderTag = $('<a href="#"><span>' + shaderName + '</span></a>');
+    var newTab = $('<h3><a href="#"></a></h3><div></div>');
+    var shaderTag = $('<div><span>' + shaderName + '</span></div>');
     var editing = false;
-    /*shaderTag.click(
+    shaderTag.click(
 	function() {
+	    shaders[shaderName].fragmentShaderEditor.refresh();
+	    shaders[shaderName].vertexShaderEditor.refresh();
 	    if (editing) {
 		shaderName = $(this).find('input').val();
 		var sTag = $('<span>' + shaderName + '</span>');
@@ -165,17 +169,21 @@ function newShader(vText,hText) {
 	    }
 	    editing = !editing;
 	}
-    )*/
-    $(newTab[0]).append(shaderTag);
+    )
+    console.log(newTab);
+    newTab.find('a').change(function() {
+	shaders[shaderName].fragmentShaderEditor.refresh();
+	shaders[shaderName].vertexShaderEditor.refresh();
+    }).append(shaderTag);
     var newShader = new Shader(CodeMirror(newTab[1],{'mode':'text/x-glsl',value:vText}),
 			       CodeMirror(newTab[1],{'mode':'text/x-glsl',value:hText}));
     newTab.find('textarea').attr('cols','60').attr('rows','20');
-    $('#accordion').append(newTab);//.accordion('destroy').accordion();
+    $('#accordion').append(newTab).accordion('destroy').accordion();
     shaders[shaderName] = newShader;
 }
 
 $(document).ready(function() {
-    //$('#accordion').accordion();
+    $('#accordion').accordion();
 
     shaders = {};
     newShader('attribute vec3 vertices;\n\
@@ -183,6 +191,7 @@ attribute vec2 uvs;\n\
 uniform mat4 cameraInverse;\n\
 uniform mat4 cameraProjection;\n\
 uniform sampler2D img;\n\
+uniform vec4 v4;\n\
 varying mediump vec2 uv;\n\
 \n\
 void main() {\n\
@@ -190,10 +199,11 @@ void main() {\n\
   uv = uvs;\n\
 }',
 'uniform sampler2D img;\n\
+uniform vec4 v4;\n\
 varying mediump vec2 uv;\n\
 \n\
 void main() {\n\
-  gl_FragColor = texture2D(img,uv);\n\
+  gl_FragColor = texture2D(img,uv)*0.5 + v4;\n\
 }');
 
     newShader('attribute vec3 vertices;\n\
