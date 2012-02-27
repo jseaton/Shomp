@@ -80,11 +80,11 @@ Shader.prototype.genParams = function(attr) {
 function generateChainParams() {
     for (var i=0;i<chain.length;i++) {
 	//chain[i].genParams();
-	if (i<chain.length-1) chain[i].fbo = new GLOW.FBO(chain[i].size || {});
+	if (i<chain.length-1) chain[i].fbo = new GLOW.FBO();//chain[i].size || {});
 	for (j in chain[i].data) {
 	    if (chain[i].data[j].name) chain[i].data[j] = chain[i].data[j].fbo;
 	}
-	chain[i].glow = new GLOW.Shader(chain[i]);
+	chain[i].glow = GLOW.Shader.call(chain[i].glow,chain[i]);
     }
 }
 
@@ -122,7 +122,8 @@ function updateTree() {
 	console.log(node);
 	if (!node || !node.name) return;
 	$('#params').append('<h3>' + node.id + '</h3>');
-	$('#params').append(generateStructUI(node.shader.parseData.params,{},node.data));
+	node.glow = node.data;
+	$('#params').append(generateUI(node.shader.parseData.params,{},node.glow).html);
 	for (i in node.data) genUI(node.data[i]);
     }
     genUI(tree);
@@ -186,24 +187,23 @@ $(document).ready(function() {
     $('#accordion').accordion();
 
     shaders = {};
-    newShader('attribute vec3 vertices;\n\
-attribute vec2 uvs;\n\
-uniform mat4 cameraInverse;\n\
-uniform mat4 cameraProjection;\n\
-uniform sampler2D img;\n\
-uniform vec4 v4;\n\
+    newShader('attribute mediump vec3 vertices;\n\
+attribute mediump vec2 uvs;\n\
+uniform mediump mat4 cameraInverse;\n\
+uniform mediump mat4 cameraProjection;\n\
+uniform mediump sampler2D img;\n\
 varying mediump vec2 uv;\n\
 \n\
 void main() {\n\
   gl_Position = cameraProjection * cameraInverse * vec4(vertices,1.0);\n\
   uv = uvs;\n\
 }',
-'uniform sampler2D img;\n\
-uniform vec4 v4;\n\
+'uniform mediump sampler2D img;\n\
+uniform mediump vec4 v4;\n\
 varying mediump vec2 uv;\n\
 \n\
 void main() {\n\
-  gl_FragColor = texture2D(img,uv)*0.5 + v4;\n\
+  gl_FragColor = texture2D(img,uv);\n\
 }');
 
     newShader('attribute vec3 vertices;\n\
