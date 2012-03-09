@@ -1,0 +1,179 @@
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2012/dev/Arch Linux) (format=latex 2012.2.5)  9 MAR 2012 11:13
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**diss
+(./diss.tex
+LaTeX2e <2011/06/27>
+Babel <v3.8m> and hyphenation patterns for english, dumylang, nohyphenation, ge
+rman-x-2011-07-01, ngerman-x-2011-07-01, afrikaans, ancientgreek, ibycus, arabi
+c, armenian, basque, bulgarian, catalan, pinyin, coptic, croatian, czech, danis
+h, dutch, ukenglish, usenglishmax, esperanto, estonian, ethiopic, farsi, finnis
+h, french, galician, german, ngerman, swissgerman, monogreek, greek, hungarian,
+ icelandic, assamese, bengali, gujarati, hindi, kannada, malayalam, marathi, or
+iya, panjabi, tamil, telugu, indonesian, interlingua, irish, italian, kurmanji,
+ lao, latin, latvian, lithuanian, mongolian, mongolianlmc, bokmal, nynorsk, pol
+ish, portuguese, romanian, russian, sanskrit, serbian, serbianc, slovak, sloven
+ian, spanish, swedish, turkish, turkmen, ukrainian, uppersorbian, welsh, loaded
+.
+(/usr/share/texmf-dist/tex/latex/base/report.cls
+Document Class: report 2007/10/19 v1.4h Standard LaTeX document class
+(/usr/share/texmf-dist/tex/latex/base/size12.clo
+File: size12.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@chapter=\count80
+\c@section=\count81
+\c@subsection=\count82
+\c@subsubsection=\count83
+\c@paragraph=\count84
+\c@subparagraph=\count85
+\c@figure=\count86
+\c@table=\count87
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+(/usr/share/texmf-dist/tex/latex/ntgclass/a4.sty
+Package: a4 2004/04/15 v1.2g A4 based page layout
+)
+(/usr/share/texmf-dist/tex/latex/tools/verbatim.sty
+Package: verbatim 2003/08/22 v1.5q LaTeX2e package for verbatim enhancements
+\every@verbatim=\toks14
+\verbatim@line=\toks15
+\verbatim@in@stream=\read1
+)
+(/usr/share/texmf-dist/tex/generic/epsf/epsf.tex
+This is `epsf.tex' v2.7.4 <14 February 2011>
+\epsffilein=\read2
+\epsfframemargin=\dimen103
+\epsfframethickness=\dimen104
+\epsfrsize=\dimen105
+\epsftmp=\dimen106
+\epsftsize=\dimen107
+\epsfxsize=\dimen108
+\epsfysize=\dimen109
+\pspoints=\dimen110
+) (./diss.aux)
+\openout1 = `diss.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 30.
+LaTeX Font Info:    ... okay on input line 30.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 30.
+LaTeX Font Info:    ... okay on input line 30.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 30.
+LaTeX Font Info:    ... okay on input line 30.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 30.
+LaTeX Font Info:    ... okay on input line 30.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 30.
+LaTeX Font Info:    ... okay on input line 30.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 30.
+LaTeX Font Info:    ... okay on input line 30.
+ [1
+
+] [2
+
+]
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <14.4> on input line 70.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 70.
+ [1
+
+] [2] (./diss.toc
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <12> on input line 2.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 2.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 2.
+)
+\tf@toc=\write3
+\openout3 = `diss.toc'.
+
+ [3
+
+
+] (./diss.lof)
+\tf@lof=\write4
+\openout4 = `diss.lof'.
+
+ [4
+
+] [5] [6
+
+]
+Chapter 1.
+[1
+
+] [2
+
+]
+Chapter 2.
+[3
+
+] [4
+
+]
+Chapter 3.
+[5
+
+] [6
+
+]
+Chapter 4.
+[7
+
+] [8
+
+]
+Chapter 5.
+[9
+
+] [10
+
+] (./diss.bbl) [11
+
+] [12
+
+]
+Appendix A.
+File: diss.tex  (verbatim)
+[13
+
+] [14] [15]
+File: proposal.tex  (verbatim)
+File: propbody.tex  (verbatim)
+ [16] [17] [18] [19] [20
+
+]
+Appendix B.
+File: makefile.txt  (verbatim)
+[21
+
+]
+File: refs.bib  (verbatim)
+ [22]
+Appendix C.
+(./propbody.tex [23
+
+
+]
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 75.
+ (/usr/share/texmf-dist/tex/latex/base/omscmr.fd
+File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 75.
+ [24])
+[25] (./diss.aux) ) 
+Here is how much of TeX's memory you used:
+ 416 strings out of 493630
+ 4914 string characters out of 3148802
+ 55498 words of memory out of 3000000
+ 3763 multiletter control sequences out of 15000+200000
+ 10241 words of font info for 36 fonts, out of 3000000 for 9000
+ 831 hyphenation exceptions out of 8191
+ 23i,6n,19p,178b,306s stack positions out of 5000i,500n,10000p,200000b,50000s
+
+Output written on diss.dvi (33 pages, 24120 bytes).

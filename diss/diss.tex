@@ -1,0 +1,207 @@
+% The master copy of this demo dissertation is held on my filespace
+% on the cl file serve (/homes/mr/teaching/demodissert/)
+
+% Last updated by MR on 2 August 2001
+
+\documentclass[12pt,twoside,notitlepage]{report}
+
+\usepackage{a4}
+\usepackage{verbatim}
+
+\input{epsf}                            % to allow postscript inclusions
+% On thor and CUS read top of file:
+%     /opt/TeX/lib/texmf/tex/dvips/epsf.sty
+% On CL machines read:
+%     /usr/lib/tex/macros/dvips/epsf.tex
+
+
+
+\raggedbottom                           % try to avoid widows and orphans
+\sloppy
+\clubpenalty1000%
+\widowpenalty1000%
+
+\addtolength{\oddsidemargin}{6mm}       % adjust margins
+\addtolength{\evensidemargin}{-8mm}
+
+\renewcommand{\baselinestretch}{1.1}    % adjust line spacing to make
+                                        % more readable
+
+\begin{document}
+
+\bibliographystyle{plain}
+
+\newcommand{\name}{Joseph Seaton}
+\newcommand{\college}{Fitzwilliam College}
+\newcommand{\ptitle}{Shader Compositor}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Title
+
+
+\pagestyle{empty}
+
+\hfill{\LARGE \bf \name}
+
+\vspace*{60mm}
+\begin{center}
+\Huge
+{\bf \ptitle} \\
+\vspace*{5mm}
+Part II Computer Science \\
+\vspace*{5mm}
+\college \\
+\vspace*{5mm}
+\today  % today's date
+\end{center}
+
+\cleardoublepage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Proforma, table of contents and list of figures
+
+\setcounter{page}{1}
+\pagenumbering{roman}
+\pagestyle{plain}
+
+\chapter*{Proforma}
+
+{\large
+\begin{tabular}{ll}
+Name:               & \bf \name    \\
+College:            & \bf \college \\
+Project Title:      & \bf \ptitle  \\
+Word Count:         & \bf 0\\
+Project Originator: & Christian Richardt                    \\
+Supervisor:         & Christian Richardt                    \\ 
+\end{tabular}
+}
+% detex diss.tex | tr -cd '0-9A-Za-z $\tt\backslash$n' | wc -w
+\stepcounter{footnote}
+
+
+\section*{Original Aims of the Project}
+
+
+\section*{Work Completed}
+
+
+\section*{Special Difficulties}
+
+ 
+\newpage
+\section*{Declaration}
+
+I, \name of \college, being a candidate for Part II of the Computer
+Science Tripos, hereby declare
+that this dissertation and the work described in it are my own work,
+unaided except as may be specified below, and that the dissertation
+does not contain material that has already been used to any substantial
+extent for a comparable purpose.
+
+\bigskip
+\leftline{Signed}
+
+\medskip
+\leftline{Date }
+
+\cleardoublepage
+
+\tableofcontents
+
+\listoffigures
+
+\newpage
+\section*{Acknowledgements}
+
+This document owes much to an earlier version written by Simon Moore
+\cite{moore95}.  His help, encouragement and advice was greatly 
+appreciated.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% now for the chapters
+
+\cleardoublepage        % just to make sure before the page numbering
+                        % is changed
+
+\setcounter{page}{1}
+\pagenumbering{arabic}
+\pagestyle{headings}
+
+\chapter{Introduction}
+
+\section{Brief introduction to Shaders}
+
+\section{Overview of the files}
+
+This document consists of the following files:
+
+\cleardoublepage
+\chapter{Preparation}
+
+This chapter is empty!
+
+\cleardoublepage
+\chapter{Implementation}
+
+\section{Parser}
+
+\section{Testing}
+
+\section{Optimisation}
+
+\section{User Interface}
+
+\cleardoublepage
+\chapter{Evaluation}
+
+\section{Correctness}
+
+\cleardoublepage
+\chapter{Conclusion}
+
+\section{Further Work}
+\cleardoublepage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% the bibliography
+
+\addcontentsline{toc}{chapter}{Bibliography}
+\bibliography{refs}
+\cleardoublepage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% the appendices
+\appendix
+
+\chapter{Latex source}
+
+\section{diss.tex}
+{\scriptsize\verbatiminput{diss.tex}}
+
+\section{proposal.tex}
+{\scriptsize\verbatiminput{proposal.tex}}
+
+\section{propbody.tex}
+{\scriptsize\verbatiminput{propbody.tex}}
+
+
+
+\cleardoublepage
+
+\chapter{Makefile}
+
+\section{\label{makefile}Makefile}
+{\scriptsize\verbatiminput{makefile.txt}}
+
+\section{refs.bib}
+{\scriptsize\verbatiminput{refs.bib}}
+
+
+\cleardoublepage
+
+\chapter{Project Proposal}
+
+\input{propbody}
+
+\end{document}
