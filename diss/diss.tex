@@ -81,13 +81,14 @@ Supervisor:         & Christian Richardt                    \\
 
 
 \section*{Original Aims of the Project}
-
+To implement a novel user interface for the creation, testing and easy modification of pipelines of shaders. To automatically detect shader parameters and provide a simple interface to change them. To apply some optimisations to parts of this process.
 
 \section*{Work Completed}
+The core of the project has been completed and works satisfactorily. Shaders can be inputted, and a pipeline of shaders can be specified using Javascript, the result of which is shown in-browser. An interface for modifying shader parameters is correctly generated for [TODO: all] most types of parameter. A number of optimisations have been applied, including elimination of unnecessary shader recompilation and pipeline re-generation. [PENDING] The project is also now capable of reusing FBOs between pipeline changes where possible.
 
 
 \section*{Special Difficulties}
-
+None.
  
 \newpage
 \section*{Declaration}
@@ -129,22 +130,74 @@ appreciated.
 \pagestyle{headings}
 
 \chapter{Introduction}
+My project provides a novel user interface for easily compositing multiple shaders together, in which individual shader parameters can be easily modified and the results viewed immediately. I have successfully implemented the core of my project, including a number of proposed extensions.
+
+\section{Motivation}
+Working with OpenGL is usually undeniably messy. OpenGL is a verbose and complicated API. When developing shaders, developers tend not to be interested in writing large amounts of OpenGL API code just to tweak shader parameters or forward the texture output of one shader to the input of another. But this is exactly what developers have to do. Given that many graphics applications are written in compiled languages like C and C++, this significantly increases the length of a development cycle. Given that a large part of shader development constitutes small tweaks to (often subjectively) improve output, this is not ideal.
+
+For students learning about shaders, OpenGL is often an intimidating and confusing mess that gets in the way of understanding a fundamentally quite simple concept.
+
+This project aims to provide a way of developing shaders that is both useful for developers, and may be used as a tool for students learning about shaders for the first time.
 
 \section{Brief introduction to Shaders}
-
-\section{Overview of the files}
-
-This document consists of the following files:
+TODO: move to under background reading?
 
 \cleardoublepage
 \chapter{Preparation}
 
-This chapter is empty!
+\section{Development Environment}
+\subsection{WebGL}
+WebGL is a very recently developed API allowing web-based applications access to OpenGL contexts, via Javascript. 
+
+\subsection{Emacs}
+
+\subsection{node.js}
+node.js is a Javascript platform build on top of Google's V8 Javascript engine. It provides among other things, a command line interface, including a REPL (read-evaluate-print-loop). This provides a fast, light-weight way to test non-browser-bound code using traditional command line tools, can be easily interfaced with git and cron, and can easily write to files. All of this can be done without requiring messy extra code to interact with the webbrowser or server-side code to report back statistics.
+
+\subsection{Google Chrome}
+WebGL naturally precludes the use of a webbrowser. I have found for my particular Operating System / hardware combination, WebGL on Google Chrome is more stable. Since WebGL is a relatively recent development that has only recently gained browser support, WebGL can still be unstable and buggy in some circumstances even under Google Chrome. Google Chrome also includes a set of 'developer tools' including 
+
+\subsection{WebGL Inspector}
+While the premise of the WebGL inspector tool - a Google Chrome extension that provides inline information on current WebGL contexts - is promising, I found the tool to be too unstable to be helpful in practice.
+
+\section{Software Development Process}
+Test-driven development
+Evolutionary
+
+\section{Preparatory Learning}
+\subsection{Background Reading}
+
+\subsubsection{OpenGL and GLSL}
+Prior to beginning this project, I had very little knowledge of OpenGL barring a small amount of personal experience writing toy programs in my spare time. As such I needed to gain a better understanding of OpenGL, and some knowledge of GLSL before I could begin this project. For this purpose I obtained a copy of the famous 'Red Book' [REF]. I also read through the GLSL ES specification provided by the Khronos Group [REF], which discusses the syntax of GLSL in detail.
+
+\subsubsection{Javascript}
+While, like many people I already have some experience of Javascript programming from web development work, I thought it would be wise to refresh myself before starting on a more complex project such as this one. 
+
+
+\section{Libraries}
+TODO: is this the right place?
+
+\subsection{JQuery}
+
+
+\subsection{WebGL Toolkit}
+Given that OpenGL itself is quite awkward to work with, I decided to use an existing library to abstract away some of the uglier parts. However, there are currently many libraries available claiming to do exactly this, of varying degrees of completeness and varying levels of abstraction. Initially I settled on three.js [REF] on the basis of its popularity, and high rate of development. However it soon became apparent that in the level of abstraction provided by three.js actually made the task more difficult, given that interacting with FBOs was non-obvious. After some more searching I came across GLOW [REF], a toolkit specifically designed to make working with shaders simple, but otherwise providing little abstraction.
+
+\subsection{GUI Toolkit}
+\subsubsection{Editor}
+A core aim of the project was to provide good GLSL syntax highlighting. There currently exist many web-based editors offering some degree of syntax highlighting, but I chose to use CodeMirror [REF], given its active development, and the presence of a modular way to add support for highlighting new grammars. 
+
+\section{Version Control and Backup Strategy}
+All project files, including the dissertation, were placed under git version control. Git was then configured to push to multiple remote repositories in different locations: an external harddrive, my PWF account, my SRCF account, my web hosting account, and GitHub. While this could be considered excessive, the use of SSH keys meant that post-setup, this required no extra effort on my part. Since I am conscious that git is capable of history rewriting, I also configured a regular cron job to make copies of my current repository using git bundle.
 
 \cleardoublepage
 \chapter{Implementation}
 
+\section{WebGL}
+TODO: where to talk about this.
+
 \section{Parser}
+It was decided that due to time constraints, and the lack of a pressing need for an unusual parser, a parser generator would be used. Initially I chose to use JS/CC [REF], since it seemed well-documented and quite popular. However, once I had used it to generate an appropriate parser for GLSL, it quickly became apparent that the parser was insufficiently fast to use for such a complicated grammar. In fact, I was unable to obtain any timing for the parser, as under Google Chrome, even with the simplest inputs it would fail to produce any output before Chrome itself decided to kill the process. While it may have been possible to obtain timing information, this was clearly to slow to be of any value. I then found Jison [REF], a JavaScript port of Bison. This was able to parse even quite complicated input in a reasonable amount of time, as is discussed in my evaluation.
 
 \section{Testing}
 
@@ -155,12 +208,26 @@ This chapter is empty!
 \cleardoublepage
 \chapter{Evaluation}
 
-\section{Correctness}
+\section{Parser Correctness}
+
+\section{Pipeline Correctness}
+
+\section{Speed}
+
 
 \cleardoublepage
 \chapter{Conclusion}
 
+\section{Main Results}
+The project has been successful. The core of the project has been completed and functions correctly, and with the addition of the various optimisations and extensions, is quite usable.
+
+\section{Lessons Learned}
+
 \section{Further Work}
+User study.
+
+Both the specification and implementation of WebGL have changed significantly since their first proposal, and I expect them to continue to do so for some time yet. As such further work may be necessary in the future as these change. Of particular note is the current lack of multiple render targets in current implementations [REF]. If in the future implementations begin to support multiple render targets, adding support for these to my project will be a moderately non-trivial task.
+
 \cleardoublepage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -174,28 +241,28 @@ This chapter is empty!
 % the appendices
 \appendix
 
-\chapter{Latex source}
+%\chapter{Latex source}
 
-\section{diss.tex}
-{\scriptsize\verbatiminput{diss.tex}}
+%\section{diss.tex}
+%{\scriptsize\verbatiminput{diss.tex}}
 
-\section{proposal.tex}
-{\scriptsize\verbatiminput{proposal.tex}}
+%\section{proposal.tex}
+%{\scriptsize\verbatiminput{proposal.tex}}
 
-\section{propbody.tex}
-{\scriptsize\verbatiminput{propbody.tex}}
+%\section{propbody.tex}
+%{\scriptsize\verbatiminput{propbody.tex}}
 
 
 
-\cleardoublepage
+%\cleardoublepage
 
-\chapter{Makefile}
+%\chapter{Makefile}
 
-\section{\label{makefile}Makefile}
-{\scriptsize\verbatiminput{makefile.txt}}
+%\section{\label{makefile}Makefile}
+%{\scriptsize\verbatiminput{makefile.txt}}
 
-\section{refs.bib}
-{\scriptsize\verbatiminput{refs.bib}}
+%\section{refs.bib}
+%{\scriptsize\verbatiminput{refs.bib}}
 
 
 \cleardoublepage

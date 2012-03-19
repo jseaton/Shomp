@@ -1,0 +1,519 @@
+Joseph Seaton
+
+Shader Compositor
+Part II Computer Science
+Fitzwilliam College
+March 14, 2012
+
+Proforma
+Name:
+College:
+Project Title:
+Word Count:
+Project Originator:
+Supervisor:
+
+Joseph Seaton
+Fitzwilliam College
+Shader Compositor
+0
+Christian Richardt
+Christian Richardt
+
+Original Aims of the Project
+Work Completed
+Special Diﬃculties
+
+i
+
+Declaration
+I, Joseph Seatonof Fitzwilliam College, being a candidate for Part II of the Computer Science Tripos, hereby declare that this dissertation and the work described
+in it are my own work, unaided except as may be speciﬁed below, and that the dissertation does not contain material that has already been used to any substantial
+extent for a comparable purpose.
+Signed
+Date
+
+ii
+
+Contents
+1 Introduction
+1.1 Brief introduction to Shaders . . . . . . . . . . . . . . . . . . . .
+1.2 Overview of the ﬁles . . . . . . . . . . . . . . . . . . . . . . . . .
+
+1
+1
+1
+
+2 Preparation
+2.1 Background Reading . . .
+2.1.1 OpenGL and GLSL
+2.1.2 Javascript . . . . .
+2.2 Libraries . . . . . . . . . .
+
+.
+.
+.
+.
+
+3
+3
+3
+3
+3
+
+.
+.
+.
+.
+.
+
+5
+5
+5
+5
+5
+5
+
+4 Evaluation
+4.1 Parser Correctness . . . . . . . . . . . . . . . . . . . . . . . . . .
+4.2 Pipeline Correctness . . . . . . . . . . . . . . . . . . . . . . . . .
+4.3 Speed . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+7
+7
+7
+7
+
+5 Conclusion
+5.1 Further Work . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+9
+9
+
+3 Implementation
+3.1 WebGL . . .
+3.2 Parser . . . .
+3.3 Testing . . . .
+3.4 Optimisation
+3.5 User Interface
+
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+
+Bibliography
+
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+
+.
+.
+.
+.
+
+.
+.
+.
+.
+.
+
+11
+
+iii
+
+List of Figures
+
+iv
+
+Acknowledgements
+This document owes much to an earlier version written by Simon Moore [1]. His
+help, encouragement and advice was greatly appreciated.
+
+v
+
+vi
+
+Chapter 1
+Introduction
+1.1
+
+Brief introduction to Shaders
+
+1.2
+
+Overview of the ﬁles
+
+This document consists of the following ﬁles:
+
+1
+
+2
+
+CHAPTER 1. INTRODUCTION
+
+Chapter 2
+Preparation
+2.1
+2.1.1
+
+Background Reading
+OpenGL and GLSL
+
+Prior to beginning this project, I had very little knowledge of OpenGL barring a
+small amount of personal experience writing toy programs in my spare time. As
+such I needed to gain a better understanding of OpenGL, and some knowledge
+of GLSL before I could begin this project.
+
+2.1.2
+
+Javascript
+
+2.2
+
+Libraries
+
+3
+
+4
+
+CHAPTER 2. PREPARATION
+
+Chapter 3
+Implementation
+3.1
+
+WebGL
+
+TODO: where to talk about this.
+
+3.2
+
+Parser
+
+It was decided that due to time constraints, and the lack of a pressing need for an
+unusual parser, a parser generator would be used. Initially I chose to use JS/CC
+[REF], since it seemed well-documented and quite popular. However, once I had
+used it to generate an appropriate parser for GLSL, it quickly became apparent
+that the parser was insuﬃciently fast to use for such a complicated grammar. In
+fact, I was unable to obtain any timing for the parser, as under Google Chrome,
+even with the simplest inputs it would fail to produce any output before Chrome
+itself decided to kill the process. While it may have been possible to obtain timing
+information, this was clearly to slow to be of any value. I then found Jison [REF],
+a JavaScript port of Bison. This was able to parse even quite complicated input
+in a reasonable amount of time, as is discussed in my evaluation.
+
+3.3
+
+Testing
+
+3.4
+
+Optimisation
+
+3.5
+
+User Interface
+
+5
+
+6
+
+CHAPTER 3. IMPLEMENTATION
+
+Chapter 4
+Evaluation
+4.1
+
+Parser Correctness
+
+4.2
+
+Pipeline Correctness
+
+4.3
+
+Speed
+
+7
+
+8
+
+CHAPTER 4. EVALUATION
+
+Chapter 5
+Conclusion
+5.1
+
+Further Work
+
+9
+
+10
+
+CHAPTER 5. CONCLUSION
+
+Bibliography
+[1] S.W. Moore. How to prepare a dissertation in latex, 1995.
+
+11
+
+12
+
+BIBLIOGRAPHY
+
+

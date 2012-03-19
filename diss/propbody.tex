@@ -24,12 +24,12 @@
 \vspace{0.2in}
 
 \noindent
-{\bf Director of Studies:} Dr M. Richards
+{\bf Director of Studies:} Dr R. Harle
 \vspace{0.2in}
 \noindent
  
 \noindent
-{\bf Project Overseers:} Dr~F.~H.~King  \& Dr~S.~W.~Moore
+{\bf Project Overseers:} [TODO]
 
 \vfil
 \pagebreak
@@ -37,92 +37,138 @@
 % Main document
 
 \section*{Introduction}
+Designing shaders can be laborious work, involving endless back and forth between tweaking the
+code (often minor visual tweaks) and examining the visual output. While programs exist to provide
+previews of individual shaders, modern software, especially for computer game engines, often
+involves multiple shaders chained together, and little software exists to aid shader writers in testing
+such shader pipelines. Furthermore for beginners, the initial process of learning of how to use
+shaders is complicated by this extra legwork to compose shaders. The aim of this project is to
+alleviate these problems to some degree.
 
-Many students write their CST and Diploma dissertations in \LaTeX\ and
-spend a fair amount of time learning just how to do that. The purpos of 
-this project is to write a demonsatration dissertation that explains in
-detail how it done and how the result can be given to the Bookshop
-on an MSDOS floppy disk for printing and binding.
+\subsection{Aside on Shaders}
+A 'shader' is a piece of code that runs directly on a GPU. Shaders work on the data flow model, in
+that once the code is set up, many data may be fed through it. In OpenGL, which this project will
+focus on, such shaders are divided into a number of types. The two types considered here are vertex
+shaders and fragment shaders although there are others including geometry shaders which could be
+considered as an extension. Vertex shaders operate on a vertex, and its associated data, performing
+such operations as transforming a vertex to the screen coordinates. Fragment shaders
+(approximately speaking) operate on individual pixels, and are often used for operations such as
+texturing a model. Vertex shaders may pass information to fragment shaders, and the underlying
+program using the shaders may pass information to both.
 
-\section*{Work that has to be done}
+\subsection{The Project}
+This project intends to provide an interface to allow a user to create a set of shaders, written in a
+slightly annotated version of GLSL. The attributes of these shaders will be detected, along with the
+type of each attribute, and, given a specification of how to connect these attributes (provided either
+via a GUI or a simple language), a pipeline of these shaders will be constructed.
+It should be noted that the construction of said pipeline will require a number of stages, namely
+construction of a simple GLSL parser, generation of a DAG of shaders, linearisation of said DAG,
+and finally application of this DAG to FrameBuffer Objects for offscreen rendering, finishing in
+some rendered model. Since FBOs can be reused, an efficient mapping is non-trivial. Furthermore,
+there is room for optimisation of this DAG – consider unification of identical textures, or extraction
+of common code.
+The interface should also provide some facility to allow the user to easily modify shader parameters
+by e.g. selecting textures, or setting the colour of a vector. Addition of simple annotations to the
+GLSL may be useful here, such as specifying the range of a vector.
+Since this project is intended to be used partly as a learning tool, I propose to use WebGL, a
+standard for using OpenGL (including GLSL) on the web, via JavaScript. Since WebGL is cross
+platform by design and requires only a recent webbrowser to use, As WebGL is quite a new
+technology, it is possible that this may turn out to be infeasible, in which case I would use Python.
 
-The project breaks down into the following main sections:-
+\subsection{Resources Required}
+Since this project will involve OpenGL shaders, a recent graphics card supporting a recent version
+of OpenGL will be required. To this end I would use my own computer with its AMD HD5450
+graphics card. Depending upon the speed at which my test harness runs, I may consider upgrading
+to a more powerful card such as the HD6770.
 
+\subsection{Starting Point}
+I have some existing knowledge of OpenGL and GLSL from personal experience, but only to the
+extent of small personal projects. I have a reasonable amount of experience with JavaScript having
+used it in the past for web development work – but in conjunction with a server-side language.
+Substance and Structure of the Project
+The project involves writing software providing a user interface in which to input a set of shaders
+and the connections between them and view a sample output of the generated shader pipeline on a
+sample model.
+Most notably to do this the project requires software to be written that given a set of shaders and a
+specification of how to connect them, can parse each shader, extract its parameters, and construct
+the specified pipeline.
+Furthermore the user interface should provide the ability to easily vary the parameters of each
+shader on the fly. This and the above comprise the core of the project.
+By way of extensions, there is much scope for fleshing out the interface into a fully-featured
+development tool, with such additions as example shaders, a more complete set of sample scenes,
+and so on. There is also some room for optimisation of the composition process, for example the
+unification of identical textures or extraction of common code between shaders.
+For evaluation, in order to demonstrate correct composition, a testing framework will be written that
+takes a set of semantically obvious or simple shaders and composites them in arbitrary ways and
+tests whether the output matches the expected result. Also pipeline speed/memory use comparisons
+of before/after the implementation of the extensions will be performed, along with comparisons of
+recomplilation speed before/after optimisation (i.e. detection of modified shader). Further
+comparisons include comparisons of a generated pipeline against a hand-coded shader, or a
+comparison of the time complexity of a given pipeline to a JavaScript program carrying out the
+same task.
+
+
+\section{Success Criteria}
+The following should be achieved:
 \begin{enumerate}
-
-\item The construction of a skeleton dissertation with the required 
-structure. This involves writing the Makefile and makeing dummy files
-for the title page, the proforma, chapters 1 to 5, the appendices and
-the proposal.
-
-\item Filling in the details required in the cover page and proforma.
-
-\item Writing the contents of chapters 1 to 5, including examples
-of common \LaTeX\ constructs.
-
-\item Adding a example of how to use floating figures and encapsulated
-postscript diagrams.
-
+\item Interface to construct shaders, specify connections between shaders
+\item Detection of parameters of set of shaders, parameters presented to the user somehow
+\item Sample scene output for single shader
+\item Demonstration of correct composition (with sample scene output) for various shaders with
+pipeline specifications
+\item Provide basic syntax highlighting of GLSL in interface
+\end{enumerate}
+Extensions:
+Demonstration of some optimisations:
+\begin{enumerate}
+\item Reuse of FBOs in shader pipeline
+\item Automatic unification of identical textures
+\item Splitting shared code off into separate shaders
+\item Avoiding recompiling shaders unnecessarily
+\end{enumerate}
+Demonstration of some additional GUI work:
+\begin{enumerate}
+\item Presentation of sliders with range detected from range annotations in shaders,
+\item Some facility for animation (e.g. parameters that are automatically incremented)
+\item Shader and/or scene test suite
 \end{enumerate}
 
-\section*{Difficulties to Overcome}
-
-The following main learning tasks will have to be undertaken before 
-the project can be started:
-
-\begin{itemize}
-
-\item To learn \LaTeX\ and its use on Thor.
-
-\item To discover how to incorporate encapsulated postscript into
-a \LaTeX\ document, and to find a suitable drawing package on Thor
-to recommend.
-
-\item To discover what format the Bookshop would like for the finished
-dissertation, and how to deal with postscript files that are too
-large to fit on a single floppy disk.
-
-\end{itemize}
-
-
-
-\section*{Starting Point}
-
-I have a reasonable working knowledge of \LaTeX\ and have convenient
-access to Thor using an IBM PC in my office. Writing MSDOS disks is no 
-problem.
-
-\section*{Resources}
-
-This project requires little file space so 25Mbytes of disk space on Thor
-should be sufficient. I plan to use my own IBM PC to write floppy disks, 
-but could use the PWF PCs if my own machine breaks down. 
-
-Backup will be on floppy disks.
-
-\section*{Work Plan}
-
-Planned starting date is 01/12/2000.
-
-\subsection*{Michaelmas Term} 
-
-By the end of this term I intend to have completed the learning tasks 
-outlined in the relevant section.
-
-
-\subsection*{Lent Term}
-
-By the division of term the overall structure of the dissertation
-will have been written and tested.
-
-By the end of term, example figures using encapsulated postscript
-will have been included.
- 
-
-\subsection*{Easter Term}
-
-On completion of the exams I will incorporate final details into 
-the dissertation including a bibliography using bibtex and a table of contents.
-The estimated completion date being 25/07/2001 to allow 
-plenty of time should any unforeseen problems arise.
-
+\section{Timetable and Milestones}
+\subsection{Weeks 0-2: 22nd October – 11th November}
+Initial reading. In particular, the OpenGL 'red book'. Setup of barebones GUI, associated libraries.
+Preparation of automatic backups.
+Milestone: dummy interface for single shader.
+\subsection{Weeks 3-5: 12th November – 2nd December}
+Construction and testing of GLSL parser. Further familiarisation with GLSL.
+Milestone: ability to parse simple GLSL
+\subsection{Weeks 6-8: 3rd December – 23rd December}
+Write shader DAG generating code, DAG linearisation code. Initial work on application to FBOs.
+Milestone: generation of linearised shader DAGs
+\subsection{Weeks 9-11: 24th December – 13th January}
+Complete actual pipeline – given some DAG, the project should be able to render the pipeline to a
+quad. Complete interface such that the pipeline order can be specified, either via a GUI or via some
+written specification. Basic parser may be sensible.
+Milestone: ability to render a given shader pipeline
+\subsection{Weeks 12-14: 14th January – 3rd Feburary}
+Preparation of progress report. Presentation of shader parameters in GUI. Initial
+work on texture unification and other optimisations. Initial work on test suite.
+Milestone: Progress report prepared. Ability to vary shader parameters from the GUI. Ability to
+unify some identical textures (or reduced FBO or code usage, depending on extension). Some tests
+written.
+\subsection{Weeks 15-17: 4th February – 24th February}
+Presentation of progress report. Further testing of core functionality, expansion of test cases. Bug
+fixing. Possibly initial
+optimisation work.
+Milestone: Progress report given. Large test suite. Lack of obvious bugs in core.
+\subsection{Weeks 18-20: 25th February – 16th March}
+Additional GUI work and/or optimisation. Slack time for unexpected problems. Optimisations can
+be skipped if more time is needed for core work.
+Milestone: Better featured GUI and/or some further optimisations.
+\subsection{Weeks 21-23: 17th March – 6th April}
+Begin work on dissertation. Programming work should be finished by now, although some
+expansion of the test suite may be acceptable.
+Milestone: complete initial sections of dissertation.
+\subsection{Weeks 24-26: 7th April – 27th April}
+Finish first draft of dissertation.
+\subsection{Weeks 27-29: 28th April – 18th May}
+Proofreading and submission.

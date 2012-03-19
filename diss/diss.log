@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2012/dev/Arch Linux) (format=latex 2012.2.5)  9 MAR 2012 11:13
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2012/dev/Arch Linux) (format=latex 2012.2.5)  15 MAR 2012 11:03
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -87,24 +87,54 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <8> on input line 2.
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <6> on input line 2.
+ [3
+
+
+]
+Missing character: There is no â in font cmr12!
+Missing character: There is no € in font cmr12!
+Missing character: There is no “ in font cmr12!
+Missing character: There is no â in font cmr12!
+Missing character: There is no € in font cmr12!
+Missing character: There is no “ in font cmr12!
+Missing character: There is no â in font cmr12!
+Missing character: There is no € in font cmr12!
+Missing character: There is no “ in font cmr12!
+Missing character: There is no â in font cmr12!
+Missing character: There is no € in font cmr12!
+Missing character: There is no “ in font cmr12!
+Missing character: There is no â in font cmr12!
+Missing character: There is no € in font cmr12!
+Missing character: There is no “ in font cmr12!
+Missing character: There is no â in font cmr12!
+Missing character: There is no € in font cmr12!
+Missing character: There is no “ in font cmr12!
+Missing character: There is no â in font cmr12!
+Missing character: There is no € in font cmr12!
+Missing character: There is no “ in font cmr12!
+Missing character: There is no â in font cmr12!
+Missing character: There is no € in font cmr12!
+Missing character: There is no “ in font cmr12!
+Missing character: There is no â in font cmr12!
+Missing character: There is no € in font cmr12!
+Missing character: There is no “ in font cmr12!
+Missing character: There is no â in font cmr12!
+Missing character: There is no € in font cmr12!
+Missing character: There is no “ in font cmr12!
 )
 \tf@toc=\write3
 \openout3 = `diss.toc'.
 
- [3
-
-
-] (./diss.lof)
+ [4] (./diss.lof)
 \tf@lof=\write4
 \openout4 = `diss.lof'.
 
- [4
+ [5
 
-] [5] [6
-
-]
+] [6]
 Chapter 1.
 [1
+
 
 ] [2
 
@@ -112,68 +142,87 @@ Chapter 1.
 Chapter 2.
 [3
 
-] [4
+] [4] [5] [6
 
 ]
 Chapter 3.
-[5
-
-] [6
-
-]
-Chapter 4.
 [7
 
 ] [8
 
 ]
-Chapter 5.
+Chapter 4.
 [9
 
 ] [10
 
-] (./diss.bbl) [11
+]
+Chapter 5.
+[11
 
 ] [12
 
+] (./diss.bbl) [13
+
+] [14
+
 ]
 Appendix A.
-File: diss.tex  (verbatim)
-[13
-
-] [14] [15]
-File: proposal.tex  (verbatim)
-File: propbody.tex  (verbatim)
- [16] [17] [18] [19] [20
-
-]
-Appendix B.
-File: makefile.txt  (verbatim)
-[21
-
-]
-File: refs.bib  (verbatim)
- [22]
-Appendix C.
-(./propbody.tex [23
+(./propbody.tex [15
 
 
 ]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 75.
- (/usr/share/texmf-dist/tex/latex/base/omscmr.fd
-File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
-)
-LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 75.
- [24])
-[25] (./diss.aux) ) 
+Missing character: There is no â in font cmr12!
+Missing character: There is no € in font cmr12!
+Missing character: There is no “ in font cmr12!
+ [16]
+Missing character: There is no â in font cmr12!
+Missing character: There is no € in font cmr12!
+Missing character: There is no “ in font cmr12!
+ [17]
+Missing character: There is no â in font cmbx12!
+Missing character: There is no € in font cmbx12!
+Missing character: There is no “ in font cmbx12!
+ [18]
+Missing character: There is no â in font cmbx12!
+Missing character: There is no € in font cmbx12!
+Missing character: There is no “ in font cmbx12!
+Missing character: There is no â in font cmbx12!
+Missing character: There is no € in font cmbx12!
+Missing character: There is no “ in font cmbx12!
+Missing character: There is no â in font cmbx12!
+Missing character: There is no € in font cmbx12!
+Missing character: There is no “ in font cmbx12!
+Missing character: There is no â in font cmr12!
+Missing character: There is no € in font cmr12!
+Missing character: There is no “ in font cmr12!
+Missing character: There is no â in font cmbx12!
+Missing character: There is no € in font cmbx12!
+Missing character: There is no “ in font cmbx12!
+Missing character: There is no â in font cmbx12!
+Missing character: There is no € in font cmbx12!
+Missing character: There is no “ in font cmbx12!
+Missing character: There is no â in font cmbx12!
+Missing character: There is no € in font cmbx12!
+Missing character: There is no “ in font cmbx12!
+ [19]
+Missing character: There is no â in font cmbx12!
+Missing character: There is no € in font cmbx12!
+Missing character: There is no “ in font cmbx12!
+Missing character: There is no â in font cmbx12!
+Missing character: There is no € in font cmbx12!
+Missing character: There is no “ in font cmbx12!
+Missing character: There is no â in font cmbx12!
+Missing character: There is no € in font cmbx12!
+Missing character: There is no “ in font cmbx12!
+) [20] (./diss.aux) ) 
 Here is how much of TeX's memory you used:
- 416 strings out of 493630
- 4914 string characters out of 3148802
- 55498 words of memory out of 3000000
- 3763 multiletter control sequences out of 15000+200000
- 10241 words of font info for 36 fonts, out of 3000000 for 9000
+ 386 strings out of 493630
+ 4504 string characters out of 3148802
+ 55487 words of memory out of 3000000
+ 3742 multiletter control sequences out of 15000+200000
+ 10073 words of font info for 35 fonts, out of 3000000 for 9000
  831 hyphenation exceptions out of 8191
- 23i,6n,19p,178b,306s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 23i,6n,19p,885b,156s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on diss.dvi (33 pages, 24120 bytes).
+Output written on diss.dvi (28 pages, 41124 bytes).
