@@ -1,8 +1,8 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2012/dev/Arch Linux) (format=latex 2012.2.5)  15 MAR 2012 11:03
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2012/dev/Arch Linux) (format=pdflatex 2012.2.5)  4 APR 2012 14:20
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**diss
+**diss.tex
 (./diss.tex
 LaTeX2e <2011/06/27>
 Babel <v3.8m> and hyphenation patterns for english, dumylang, nohyphenation, ge
@@ -43,42 +43,95 @@ Package: verbatim 2003/08/22 v1.5q LaTeX2e package for verbatim enhancements
 \verbatim@line=\toks15
 \verbatim@in@stream=\read1
 )
+(/usr/share/texmf-dist/tex/latex/algorithmicx/algpseudocode.sty
+Package: algpseudocode 
+
+(/usr/share/texmf-dist/tex/latex/base/ifthen.sty
+Package: ifthen 2001/05/26 v1.1c Standard LaTeX ifthen package (DPC)
+)
+(/usr/share/texmf-dist/tex/latex/algorithmicx/algorithmicx.sty
+Package: algorithmicx 2005/04/27 v1.2 Algorithmicx
+
+Document Style algorithmicx 1.2 - a greatly improved `algorithmic' style
+\c@ALG@line=\count88
+\c@ALG@rem=\count89
+\c@ALG@nested=\count90
+\ALG@tlm=\skip43
+\ALG@thistlm=\skip44
+\c@ALG@Lnr=\count91
+\c@ALG@blocknr=\count92
+\c@ALG@storecount=\count93
+\c@ALG@tmpcounter=\count94
+\ALG@tmplength=\skip45
+)
+Document Style - pseudocode environments for use with the `algorithmicx' style
+) (/usr/share/texmf-dist/tex/latex/listings/listings.sty
+(/usr/share/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
+\KV@toks@=\toks16
+)
+\lst@mode=\count95
+\lst@gtempboxa=\box26
+\lst@token=\toks17
+\lst@length=\count96
+\lst@currlwidth=\dimen103
+\lst@column=\count97
+\lst@pos=\count98
+\lst@lostspace=\dimen104
+\lst@width=\dimen105
+\lst@newlines=\count99
+\lst@lineno=\count100
+\lst@maxwidth=\dimen106
+
+(/usr/share/texmf-dist/tex/latex/listings/lstmisc.sty
+File: lstmisc.sty 2007/02/22 1.4 (Carsten Heinz)
+\c@lstnumber=\count101
+\lst@skipnumbers=\count102
+\lst@framebox=\box27
+)
+(/usr/share/texmf-dist/tex/latex/listings/listings.cfg
+File: listings.cfg 2007/02/22 1.4 listings configuration
+))
+Package: listings 2007/02/22 1.4 (Carsten Heinz)
+
 (/usr/share/texmf-dist/tex/generic/epsf/epsf.tex
 This is `epsf.tex' v2.7.4 <14 February 2011>
 \epsffilein=\read2
-\epsfframemargin=\dimen103
-\epsfframethickness=\dimen104
-\epsfrsize=\dimen105
-\epsftmp=\dimen106
-\epsftsize=\dimen107
-\epsfxsize=\dimen108
-\epsfysize=\dimen109
-\pspoints=\dimen110
+\epsfframemargin=\dimen107
+\epsfframethickness=\dimen108
+\epsfrsize=\dimen109
+\epsftmp=\dimen110
+\epsftsize=\dimen111
+\epsfxsize=\dimen112
+\epsfysize=\dimen113
+\pspoints=\dimen114
 ) (./diss.aux)
 \openout1 = `diss.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 30.
-LaTeX Font Info:    ... okay on input line 30.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 30.
-LaTeX Font Info:    ... okay on input line 30.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 30.
-LaTeX Font Info:    ... okay on input line 30.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 30.
-LaTeX Font Info:    ... okay on input line 30.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 30.
-LaTeX Font Info:    ... okay on input line 30.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 30.
-LaTeX Font Info:    ... okay on input line 30.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+\c@lstlisting=\count103
  [1
 
-] [2
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2
 
 ]
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <14.4> on input line 70.
+(Font)              <14.4> on input line 67.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 70.
- [1
+(Font)              <7> on input line 67.
+
+[1
 
 ] [2] (./diss.toc
 LaTeX Font Info:    External font `cmex10' loaded for size
@@ -90,38 +143,7 @@ LaTeX Font Info:    External font `cmex10' loaded for size
  [3
 
 
-]
-Missing character: There is no â in font cmr12!
-Missing character: There is no € in font cmr12!
-Missing character: There is no “ in font cmr12!
-Missing character: There is no â in font cmr12!
-Missing character: There is no € in font cmr12!
-Missing character: There is no “ in font cmr12!
-Missing character: There is no â in font cmr12!
-Missing character: There is no € in font cmr12!
-Missing character: There is no “ in font cmr12!
-Missing character: There is no â in font cmr12!
-Missing character: There is no € in font cmr12!
-Missing character: There is no “ in font cmr12!
-Missing character: There is no â in font cmr12!
-Missing character: There is no € in font cmr12!
-Missing character: There is no “ in font cmr12!
-Missing character: There is no â in font cmr12!
-Missing character: There is no € in font cmr12!
-Missing character: There is no “ in font cmr12!
-Missing character: There is no â in font cmr12!
-Missing character: There is no € in font cmr12!
-Missing character: There is no “ in font cmr12!
-Missing character: There is no â in font cmr12!
-Missing character: There is no € in font cmr12!
-Missing character: There is no “ in font cmr12!
-Missing character: There is no â in font cmr12!
-Missing character: There is no € in font cmr12!
-Missing character: There is no “ in font cmr12!
-Missing character: There is no â in font cmr12!
-Missing character: There is no € in font cmr12!
-Missing character: There is no “ in font cmr12!
-)
+])
 \tf@toc=\write3
 \openout3 = `diss.toc'.
 
@@ -136,93 +158,98 @@ Chapter 1.
 [1
 
 
-] [2
-
 ]
+Overfull \hbox (250.76009pt too wide) in paragraph at lines 148--149
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (53.36043pt too wide) in paragraph at lines 149--150
+[][][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (53.36043pt too wide) in paragraph at lines 150--151
+[][][][][][][][][][][][][][][][][][][][] 
+ []
+
+[2]
 Chapter 2.
 [3
 
-] [4] [5] [6
 
-]
+] [4]
+Underfull \hbox (badness 1509) in paragraph at lines 183--184
+\OT1/cmr/m/n/12 gram-ming from web de-vel-op-ment work, I thought it would be w
+ise to
+ []
+
+
+Underfull \hbox (badness 1824) in paragraph at lines 183--184
+\OT1/cmr/m/n/12 re-fresh my-self be-fore start-ing on a more com-plex project s
+uch as this
+ []
+
+
+Underfull \hbox (badness 1215) in paragraph at lines 183--184
+\OT1/cmr/m/n/12 one. I found par-tic-u-larly use-ful [REF http://eloquentjavasc
+ript.net] and
+ []
+
+[5] [6]
 Chapter 3.
 [7
 
-] [8
+
+] [8]
+Missing character: There is no â in font cmr12!
+Missing character: There is no € in font cmr12!
+Missing character: There is no “ in font cmr12!
+ [9] [10] [11] [12] [13] [14
 
 ]
 Chapter 4.
-[9
+[15
 
-] [10
-
-]
+] [16]
 Chapter 5.
-[11
+[17
 
-] [12
 
-] (./diss.bbl) [13
+] [18
 
-] [14
+] (./diss.bbl
+
+LaTeX Warning: Empty `thebibliography' environment on input line 3.
+
+) [19
+
+] [20
 
 ]
 Appendix A.
-(./propbody.tex [15
+[21
 
 
-]
-Missing character: There is no â in font cmr12!
-Missing character: There is no € in font cmr12!
-Missing character: There is no “ in font cmr12!
- [16]
-Missing character: There is no â in font cmr12!
-Missing character: There is no € in font cmr12!
-Missing character: There is no “ in font cmr12!
- [17]
-Missing character: There is no â in font cmbx12!
-Missing character: There is no € in font cmbx12!
-Missing character: There is no “ in font cmbx12!
- [18]
-Missing character: There is no â in font cmbx12!
-Missing character: There is no € in font cmbx12!
-Missing character: There is no “ in font cmbx12!
-Missing character: There is no â in font cmbx12!
-Missing character: There is no € in font cmbx12!
-Missing character: There is no “ in font cmbx12!
-Missing character: There is no â in font cmbx12!
-Missing character: There is no € in font cmbx12!
-Missing character: There is no “ in font cmbx12!
-Missing character: There is no â in font cmr12!
-Missing character: There is no € in font cmr12!
-Missing character: There is no “ in font cmr12!
-Missing character: There is no â in font cmbx12!
-Missing character: There is no € in font cmbx12!
-Missing character: There is no “ in font cmbx12!
-Missing character: There is no â in font cmbx12!
-Missing character: There is no € in font cmbx12!
-Missing character: There is no “ in font cmbx12!
-Missing character: There is no â in font cmbx12!
-Missing character: There is no € in font cmbx12!
-Missing character: There is no “ in font cmbx12!
- [19]
-Missing character: There is no â in font cmbx12!
-Missing character: There is no € in font cmbx12!
-Missing character: There is no “ in font cmbx12!
-Missing character: There is no â in font cmbx12!
-Missing character: There is no € in font cmbx12!
-Missing character: There is no “ in font cmbx12!
-Missing character: There is no â in font cmbx12!
-Missing character: There is no € in font cmbx12!
-Missing character: There is no “ in font cmbx12!
-) [20] (./diss.aux) ) 
+] (./diss.aux) ) 
 Here is how much of TeX's memory you used:
- 386 strings out of 493630
- 4504 string characters out of 3148802
- 55487 words of memory out of 3000000
- 3742 multiletter control sequences out of 15000+200000
- 10073 words of font info for 35 fonts, out of 3000000 for 9000
+ 2114 strings out of 493629
+ 29648 string characters out of 3148779
+ 86411 words of memory out of 3000000
+ 5445 multiletter control sequences out of 15000+200000
+ 10374 words of font info for 36 fonts, out of 3000000 for 9000
  831 hyphenation exceptions out of 8191
- 23i,6n,19p,885b,156s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 27i,6n,32p,889b,843s stack positions out of 5000i,500n,10000p,200000b,50000s
+</usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pf
+b></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share
+/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texmf-dist/fo
+nts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-dist/fonts/type1/publi
+c/amsfonts/cm/cmr17.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/c
+msl12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
+Output written on diss.pdf (29 pages, 119409 bytes).
+PDF statistics:
+ 125 PDF objects out of 1000 (max. 8388607)
+ 86 compressed objects within 1 object stream
+ 0 named destinations out of 1000 (max. 500000)
+ 1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
-Output written on diss.dvi (28 pages, 41124 bytes).

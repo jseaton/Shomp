@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2012/dev/Arch Linux) (format=latex 2012.2.5)  9 MAR 2012 11:13
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2012/dev/Arch Linux) (format=latex 2012.2.5)  4 APR 2012 14:19
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -126,32 +126,61 @@ LaTeX Font Info:    ... okay on input line 7.
 
 
 ]
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <12> on input line 41.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 41.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 41.
-LaTeX Font Info:    Try loading font information for U+lasy on input line 41.
- (/usr/share/texmf-dist/tex/latex/base/ulasy.fd
-File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
-)
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 75.
+Missing character: There is no â in font cmr12!
+Missing character: There is no € in font cmr12!
+Missing character: There is no “ in font cmr12!
+ [2]
+Missing character: There is no â in font cmr12!
+Missing character: There is no € in font cmr12!
+Missing character: There is no “ in font cmr12!
+ [3]
+Overfull \hbox (6.71384pt too wide) in paragraph at lines 131--132
+[]\OT1/cmr/m/n/12 Presentation of slid-ers with range de-tected from range an-n
+o-ta-tions in shaders, 
+ []
 
-(/usr/share/texmf-dist/tex/latex/base/omscmr.fd
-File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
-)
-LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 75.
- [2]) [3] (./proposal.aux
-(./propbody.aux)) ) 
+Missing character: There is no â in font cmbx12!
+Missing character: There is no € in font cmbx12!
+Missing character: There is no “ in font cmbx12!
+Missing character: There is no â in font cmbx12!
+Missing character: There is no € in font cmbx12!
+Missing character: There is no “ in font cmbx12!
+Missing character: There is no â in font cmbx12!
+Missing character: There is no € in font cmbx12!
+Missing character: There is no “ in font cmbx12!
+[4]
+Missing character: There is no â in font cmbx12!
+Missing character: There is no € in font cmbx12!
+Missing character: There is no “ in font cmbx12!
+Missing character: There is no â in font cmr12!
+Missing character: There is no € in font cmr12!
+Missing character: There is no “ in font cmr12!
+Missing character: There is no â in font cmbx12!
+Missing character: There is no € in font cmbx12!
+Missing character: There is no “ in font cmbx12!
+Missing character: There is no â in font cmbx12!
+Missing character: There is no € in font cmbx12!
+Missing character: There is no “ in font cmbx12!
+Missing character: There is no â in font cmbx12!
+Missing character: There is no € in font cmbx12!
+Missing character: There is no “ in font cmbx12!
+Missing character: There is no â in font cmbx12!
+Missing character: There is no € in font cmbx12!
+Missing character: There is no “ in font cmbx12!
+Missing character: There is no â in font cmbx12!
+Missing character: There is no € in font cmbx12!
+Missing character: There is no “ in font cmbx12!
+Missing character: There is no â in font cmbx12!
+Missing character: There is no € in font cmbx12!
+Missing character: There is no “ in font cmbx12!
+) [5] [6] (./proposal.aux (./propbody.aux)) ) 
 Here is how much of TeX's memory you used:
- 396 strings out of 493630
- 4683 string characters out of 3148802
- 53273 words of memory out of 3000000
- 3739 multiletter control sequences out of 15000+200000
- 13252 words of font info for 48 fonts, out of 3000000 for 9000
+ 320 strings out of 493630
+ 3611 string characters out of 3148802
+ 54273 words of memory out of 3000000
+ 3691 multiletter control sequences out of 15000+200000
+ 5456 words of font info for 20 fonts, out of 3000000 for 9000
  831 hyphenation exceptions out of 8191
- 25i,4n,20p,238b,147s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 24i,4n,19p,183b,164s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on proposal.dvi (3 pages, 4708 bytes).
+Output written on proposal.dvi (6 pages, 13132 bytes).

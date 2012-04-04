@@ -1,53 +1,65 @@
 \contentsline {chapter}{\numberline {1}Introduction}{1}
 \contentsline {section}{\numberline {1.1}Motivation}{1}
 \contentsline {section}{\numberline {1.2}Brief introduction to Shaders}{1}
+\contentsline {subsection}{\numberline {1.2.1}A look at some OpenGL calls}{2}
 \contentsline {chapter}{\numberline {2}Preparation}{3}
 \contentsline {section}{\numberline {2.1}Development Environment}{3}
 \contentsline {subsection}{\numberline {2.1.1}WebGL}{3}
 \contentsline {subsection}{\numberline {2.1.2}Emacs}{3}
 \contentsline {subsection}{\numberline {2.1.3}node.js}{3}
-\contentsline {subsection}{\numberline {2.1.4}Google Chrome}{3}
+\contentsline {subsection}{\numberline {2.1.4}Google Chrome}{4}
 \contentsline {subsection}{\numberline {2.1.5}WebGL Inspector}{4}
 \contentsline {section}{\numberline {2.2}Software Development Process}{4}
 \contentsline {section}{\numberline {2.3}Preparatory Learning}{4}
 \contentsline {subsection}{\numberline {2.3.1}Background Reading}{4}
 \contentsline {subsubsection}{OpenGL and GLSL}{4}
-\contentsline {subsubsection}{Javascript}{4}
-\contentsline {section}{\numberline {2.4}Libraries}{4}
-\contentsline {subsection}{\numberline {2.4.1}JQuery}{4}
-\contentsline {subsection}{\numberline {2.4.2}WebGL Toolkit}{4}
-\contentsline {subsection}{\numberline {2.4.3}GUI Toolkit}{5}
-\contentsline {subsubsection}{Editor}{5}
-\contentsline {section}{\numberline {2.5}Version Control and Backup Strategy}{5}
+\contentsline {subsubsection}{Javascript}{5}
+\contentsline {section}{\numberline {2.4}Libraries}{5}
+\contentsline {subsection}{\numberline {2.4.1}JQuery}{5}
+\contentsline {subsection}{\numberline {2.4.2}WebGL Toolkit}{5}
+\contentsline {subsection}{\numberline {2.4.3}GUI Toolkit}{6}
+\contentsline {subsubsection}{Editor}{6}
+\contentsline {section}{\numberline {2.5}Version Control and Backup Strategy}{6}
 \contentsline {chapter}{\numberline {3}Implementation}{7}
 \contentsline {section}{\numberline {3.1}WebGL}{7}
-\contentsline {section}{\numberline {3.2}Parser}{7}
-\contentsline {section}{\numberline {3.3}Testing}{7}
-\contentsline {section}{\numberline {3.4}Optimisation}{7}
-\contentsline {section}{\numberline {3.5}User Interface}{7}
-\contentsline {chapter}{\numberline {4}Evaluation}{9}
-\contentsline {section}{\numberline {4.1}Parser Correctness}{9}
-\contentsline {section}{\numberline {4.2}Pipeline Correctness}{9}
-\contentsline {section}{\numberline {4.3}Speed}{9}
-\contentsline {chapter}{\numberline {5}Conclusion}{11}
-\contentsline {section}{\numberline {5.1}Main Results}{11}
-\contentsline {section}{\numberline {5.2}Lessons Learned}{11}
-\contentsline {section}{\numberline {5.3}Further Work}{11}
-\contentsline {chapter}{Bibliography}{13}
-\contentsline {chapter}{\numberline {A}Project Proposal}{15}
-\contentsline {subsection}{\numberline {A.0.1}Aside on Shaders}{16}
-\contentsline {subsection}{\numberline {A.0.2}The Project}{16}
-\contentsline {subsection}{\numberline {A.0.3}Resources Required}{17}
-\contentsline {subsection}{\numberline {A.0.4}Starting Point}{17}
-\contentsline {section}{\numberline {A.1}Success Criteria}{18}
-\contentsline {section}{\numberline {A.2}Timetable and Milestones}{19}
-\contentsline {subsection}{\numberline {A.2.1}Weeks 0-2: 22nd October – 11th November}{19}
-\contentsline {subsection}{\numberline {A.2.2}Weeks 3-5: 12th November – 2nd December}{19}
-\contentsline {subsection}{\numberline {A.2.3}Weeks 6-8: 3rd December – 23rd December}{19}
-\contentsline {subsection}{\numberline {A.2.4}Weeks 9-11: 24th December – 13th January}{19}
-\contentsline {subsection}{\numberline {A.2.5}Weeks 12-14: 14th January – 3rd Feburary}{19}
-\contentsline {subsection}{\numberline {A.2.6}Weeks 15-17: 4th February – 24th February}{19}
-\contentsline {subsection}{\numberline {A.2.7}Weeks 18-20: 25th February – 16th March}{20}
-\contentsline {subsection}{\numberline {A.2.8}Weeks 21-23: 17th March – 6th April}{20}
-\contentsline {subsection}{\numberline {A.2.9}Weeks 24-26: 7th April – 27th April}{20}
-\contentsline {subsection}{\numberline {A.2.10}Weeks 27-29: 28th April – 18th May}{20}
+\contentsline {section}{\numberline {3.2}General Outline}{7}
+\contentsline {subsubsection}{Parser}{7}
+\contentsline {subsubsection}{Pipeline Specification}{7}
+\contentsline {subsubsection}{Parameter UI Generation}{7}
+\contentsline {subsubsection}{Pipeline Generation}{7}
+\contentsline {subsubsection}{Pipeline Initialization}{8}
+\contentsline {subsection}{\numberline {3.2.1}Rendering}{8}
+\contentsline {subsection}{\numberline {3.2.2}User Interface}{8}
+\contentsline {section}{\numberline {3.3}Parser}{8}
+\contentsline {subsubsection}{Struct Parsing}{8}
+\contentsline {section}{\numberline {3.4}Pipeline Specification}{9}
+\contentsline {section}{\numberline {3.5}Parameter UI Generation}{9}
+\contentsline {subsection}{\numberline {3.5.1}Struct Handling}{9}
+\contentsline {section}{\numberline {3.6}Pipeline Generation}{10}
+\contentsline {section}{\numberline {3.7}Pipeline Initialization}{10}
+\contentsline {section}{\numberline {3.8}Rendering}{10}
+\contentsline {section}{\numberline {3.9}Testing}{11}
+\contentsline {subsubsection}{Parser Correctness}{11}
+\contentsline {section}{\numberline {3.10}Optimisation}{11}
+\contentsline {subsection}{\numberline {3.10.1}GLOW Early Initialization}{11}
+\contentsline {subsection}{\numberline {3.10.2}Modified Shader Detection}{11}
+\contentsline {subsection}{\numberline {3.10.3}Parameter Value Propagation}{11}
+\contentsline {subsection}{\numberline {3.10.4}GLOW Cache}{12}
+\contentsline {subsection}{\numberline {3.10.5}FBO Reuse}{12}
+\contentsline {section}{\numberline {3.11}User Interface}{12}
+\contentsline {subsection}{\numberline {3.11.1}Editor}{12}
+\contentsline {subsection}{\numberline {3.11.2}Layout}{12}
+\contentsline {subsection}{\numberline {3.11.3}Improved Layout}{12}
+\contentsline {chapter}{\numberline {4}Evaluation}{15}
+\contentsline {section}{\numberline {4.1}Parser Correctness}{15}
+\contentsline {section}{\numberline {4.2}Pipeline Correctness}{15}
+\contentsline {section}{\numberline {4.3}Speed}{15}
+\contentsline {subsubsection}{Effect of Modified Shader Detection}{15}
+\contentsline {subsection}{\numberline {4.3.1}Effect of FBO Reuse}{15}
+\contentsline {section}{\numberline {4.4}Texture Usage}{16}
+\contentsline {chapter}{\numberline {5}Conclusion}{17}
+\contentsline {section}{\numberline {5.1}Main Results}{17}
+\contentsline {section}{\numberline {5.2}Lessons Learned}{17}
+\contentsline {section}{\numberline {5.3}Further Work}{17}
+\contentsline {chapter}{Bibliography}{19}
+\contentsline {chapter}{\numberline {A}Project Proposal}{21}
