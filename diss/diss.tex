@@ -3,7 +3,9 @@
 \usepackage{a4}
 \usepackage{verbatim}
 \usepackage{algpseudocode}
+\usepackage{algorithm}
 \usepackage{listings}
+\usepackage{minted}
 
 \input{epsf}                            % to allow postscript inclusions
 % On thor and CUS read top of file:
@@ -77,19 +79,19 @@ Supervisor:         & Christian Richardt                    \\
 \stepcounter{footnote}
 
 
-\section*{Original Aims of the Project}
+\section*{Original aims of the project}
 To implement a novel user interface for the creation, testing and easy modification of pipelines of shaders. To automatically detect shader parameters and provide a simple interface to change them. To apply some optimisations to parts of this process.
 
-\section*{Work Completed}
-The core of the project has been completed and works satisfactorily. Shaders can be inputted, and a pipeline of shaders can be specified using Javascript, the result of which is shown in-browser. An interface for modifying shader parameters is correctly generated for [TODO: all] most types of parameter. A number of optimisations have been applied, including elimination of unnecessary shader recompilation and pipeline re-generation. [PENDING] The project is also now capable of reusing FBOs between pipeline changes where possible.
+\section*{Work completed}
+The core of the project has been completed and works satisfactorily. Shaders can be created, and a pipeline of shaders can be specified using JavaScript, the result of which is shown in-browser. An interface for modifying shader parameters is correctly generated for [TODO: all] most types of parameter. A number of optimisations have been applied, including elimination of unnecessary shader recompilation and pipeline re-generation. [PENDING] The project is also now capable of reusing FBOs between pipeline changes where possible.
 
-\section*{Special Difficulties}
+\section*{Special difficulties}
 None.
  
 \newpage
 \section*{Declaration}
 
-I, \name of \college, being a candidate for Part II of the Computer
+I, \name \ of \college, being a candidate for Part II of the Computer
 Science Tripos, hereby declare
 that this dissertation and the work described in it are my own work,
 unaided except as may be specified below, and that the dissertation
@@ -105,15 +107,6 @@ extent for a comparable purpose.
 \cleardoublepage
 
 \tableofcontents
-
-\listoffigures
-
-\newpage
-\section*{Acknowledgements}
-
-This document owes much to an earlier version written by Simon Moore
-%\cite{moore95}.  His help, encouragement and advice was greatly 
-appreciated.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % now for the chapters
@@ -134,119 +127,145 @@ Working with OpenGL is usually undeniably messy. OpenGL is a verbose and complic
 For students learning about shaders, OpenGL is often an intimidating and confusing mess that gets in the way of understanding a fundamentally quite simple concept.
 
 This project aims to provide a way of developing shaders that is both useful for developers, and may be used as a tool for students learning about shaders for the first time.
-\section{Brief introduction to Shaders}
+\section{Brief introduction to shaders}
 [TODO] Use of shader program vs shader is messy and technically incorrect throughout.
-In their modern incarnation, OpenGL shaders are quite a simple concept to understand at a high level. A shader is a simple program - 'simple' referring to certain constrains we shall ignore - written in a dataflow style. Such programs take in one item of data at a time, for example a vertex, and output another item of data - the new vertex location, or a pixel value.
+In their modern incarnation, OpenGL shaders are quite a simple concept to understand at a high level. A shader is a simple program -- `simple' referring to certain constraints we shall ignore for now -- written in a dataflow style. Such programs take in one item of data at a time, for example a vertex, and output another item of data -- the new vertex location, or a pixel value.
 In a modern OpenGL implementation, there are two commonly used types of shader (and a few more which will not be discussed). These are vertex shaders, and fragment shaders. 
 \subsection{A look at some OpenGL calls}
-As discussed above, the use of shaders sounds simple. However, as we can see from [REF listing], a short except of the OpenGL calls from an actual WebGL program [REF], the paraphanalia of mostly boilerplate OpenGL calls required for compiling shader programs, specifying parameters and so on can result in a very large codebase for even the simplest program.
-\begin{lstlisting}
+As discussed above, the use of shaders sounds simple. However, as we can see from [REF listing], a short excerpt of the OpenGL calls from an actual WebGL program [REF], the paraphanalia of mostly boilerplate OpenGL calls required for compiling shader programs, specifying parameters and so on can result in a very large codebase for even the simplest program.
+\begin{minted}{javascript}
 rawData = new Uint8Array(noisepixels);
 texture_noise_l = gl.createTexture();
 gl.bindTexture(gl.TEXTURE_2D, texture_noise_l);
 gl.pixelStorei(gl.UNPACK_ALIGNMENT, 1);
-gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, sizeX, sizeY, 0, gl.RGBA, gl.UNSIGNED_BYTE, rawData);
+gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, sizeX, sizeY, 0, gl.RGBA,\\ gl.UNSIGNED_BYTE, rawData);
 gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
 gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
-\end{lstlisting}
+\end{minted}
 \cleardoublepage
 \chapter{Preparation}
 
-\section{Development Environment}
-\subsection{WebGL}
-WebGL is a very recently developed API allowing web-based applications access to OpenGL contexts, via Javascript [REF]. It was decided that the use of web-based technologies would help lower the barrier for use of this project, and therefore shader development in general, since a user needs only visit the correct page using a modern webbrowser. Using WebGL has the added advantage of requiring less familiarisation given my prior experience with Javascript.
+\section{Development environment}
+\subsection*{WebGL}
+WebGL is a very recently developed API allowing web-based applications access to OpenGL ES contexts, via JavaScript [REF]. It was decided that the use of web-based technologies would help lower the barrier for use of this project, and therefore shader development in general, since a user needs only visit the correct page using a modern webbrowser. Using WebGL has the added advantage of requiring less familiarisation given my prior experience with JavaScript. In [REF], we can see that WebGL uses essentially the same API as C does OpenGL ES, except 
 
-\subsection{Emacs}
-Surprisingly for such an old editor, with the correct extensions Emacs is very well equipped for modern Javascript development. While there are other editors availiable that could claim most or all of the features these extensions add, my previous experience with Emacs makes this a favourable choice. The extensions used add auto-completion, syntax checking, and an inline node.js (see below) console [REF http://blog.deadpansincerity.com/2011/05/setting-up-emacs-as-a-javascript-editing-environment-for-fun-and-profit/].
 
-\subsection{node.js}
-node.js is a Javascript platform build on top of Google's V8 Javascript engine. It provides among other things, a command line interface, including a REPL (read-evaluate-print-loop). This provides a fast, light-weight way to test non-browser-bound code using traditional command line tools, can be easily interfaced with git and cron, and can easily write to files. All of this can be done without requiring messy extra code to interact with the webbrowser or server-side code to report back statistics.
 
-\subsection{Google Chrome}
-WebGL naturally precludes the use of a webbrowser. I have found for my particular Operating System / hardware combination, WebGL on Google Chrome is more stable. Since WebGL is a relatively recent development that has only recently gained browser support, WebGL can still be unstable and buggy in some circumstances even under Google Chrome. Google Chrome also includes a set of 'developer tools' including 
+\subsection*{Emacs}
+Surprisingly for such an old editor, with the correct extensions Emacs is very well equipped for modern JavaScript development. While there are other editors available that could claim most or all of the features these extensions add, my previous experience with Emacs makes this a favourable choice. The extensions used add auto-completion, syntax checking, and an inline node.js (see below) console [REF http://blog.deadpansincerity.com/2011/05/setting-up-emacs-as-a-javascript-editing-environment-for-fun-and-profit/].
 
-\subsection{WebGL Inspector}
+\subsection*{node.js}
+node.js is a JavaScript platform built on top of Google's V8 JavaScript engine. It provides among other things, a command line interface, including a REPL (read-evaluate-print-loop). This provides a fast, light-weight way to test non-browser-bound code using traditional command line tools, can be easily interfaced with git and cron, and can easily write to files. All of this can be done without requiring messy extra code to interact with the webbrowser or server-side code to report back statistics.
+
+\subsection*{Google Chrome}
+WebGL naturally requires the use of a webbrowser. I have found for my particular Operating System / hardware combination, WebGL on Google Chrome is more stable. Since WebGL is a relatively recent development that has only recently gained browser support, WebGL can still be unstable and buggy in some circumstances even under Google Chrome. Google Chrome also includes a set of 'developer tools' including 
+
+\subsection*{WebGL Inspector}
 While the premise of the WebGL inspector tool - a Google Chrome extension that provides inline information on current WebGL contexts - is promising, I found the tool to be too unstable to be helpful in practice.
 
-\section{Software Development Process}
+\section{Software development process}
 Given my own lack of familiarity with the technologies used, and the somewhat experimental nature of WebGL, an iterative development process was deemed necessary.
 
-It was decided to use a combination of a test-driven and evolutionary software development model.
+I decided to use a combination of a test-driven and evolutionary software development model.
 
-\section{Preparatory Learning}
-\subsection{Background Reading}
+\section{Preparatory learning}
+\subsection{Background reading}
 
 \subsubsection{OpenGL and GLSL}
-Prior to beginning this project, I had very little knowledge of OpenGL barring a small amount of personal experience writing toy programs in my spare time. As such I needed to gain a better understanding of OpenGL, and some knowledge of GLSL before I could begin this project. For this purpose I obtained a copy of the famous 'Red Book' [REF]. I also read through the GLSL ES specification provided by the Khronos Group [REF], which discusses the syntax of GLSL in detail.
+Prior to beginning this project, I had very little knowledge of OpenGL barring a small amount of personal experience writing toy programs in my spare time. As such I needed to gain a better understanding of OpenGL, and some knowledge of GLSL before I could begin this project. For this purpose I obtained a copy of the famous `Red Book' [REF]. I also read through the GLSL ES specification provided by the Khronos Group [REF], which discusses the syntax of GLSL in detail.
 
-\subsubsection{Javascript}
-While, like many people I already have some experience of Javascript programming from web development work, I thought it would be wise to refresh myself before starting on a more complex project such as this one. I found particularly useful [REF http://eloquentjavascript.net] and [http://w3future.com/html/stories/hop.xml], both of which are unusual among texts on Javascript in being willing to discuss the more sophisticated functional aspects of Javascript, and their relation to Javascript's own unusual prototype-based object system.
+\subsubsection{JavaScript}
+While, like many people I already have some experience of JavaScript programming from web development work, I thought it would be wise to refresh myself before embarking on a more complex project such as this one. I found particularly useful [REF http://eloquentjavascript.net] and [http://w3future.com/html/stories/hop.xml], both of which are unusual among texts on JavaScript in being willing to discuss the more sophisticated functional aspects of JavaScript, and their relation to JavaScript's own unusual prototype-based object system.
 
 
 \section{Libraries}
-TODO: is this the right place?
+JavaScript as provided by webbrowsers is usually quite 
 
-\subsection{JQuery}
-JQuery is a general utility library for Javascript, providing many helper functions not provided by browsers, and also greatly simplified DOM (Document Object Model) manipulation
+\subsection{jQuery}
+jQuery is a general utility library for JavaScript, providing many helper functions not provided by browsers, and also greatly simplified DOM (Document Object Model) manipulation. In \ref{jq} we see the difference in concision with and without jQuery for some simple common tasks.
+\begin{minted}{javascript}
+// jQuery
 
-\subsection{WebGL Toolkit}
-Given that OpenGL itself is quite awkward to work with, I decided to use an existing library to abstract away some of the uglier parts. However, there are currently many libraries available claiming to do exactly this, of varying degrees of completeness and varying levels of abstraction. Initially I settled on three.js [REF] on the basis of its popularity, and high rate of development. However it soon became apparent that in the level of abstraction provided by three.js actually made the task more difficult, given that interacting with FBOs was non-obvious. After some more searching I came across GLOW [REF], a toolkit specifically designed to make working with shaders simple, but otherwise providing little abstraction.
+\$("a").clickfunction() {
+  ...
+})
 
-\subsection{GUI Toolkit}
+// JavaScript
+
+[].forEach.call(document.querySelectorAll("a"), function(el) {
+  el.addEventListener("click", function() {
+    ...
+  });
+});
+\end{minted}
+
+\subsection{WebGL toolkit}
+Given that OpenGL and therefore WebGL itself can be quite awkward to work with, I decided to use an existing library to abstract away some of the boilerplate code irrelevant to my project. However, there are currently many libraries available claiming to do exactly this, of varying degrees of completeness and varying levels of abstraction. Initially I settled on three.js [REF] on the basis of its popularity, and high rate of development. However it soon became apparent that in the level of abstraction provided by three.js actually made the task more difficult, given that interacting with FBOs was non-obvious. After some more searching I came across \textsc{glow} [REF], a toolkit specifically designed to make working with shaders simple, but otherwise providing little abstraction.
+
+\subsection{GUI toolkit}
 \subsubsection{Editor}
 A core aim of the project was to provide good GLSL syntax highlighting. There currently exist many web-based editors offering some degree of syntax highlighting, but I chose to use CodeMirror [REF], given its active development, and the presence of a modular way to add support for highlighting new grammars. 
 
-\section{Version Control and Backup Strategy}
-All project files, including the dissertation, were placed under git version control. Git was then configured to push to multiple remote repositories in different locations: an external harddrive, my PWF account, my SRCF account, my web hosting account, and GitHub. While this could be considered excessive, the use of SSH keys meant that post-setup, this required no extra effort on my part. Since I am conscious that git is capable of history rewriting, I also configured a regular cron job to make copies of my current repository using git bundle.
+\subsubsection{jQuery UI}
+jQuery UI is a User Interface library built on top of jQuery. It provides a number of common, basic widgets.
+
+\section{Version control and backup strategy}
+All project files, including the dissertation, were placed under git version control. Git was then configured to push to multiple remote repositories in different locations: an external harddrive, my PWF account, my SRCF account, my web hosting account, and GitHub. While this could be considered excessive, the use of SSH keys meant that post-setup, this required no extra effort on my part. Since I am conscious that git is capable of history rewriting, I also configured a regular cron job to make regular compressed backups of my current repository using git bundle.
 
 \cleardoublepage
 \chapter{Implementation}
-
-\section{WebGL}
-[TODO: where to talk about this.]
-
-\section{General Outline}
 The project consists of the following parts:
-\subsubsection{Parser}
-The parser extracts relevant parameters from a given shader.
-\subsubsection{Pipeline Specification}
+\subsection{Parser}
+The parser extracts relevant parameters from a given shader, and their associated types.
+\subsection{Pipeline specification}
 The user-specified shader tree [TODO use shader tree rather than pipeline more] is extracted and converted into a usable format
-\subsubsection{Parameter UI Generation}
+\subsection{Parameter UI generation}
 An appropriate user interface is generated based on the pipeline specification and the shader parameters extracted by the parser.
-\subsubsection{Pipeline Generation}
+\subsection{Pipeline generation}
 A list of shaders is generated from the shader tree such that the shaders can be rendered in sequence.
-\subsubsection{Pipeline Initialization}
+\subsection{Pipeline initialization}
 Actual GLOW shader objects are created. FBOs are assigned to shaders as necessary.
 \subsection{Rendering}
 Render the actual pipeline, resulting in a preview image in the UI.
 \subsection{User Interface}
 
 \section{Parser}
-The main job of the parser is to take a shader program, and provide an array of parameter names and their corresponding data types, which must be supplied to a shader program for it to run. The parser may also return information for the syntax highlighter.
+The main job of the parser is to take a shader program, and provide an array of parameter names and their corresponding data types, which must be supplied to a shader program for it to run. The parser may also return information for the syntax highlighter. Since WebGL is based on a very specific version of OpenGL, OpenGL ES 2.0, the parser only needs to support GLSL ES as defined by [REF http://www.khronos.org/registry/gles/specs/2.0/GLSL_ES_Specification_1.0.17.pdf]. [REF http://www.khronos.org/registry/webgl/specs/latest/#refsGLES20GLSL] This simplifies the construction of the parser, since we need not worry about different GLSL versions.
 
-It was decided that due to time constraints, and the lack of a pressing need for an unusual parser, a parser generator would be used. Initially I chose to use JS/CC [REF], since it seemed well-documented and quite popular. However, once I had used it to generate an appropriate parser for GLSL, it quickly became apparent that the parser was insufficiently fast to use for such a complicated grammar. In fact, I was unable to obtain any timing for the parser, as under Google Chrome, even with the simplest inputs it would fail to produce any output before Chrome itself decided to kill the process. While it may have been possible to obtain timing information, this was clearly to slow to be of any value. I then found Jison [REF], a JavaScript port of Bison. This was able to parse even quite complicated input in a reasonable amount of time, as is discussed in my evaluation.
+Since GLSL's is (mostly) LALR, it was deemed sensible to use a parser generator rather than expend  effort writing a parser by hand. Initially I chose to use JS/CC [REF], since it seemed well-documented and quite popular. However, once I had used it to generate an appropriate parser for GLSL, it quickly became apparent that the parser was insufficiently fast to use for such a complicated grammar. In fact, I was unable to obtain any timing for the parser, as under Google Chrome, even with the simplest inputs it would fail to produce any output before Chrome itself decided to kill the process. While it may have been possible to obtain timing information, this was clearly too slow to be of any value. I then found Jison [REF], a JavaScript port of Bison. This was able to parse even quite complicated input in a reasonable amount of time, as is discussed in my evaluation.
 
-\subsubsection{Struct Parsing}
-The GLSL Specification [REF] allows a shader program to define and use new types of structures. Structure names and field names are subject to the same restrictions as normal identifiers. This makes parsing GLSL as parsed by e.g. Google Chrome technically context-sensitive. However, the parser used, Jison, only supports LALR grammars.
+\subsubsection{Grammar conversion}
+The grammar for GLSL is provided for GLSL ES by [REF]. 
+
+\subsubsection{Struct parsing}
+The GLSL Specification [REF] allows a shader program to define and use new types of structures. These structures behave in essentially the same way as structs in C, subject to certain restrictions. Structure names and field names are subject to the same restrictions as normal identifiers. This makes parsing GLSL as parsed by e.g. Google Chrome technically context-sensitive. However, the parser used, Jison, only supports LALR grammars.
+
 The grammar as provided in the specification introduces extra tokens for structure and field names, ignoring the context sensitivity. Therefore by way of an initial, straightforward implementation of struct parsing, I chose to make the parser simply append new structure/field names to the appropriate part of the matching logic of the lexer. While this will fail to parse shaders that use e.g. some field name as the name of a variable, 
 
-
-\section{Pipeline Specification}
+\section{Pipeline specification}
 The purpose of the pipeline specification stage is to take input from the user specifying the shaders to be used, and the connections between them - that is, when a shader uses the output FBO of a previous shader as an input texture.
-For the actual pipeline specification, I could either develop my own simple specification language, or reuse some existing language. Since this project uses WebGL, it was decided to use Javascript. This had the added bonus of enabling the user to specify a more dynamic pipeline that takes e.g. browser differences into account, with no extra work.
+
+For the actual pipeline specification, I could either develop my own simple specification language, or reuse some existing language. Since this project uses WebGL, it was decided to use JavaScript. This had the added bonus of enabling the user to specify a more dynamic pipeline that takes e.g. browser differences into account, with no extra work.
+
 However, the objects used internally by my project are sufficiently complicated that I did not want to expose them directly to the user. Therefore, a simple environment containing methods for creating dummy shaders is created. These dummy shaders can then be converted into the internal format later.
 
-\section{Parameter UI Generation}
-This stage takes a tree of dummy shaders, and returns the appropriate HTML user interface. For each parameter of the shader which needs specifying - that is, is of type [TODO typeset]uniform and is not already specified - it produces an appropriate set of input elements. In the initial implementation, the appropriate shader values would be updated when a new render was requested. However this is inefficient, and makes the UI less responsive. Later implementations therefore use a different method: each input element has associated event listeners that will update the value within the shader, and correctly invalidate the GLOW cache and request the preview be re-rendered.
+\section{Parameter UI generation}
+This stage takes a tree of dummy shaders, and returns the appropriate HTML user interface. For each parameter of the shader which needs specifying - that is, is of type [TODO typeset]uniform and is not already specified - it produces an appropriate set of input elements. 
 
-\subsection{Struct Handling}
-Since GLOW expects structure parameters to be specified by ordinary Javascript objects, which are also used to specify parameters, structs can be easily and simply handled by recursing on the parameter generation function. While for languages like C, this could produce an infinite loop if the structure references itself, GLSL does not permit this. However [TODO test this].
+In the initial implementation, the appropriate shader values would be updated when a new render was requested. However this is inefficient, and makes the UI less responsive. Later implementations therefore use a different method: each input element has associated event listeners that will update the value within the shader, and correctly invalidate the GLOW cache and request the preview be re-rendered.
 
-\section{Pipeline Generation}
-The primary task of the pipeline generation stage is converting the shader DAG into a list. This can be acheived using a topological sort. Initially the algorithm decribed by Cormen et al [REF 
+While simple text boxes provide complete control over the parameters, for certain types of parameter more useful widgets can be provided. The most obvious example is for vec3 and vec4 (vectors of length 3 and for) parameters, which are often used to specify colours. For such parameters, I constructed a colour picking widget based on [REF], as can be seen in [TODO].
+
+\subsection{Struct handling}
+Since GLOW expects structure parameters to be specified by ordinary JavaScript objects, which are also used to specify parameters, structs can be easily and simply handled by recursing on the parameter generation function. While for languages like C, this could produce an infinite loop if the structure references itself, GLSL does not permit this. However [TODO test this].
+
+\section{Pipeline generation}
+\subsection*{Pipeline linearisation}
+The primary task of the pipeline generation stage is converting the shader DAG into a list. This can be acheived using a topological sort. Initially the algorithm decribed by Cormen et al \cite{topsort} [REF 
 Cormen, Thomas H.; Leiserson, Charles E.; Rivest, Ronald L.; Stein, Clifford (2001), "Section 22.4: Topological sort", Introduction to Algorithms (2nd ed.), MIT Press and McGraw-Hill, pp. 549–552, ISBN 0-262-03293-7.] was used. The algorithm is shown in \ref{simpletopological}.
-\begin{algorithmic}
+\begin{algorithm}
 \label{simpletopological}
+\begin{algorithmic}
 \State $L \gets $ Empty list that will contain the sorted nodes
 \State $S \gets $ Set of all nodes with no outgoing edges
 \ForAll{node n in S}
@@ -262,33 +281,29 @@ Cormen, Thomas H.; Leiserson, Charles E.; Rivest, Ronald L.; Stein, Clifford (20
     \EndIf
 \EndFunction
 \end{algorithmic}
-However, the algorithm shown in \ref{simpletopological} cannot detect when the graph contains a loop - in such a case, the program should produce an error.
+\end{algorithm}
+However, the algorithm shown in \ref{simpletopological} cannot detect when the graph contains a loop. This situation will only occur if the user inputs an invalid shader graph -- in such a case, the program should produce an error.
 
-\section{Pipeline Initialization}
-In this stage, each shader object in the pipeline must be assigned an actual GLOW shader. This is the object that contains the actual compiled shader that will be called at rendertime. Initially, this was done in the most straightforward manner possible, by simply iterating through the pipeline and generating new GLOW objects after any modification. This was later modified such that changing parameters would not require this - GLOW objects are created before the Parameter UI Generation stage, with dummy parameter values. 
+\subsection*{Pipeline initialization}
+In this stage, each shader object in the pipeline must be assigned an actual GLOW shader. This is the object that contains the actual compiled shader that will be called at rendertime. Initially, this was done in the most straightforward manner possible, by simply iterating through the pipeline and generating new GLOW objects after any modification. This was later modified such that changing parameters would not require this -- GLOW objects are created before the Parameter UI Generation stage, with dummy parameter values. 
 
 \section{Rendering}
-The rendering process itself is actually quite straightforward since we try to offload as much work as possible to other stages. This is important for later extensions involving animation, where we want the render loop to run as quickly as possible. The render loop simply iterates through the shader pipeline list, binding the FBO associated with each shader, rendering the shader, and then unbinding the FBO. The FBO binding is skipped for the final shader. While the initial render function cleared the GLOW cache at the start of each call, we can avoid this as discussed under [REF glow cache]
+The rendering process itself is kept as simple, since we try to offload as much work as possible to other stages. This is important for later extensions involving animation, where we want the render loop to run as quickly as possible. The render loop simply iterates through the shader pipeline list, binding the FBO associated with each shader, rendering the shader, and then unbinding the FBO. The FBO binding is skipped for the final shader. While the initial render function cleared the GLOW cache at the start of each call, we can avoid this as discussed under [REF glow cache]
 
-
-\section{Testing}
-\subsubsection{Parser Correctness}
-In order to assist with development of the parser, and in particular to assist in regression testing, a test harness was developed for the parser. Since the parser does not access any browser-specific APIs, it was possible to perform this testing in a simple, automated way on the command line.
-
-\section{Optimisation}\subsection{GLOW Early Initialization}
+\section{Optimisation}\subsection{GLOW early initialization}
 As discussed in [REF UI params, Pipeline init], in the initial implementation all stages following Parameter UI Generation must be called, at the users request, following each change to a parameter. This also includes a step in which every parameter in the UI is updated. This is obviously suboptimal, both since all parameters must be updated and redundant steps be re-run, and since the user is required to request re-rendering, which reduces the level of interactivity.
 The solution to this problem is briefly mentioned in [REF pipeline init].
 
-\subsection{Modified Shader Detection}
+\subsection{Modified shader detection}
 The implementation as discussed above performs the entire shader parsing through pipeline initialization process, throwing away all previous data, whenever a shader program is modified. However, since only one shader program can be modified at once, this is very sub-optimal. This is particularly important since we would like to be able to render a new preview of the pipeline output as quickly as possible.
 
-\subsection{Parameter Value Propagation}
+\subsection{Parameter value propagation}
 Some of the advantages in interactivity introduced by the optimisations made in [REF msd] will be useless, since parameters specified for the modified shader will be lost, and will need to be re-entered by the user. However we cannot simply reuse the previous shader parameters since these may have changed.
 
-\subsection{GLOW Cache}
+\subsection{GLOW cache}
 [TODO: this is broken]
 
-\subsection{FBO Reuse}
+\subsection{FBO reuse}
 In the initial implementation, FBOs are simply discarded and new FBOs are allocated after each pipeline change. This is time consuming and could be avoided. However, since FBOs come in different sizes, we cannot naively allocate some 'pool' of available FBOs. This is achieved by simply keeping
 
 \section{User Interface}
@@ -302,33 +317,34 @@ The layout described above suffers from a number of usability problems. Firstly,
 
 \cleardoublepage
 \chapter{Evaluation}
+\section{Parser correctness}
+In order to assist with development of the parser, and in particular to assist in regression testing, a test harness was developed for the testing the correctness of parameters returned by the parser. Since the parser does not access any browser-specific APIs, it was possible to perform this testing in a simple, automated way on the command line. The tests consist of pairs of shaders and an object containing the correct parameters for that shader. In [REF figure], we see a graph of the percentage of the test shaders correctly parsed vs. git revision.
 
-\section{Parser Correctness}
-As discussed under [REF testing], a test harness was developed for testing the correctness of parameters returned by the parser. The tests consist of pairs of shaders and an object containing the correct parameters for that shader. In [REF figure], we see a graph of the percentage of the test shaders correctly parsed vs. git revision.
 
-
-\section{Pipeline Correctness}
+\section{Pipeline correctness}
 
 \section{Speed}
-\subsubsection{Effect of Modified Shader Detection}
-In [REF optimisation], we discuss the modification of the pipeline initialization process to avoid unnecessary shader re-parsing, compilation, and pipeline generation. 
+\subsubsection{Effect of modified shader detection}
+In [REF optimisation], we discussed the modification of the pipeline initialization process to avoid unnecessary shader re-parsing, compilation, and pipeline generation. 
 
-\subsection{Effect of FBO Reuse}
+\subsection{Effect of FBO reuse}
 Also in [REF optimisation], we discuss the modification of the pipeline initialization process to reuse FBOs where possible. While the main motivation for this is to avoid allocating textures unnecessarily, this has possible speed benefits. [TODO graph]
 
-\section{Texture Usage}
+\section{Texture usage}
 
 \cleardoublepage
 \chapter{Conclusion}
 
 \section{Main Results}
-The project has been successful. The core of the project has been completed and functions correctly, and with the addition of the various optimisations and extensions, is quite usable.
+The project has been successful. The core of the project has been completed and functions correctly, and with the addition of the various optimisations and extensions, is sufficiently interactive to be useful. I have made the project source code availabe to others via GitHub, and I hope that it will prove useful.
 
-\section{Lessons Learned}
+\section{Lessons learned}
 The combination of WebGL and Linux is still a little unstable at times, and as such I would be apprehensive about relying so much on a very recent technology for future projects.
 
-\section{Further Work}
-As this project was only partially focused on the development of a user interface, the current UI is fairly basic. Further work could be done to make the UI more useable, and possibly to conduct a user study to test its effectiveness.
+While I was initially apprehensive about using JavaScript given it's reputation as an ugly language to work with, I was pleasantly surprised by it's novel object model and quite functional underpinnings.
+
+\section{Further work}
+As this project was only partially focused on the development of a user interface, the current UI is fairly basic. Further work could be done to make the UI more usable, and possibly to conduct a user study to test its effectiveness.
 
 Both the specification and implementation of WebGL have changed significantly since their first proposal, and I expect them to continue to do so for some time yet. As such further work may be necessary in the future as these change. Of particular note is the current lack of multiple render targets in current implementations [REF]. If in the future implementations begin to support multiple render targets, adding support for these to my project will be a moderately non-trivial task.
 
