@@ -199,6 +199,9 @@ jQuery is a general utility library for JavaScript, providing many helper functi
 });
 \end{minted}
 
+\subsection{Testing framework}
+There are many unit testing frameworks available for JavaScript, of varying levels of complexity. Many of these frameworks are designed with very large projects with extensive tests in mind. For my project I considered these to be overly complicated to work with. Eventually I settled on QUnit, a very simple unit testing framework that is part of jQuery, and it's port to node.js (a fork of the original code).
+
 \subsection{WebGL toolkit}
 Given that OpenGL and therefore WebGL itself can be quite awkward to work with, I decided to use an existing library to abstract away some of the boilerplate code irrelevant to my project. However, there are currently many libraries available claiming to do exactly this, of varying degrees of completeness and varying levels of abstraction. Initially I settled on three.js [REF] on the basis of its popularity, and high rate of development. However it soon became apparent that in the level of abstraction provided by three.js actually made the task more difficult, given that interacting with FBOs was non-obvious. After some more searching I came across \textsc{glow} [REF], a toolkit specifically designed to make working with shaders simple, but otherwise providing little abstraction.
 
