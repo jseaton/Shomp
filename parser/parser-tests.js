@@ -12,11 +12,13 @@ var tests = { uint:
 	      { glsl: "uniform int x;",
 		answer: { x: {type:'int',qual:'uniform'} }
 	      },
-	      ufloat_vlvec4:
+	      ufloat:
+	      { glsl: "uniform float y;",
+		answer: { y: {type:'float',qual:'uniform'} }
+	      },
+	      vlvec4:
 	      { glsl: "uniform float y; varying lowp vec4 z;",
-		answer: { y: {type:'float',qual:'uniform'},
-			  z: {type:'vec4',qual:'varying',prec:'lowp'}
-			}
+		answer: { z: {type:'vec4',qual:'varying',prec:'lowp'} }
 	      },
 	      many:
 	      { glsl: "uniform int x; varying lowp vec4 z; highp mat3 y; uniform sampler2D s;",
@@ -25,13 +27,34 @@ var tests = { uint:
 			  z: {type:'vec4',qual:'varying',prec:'lowp'},
 			  s: {type:'sampler2D',qual:'uniform'}
 			}
+	      },
+	      vmmat4:
+	      { glsl: "varying mediump mat4 x;",
+		answer: { x:  {type:'mat4',qual:'varying',prec:'mediump'} }
+	      },
+	      abool:
+	      { glsl: "attribute bool y;",
+		answer: { y:  {type:'bool',qual:'attribute'} }
 	      }
 	    };
 
 
 for (i in tests) {
     test(i,function() {
-	var result = parse(tests[i].glsl)
+	var result = {structs:{},params:{}};
+	var parses = true;
+	try {
+	    result = parse(tests[i].glsl);
+	} catch (e) {
+	    if (tests[i].fails != undefined) {
+		ok(true,"Correctly fails to parse");
+		return;
+	    } else {
+		ok(false,"Successfully parses");
+		parses = false;
+	    }
+	}
+	if (parses) ok(true,"Successfully parses");
 	for (var j in tests[i].answer) {
 	    deepEqual(result.params[j],tests[i].answer[j],"One correct parameter");
 	    break;

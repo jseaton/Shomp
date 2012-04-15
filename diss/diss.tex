@@ -6,6 +6,8 @@
 \usepackage{algorithm}
 \usepackage{listings}
 \usepackage{minted}
+\usepackage{tikz}
+\usepackage{pgfplots}
 
 \input{epsf}                            % to allow postscript inclusions
 % On thor and CUS read top of file:
@@ -233,7 +235,7 @@ Render the actual pipeline, resulting in a preview image in the UI.
 \subsection{User Interface}
 
 \section{Parser}
-The main job of the parser is to take a shader program, and provide an array of parameter names and their corresponding data types, which must be supplied to a shader program for it to run. The parser may also return information for the syntax highlighter. Since WebGL is based on a very specific version of OpenGL, OpenGL ES 2.0, the parser only needs to support GLSL ES as defined by [REF http://www.khronos.org/registry/gles/specs/2.0/GLSL_ES_Specification_1.0.17.pdf]. [REF http://www.khronos.org/registry/webgl/specs/latest/#refsGLES20GLSL] This simplifies the construction of the parser, since we need not worry about different GLSL versions.
+The main job of the parser is to take a shader program, and provide an array of parameter names and their corresponding data types, which must be supplied to a shader program for it to run. The parser may also return information for the syntax highlighter. Since WebGL is based on a very specific version of OpenGL, OpenGL ES 2.0, the parser only needs to support GLSL ES as defined by [REF http://www.khronos.org/registry/gles/specs/2.0/GLSL_ES_Specification_1.0.17.pdf]. [REF http://www.khronos.org/registry/webgl/specs/latest] This simplifies the construction of the parser, since we need not worry about different GLSL versions.
 
 Since GLSL's is (mostly) LALR, it was deemed sensible to use a parser generator rather than expend  effort writing a parser by hand. Initially I chose to use JS/CC [REF], since it seemed well-documented and quite popular. However, once I had used it to generate an appropriate parser for GLSL, it quickly became apparent that the parser was insufficiently fast to use for such a complicated grammar. In fact, I was unable to obtain any timing for the parser, as under Google Chrome, even with the simplest inputs it would fail to produce any output before Chrome itself decided to kill the process. While it may have been possible to obtain timing information, this was clearly too slow to be of any value. I then found Jison [REF], a JavaScript port of Bison. This was able to parse even quite complicated input in a reasonable amount of time, as is discussed in my evaluation.
 
@@ -323,6 +325,11 @@ The layout described above suffers from a number of usability problems. Firstly,
 \section{Parser correctness}
 In order to assist with development of the parser, and in particular to assist in regression testing, a test harness was developed for the testing the correctness of parameters returned by the parser. Since the parser does not access any browser-specific APIs, it was possible to perform this testing in a simple, automated way on the command line. The tests consist of pairs of shaders and an object containing the correct parameters for that shader. In [REF figure], we see a graph of the percentage of the test shaders correctly parsed vs. git revision.
 
+\begin{tikzpicture}
+\begin{axis}[xlabel={git revision},ylabel={tests passed}]
+\addplot file {parser.data};
+\end{axis}
+\end{tikzpicture}
 
 \section{Pipeline correctness}
 

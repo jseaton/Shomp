@@ -11,46 +11,48 @@
 \contentsline {subsubsection}{JavaScript}{5}
 \contentsline {section}{\numberline {2.4}Libraries}{5}
 \contentsline {subsection}{\numberline {2.4.1}jQuery}{5}
-\contentsline {subsection}{\numberline {2.4.2}WebGL toolkit}{6}
-\contentsline {subsection}{\numberline {2.4.3}GUI toolkit}{6}
+\contentsline {subsection}{\numberline {2.4.2}Testing framework}{6}
+\contentsline {subsection}{\numberline {2.4.3}WebGL toolkit}{6}
+\contentsline {subsection}{\numberline {2.4.4}GUI toolkit}{6}
 \contentsline {subsubsection}{Editor}{6}
 \contentsline {subsubsection}{jQuery UI}{6}
 \contentsline {section}{\numberline {2.5}Version control and backup strategy}{6}
-\contentsline {chapter}{\numberline {3}Implementation}{7}
-\contentsline {subsection}{\numberline {3.0.1}Parser}{7}
-\contentsline {subsection}{\numberline {3.0.2}Pipeline specification}{7}
-\contentsline {subsection}{\numberline {3.0.3}Parameter UI generation}{7}
-\contentsline {subsection}{\numberline {3.0.4}Pipeline generation}{7}
-\contentsline {subsection}{\numberline {3.0.5}Pipeline initialization}{7}
-\contentsline {subsection}{\numberline {3.0.6}Rendering}{8}
-\contentsline {subsection}{\numberline {3.0.7}User Interface}{8}
-\contentsline {section}{\numberline {3.1}Parser}{8}
-\contentsline {subsubsection}{Struct parsing}{8}
-\contentsline {section}{\numberline {3.2}Pipeline specification}{9}
-\contentsline {section}{\numberline {3.3}Parameter UI generation}{9}
-\contentsline {subsection}{\numberline {3.3.1}Struct handling}{9}
-\contentsline {section}{\numberline {3.4}Pipeline generation}{10}
-\contentsline {section}{\numberline {3.5}Rendering}{10}
-\contentsline {section}{\numberline {3.6}Optimisation}{11}
-\contentsline {subsection}{\numberline {3.6.1}GLOW early initialization}{11}
-\contentsline {subsection}{\numberline {3.6.2}Modified shader detection}{11}
-\contentsline {subsection}{\numberline {3.6.3}Parameter value propagation}{11}
-\contentsline {subsection}{\numberline {3.6.4}GLOW cache}{11}
-\contentsline {subsection}{\numberline {3.6.5}FBO reuse}{12}
-\contentsline {section}{\numberline {3.7}User Interface}{12}
-\contentsline {subsection}{\numberline {3.7.1}Editor}{12}
-\contentsline {subsection}{\numberline {3.7.2}Layout}{12}
-\contentsline {subsection}{\numberline {3.7.3}Improved Layout}{12}
-\contentsline {chapter}{\numberline {4}Evaluation}{13}
-\contentsline {section}{\numberline {4.1}Parser correctness}{13}
-\contentsline {section}{\numberline {4.2}Pipeline correctness}{13}
-\contentsline {section}{\numberline {4.3}Speed}{13}
-\contentsline {subsubsection}{Effect of modified shader detection}{13}
-\contentsline {subsection}{\numberline {4.3.1}Effect of FBO reuse}{13}
-\contentsline {section}{\numberline {4.4}Texture usage}{14}
-\contentsline {chapter}{\numberline {5}Conclusion}{15}
-\contentsline {section}{\numberline {5.1}Main Results}{15}
-\contentsline {section}{\numberline {5.2}Lessons learned}{15}
-\contentsline {section}{\numberline {5.3}Further work}{15}
-\contentsline {chapter}{Bibliography}{17}
-\contentsline {chapter}{\numberline {A}Project Proposal}{19}
+\contentsline {chapter}{\numberline {3}Implementation}{9}
+\contentsline {subsection}{\numberline {3.0.1}Parser}{9}
+\contentsline {subsection}{\numberline {3.0.2}Pipeline specification}{9}
+\contentsline {subsection}{\numberline {3.0.3}Parameter UI generation}{9}
+\contentsline {subsection}{\numberline {3.0.4}Pipeline generation}{9}
+\contentsline {subsection}{\numberline {3.0.5}Pipeline initialization}{9}
+\contentsline {subsection}{\numberline {3.0.6}Rendering}{10}
+\contentsline {subsection}{\numberline {3.0.7}User Interface}{10}
+\contentsline {section}{\numberline {3.1}Parser}{10}
+\contentsline {subsubsection}{Grammar conversion}{10}
+\contentsline {subsubsection}{Struct parsing}{10}
+\contentsline {section}{\numberline {3.2}Pipeline specification}{11}
+\contentsline {section}{\numberline {3.3}Parameter UI generation}{11}
+\contentsline {subsection}{\numberline {3.3.1}Struct handling}{12}
+\contentsline {section}{\numberline {3.4}Pipeline generation}{12}
+\contentsline {section}{\numberline {3.5}Rendering}{13}
+\contentsline {section}{\numberline {3.6}Optimisation}{13}
+\contentsline {subsection}{\numberline {3.6.1}GLOW early initialization}{13}
+\contentsline {subsection}{\numberline {3.6.2}Modified shader detection}{13}
+\contentsline {subsection}{\numberline {3.6.3}Parameter value propagation}{14}
+\contentsline {subsection}{\numberline {3.6.4}GLOW cache}{14}
+\contentsline {subsection}{\numberline {3.6.5}FBO reuse}{14}
+\contentsline {section}{\numberline {3.7}User Interface}{14}
+\contentsline {subsection}{\numberline {3.7.1}Editor}{14}
+\contentsline {subsection}{\numberline {3.7.2}Layout}{14}
+\contentsline {subsection}{\numberline {3.7.3}Improved Layout}{15}
+\contentsline {chapter}{\numberline {4}Evaluation}{17}
+\contentsline {section}{\numberline {4.1}Parser correctness}{17}
+\contentsline {section}{\numberline {4.2}Pipeline correctness}{18}
+\contentsline {section}{\numberline {4.3}Speed}{18}
+\contentsline {subsubsection}{Effect of modified shader detection}{18}
+\contentsline {subsection}{\numberline {4.3.1}Effect of FBO reuse}{18}
+\contentsline {section}{\numberline {4.4}Texture usage}{18}
+\contentsline {chapter}{\numberline {5}Conclusion}{19}
+\contentsline {section}{\numberline {5.1}Main Results}{19}
+\contentsline {section}{\numberline {5.2}Lessons learned}{19}
+\contentsline {section}{\numberline {5.3}Further work}{19}
+\contentsline {chapter}{Bibliography}{21}
+\contentsline {chapter}{\numberline {A}Project Proposal}{23}
