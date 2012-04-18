@@ -45,7 +45,7 @@ such shader pipelines. Furthermore for beginners, the initial process of learnin
 shaders is complicated by this extra legwork to compose shaders. The aim of this project is to
 alleviate these problems to some degree.
 
-\subsection{Aside on Shaders}
+\subsection*{Aside on Shaders}
 A 'shader' is a piece of code that runs directly on a GPU. Shaders work on the data flow model, in
 that once the code is set up, many data may be fed through it. In OpenGL, which this project will
 focus on, such shaders are divided into a number of types. The two types considered here are vertex
@@ -56,7 +56,7 @@ such operations as transforming a vertex to the screen coordinates. Fragment sha
 texturing a model. Vertex shaders may pass information to fragment shaders, and the underlying
 program using the shaders may pass information to both.
 
-\subsection{The Project}
+\subsection*{The Project}
 This project intends to provide an interface to allow a user to create a set of shaders, written in a
 slightly annotated version of GLSL. The attributes of these shaders will be detected, along with the
 type of each attribute, and, given a specification of how to connect these attributes (provided either
@@ -75,13 +75,13 @@ standard for using OpenGL (including GLSL) on the web, via JavaScript. Since Web
 platform by design and requires only a recent webbrowser to use, As WebGL is quite a new
 technology, it is possible that this may turn out to be infeasible, in which case I would use Python.
 
-\subsection{Resources Required}
+\subsection*{Resources Required}
 Since this project will involve OpenGL shaders, a recent graphics card supporting a recent version
 of OpenGL will be required. To this end I would use my own computer with its AMD HD5450
 graphics card. Depending upon the speed at which my test harness runs, I may consider upgrading
 to a more powerful card such as the HD6770.
 
-\subsection{Starting Point}
+\subsection*{Starting Point}
 I have some existing knowledge of OpenGL and GLSL from personal experience, but only to the
 extent of small personal projects. I have a reasonable amount of experience with JavaScript having
 used it in the past for web development work – but in conjunction with a server-side language.
@@ -108,7 +108,7 @@ comparison of the time complexity of a given pipeline to a JavaScript program ca
 same task.
 
 
-\section{Success Criteria}
+\section*{Success Criteria}
 The following should be achieved:
 \begin{enumerate}
 \item Interface to construct shaders, specify connections between shaders

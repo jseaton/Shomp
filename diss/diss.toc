@@ -2,57 +2,71 @@
 \contentsline {section}{\numberline {1.1}Motivation}{1}
 \contentsline {section}{\numberline {1.2}Brief introduction to shaders}{1}
 \contentsline {subsection}{\numberline {1.2.1}A look at some OpenGL calls}{2}
-\contentsline {chapter}{\numberline {2}Preparation}{3}
-\contentsline {section}{\numberline {2.1}Development environment}{3}
-\contentsline {section}{\numberline {2.2}Software development process}{4}
-\contentsline {section}{\numberline {2.3}Preparatory learning}{4}
-\contentsline {subsection}{\numberline {2.3.1}Background reading}{4}
-\contentsline {subsubsection}{OpenGL and GLSL}{4}
-\contentsline {subsubsection}{JavaScript}{5}
-\contentsline {section}{\numberline {2.4}Libraries}{5}
-\contentsline {subsection}{\numberline {2.4.1}jQuery}{5}
-\contentsline {subsection}{\numberline {2.4.2}Testing framework}{6}
-\contentsline {subsection}{\numberline {2.4.3}WebGL toolkit}{6}
-\contentsline {subsection}{\numberline {2.4.4}GUI toolkit}{6}
-\contentsline {subsubsection}{Editor}{6}
-\contentsline {subsubsection}{jQuery UI}{6}
-\contentsline {section}{\numberline {2.5}Version control and backup strategy}{6}
-\contentsline {chapter}{\numberline {3}Implementation}{9}
-\contentsline {subsection}{\numberline {3.0.1}Parser}{9}
-\contentsline {subsection}{\numberline {3.0.2}Pipeline specification}{9}
-\contentsline {subsection}{\numberline {3.0.3}Parameter UI generation}{9}
-\contentsline {subsection}{\numberline {3.0.4}Pipeline generation}{9}
-\contentsline {subsection}{\numberline {3.0.5}Pipeline initialization}{9}
-\contentsline {subsection}{\numberline {3.0.6}Rendering}{10}
-\contentsline {subsection}{\numberline {3.0.7}User Interface}{10}
-\contentsline {section}{\numberline {3.1}Parser}{10}
-\contentsline {subsubsection}{Grammar conversion}{10}
-\contentsline {subsubsection}{Struct parsing}{10}
-\contentsline {section}{\numberline {3.2}Pipeline specification}{11}
-\contentsline {section}{\numberline {3.3}Parameter UI generation}{11}
-\contentsline {subsection}{\numberline {3.3.1}Struct handling}{12}
-\contentsline {section}{\numberline {3.4}Pipeline generation}{12}
-\contentsline {section}{\numberline {3.5}Rendering}{13}
-\contentsline {section}{\numberline {3.6}Optimisation}{13}
-\contentsline {subsection}{\numberline {3.6.1}GLOW early initialization}{13}
-\contentsline {subsection}{\numberline {3.6.2}Modified shader detection}{13}
-\contentsline {subsection}{\numberline {3.6.3}Parameter value propagation}{14}
-\contentsline {subsection}{\numberline {3.6.4}GLOW cache}{14}
-\contentsline {subsection}{\numberline {3.6.5}FBO reuse}{14}
-\contentsline {section}{\numberline {3.7}User Interface}{14}
-\contentsline {subsection}{\numberline {3.7.1}Editor}{14}
-\contentsline {subsection}{\numberline {3.7.2}Layout}{14}
-\contentsline {subsection}{\numberline {3.7.3}Improved Layout}{15}
-\contentsline {chapter}{\numberline {4}Evaluation}{17}
-\contentsline {section}{\numberline {4.1}Parser correctness}{17}
-\contentsline {section}{\numberline {4.2}Pipeline correctness}{18}
-\contentsline {section}{\numberline {4.3}Speed}{18}
-\contentsline {subsubsection}{Effect of modified shader detection}{18}
-\contentsline {subsection}{\numberline {4.3.1}Effect of FBO reuse}{18}
-\contentsline {section}{\numberline {4.4}Texture usage}{18}
-\contentsline {chapter}{\numberline {5}Conclusion}{19}
-\contentsline {section}{\numberline {5.1}Main Results}{19}
-\contentsline {section}{\numberline {5.2}Lessons learned}{19}
-\contentsline {section}{\numberline {5.3}Further work}{19}
-\contentsline {chapter}{Bibliography}{21}
-\contentsline {chapter}{\numberline {A}Project Proposal}{23}
+\contentsline {section}{\numberline {1.3}Requirements analysis}{2}
+\contentsline {chapter}{\numberline {2}Preparation}{5}
+\contentsline {section}{\numberline {2.1}A short introduction to OpenGL}{5}
+\contentsline {section}{\numberline {2.2}Development environment}{5}
+\contentsline {section}{\numberline {2.3}Software development process}{6}
+\contentsline {section}{\numberline {2.4}Preparatory learning}{7}
+\contentsline {subsection}{\numberline {2.4.1}Background reading}{7}
+\contentsline {subsubsection}{OpenGL and GLSL}{7}
+\contentsline {subsubsection}{JavaScript}{7}
+\contentsline {section}{\numberline {2.5}Libraries}{7}
+\contentsline {subsection}{\numberline {2.5.1}jQuery}{7}
+\contentsline {subsection}{\numberline {2.5.2}Testing framework}{8}
+\contentsline {subsection}{\numberline {2.5.3}WebGL toolkit}{8}
+\contentsline {subsection}{\numberline {2.5.4}GUI toolkit}{9}
+\contentsline {subsubsection}{Editor}{9}
+\contentsline {subsubsection}{jQuery UI}{9}
+\contentsline {section}{\numberline {2.6}Version control and backup strategy}{9}
+\contentsline {chapter}{\numberline {3}Implementation}{11}
+\contentsline {subsection}{\numberline {3.0.1}Parser}{11}
+\contentsline {subsection}{\numberline {3.0.2}Pipeline specification}{11}
+\contentsline {subsection}{\numberline {3.0.3}Parameter UI generation}{11}
+\contentsline {subsection}{\numberline {3.0.4}Pipeline generation}{11}
+\contentsline {subsection}{\numberline {3.0.5}Pipeline initialization}{11}
+\contentsline {subsection}{\numberline {3.0.6}Rendering}{12}
+\contentsline {subsection}{\numberline {3.0.7}User Interface}{12}
+\contentsline {section}{\numberline {3.1}Parser}{12}
+\contentsline {subsubsection}{Grammar conversion}{12}
+\contentsline {subsubsection}{Annotations}{13}
+\contentsline {subsubsection}{Struct parsing}{13}
+\contentsline {section}{\numberline {3.2}Pipeline specification}{14}
+\contentsline {section}{\numberline {3.3}Parameter UI generation}{15}
+\contentsline {subsection}{\numberline {3.3.1}Struct handling}{15}
+\contentsline {section}{\numberline {3.4}Pipeline generation}{15}
+\contentsline {section}{\numberline {3.5}Rendering}{16}
+\contentsline {section}{\numberline {3.6}Optimisation}{17}
+\contentsline {subsection}{\numberline {3.6.1}GLOW early initialization}{17}
+\contentsline {subsection}{\numberline {3.6.2}Modified shader detection}{17}
+\contentsline {subsection}{\numberline {3.6.3}Parameter value propagation}{17}
+\contentsline {subsection}{\numberline {3.6.4}GLOW cache}{17}
+\contentsline {subsection}{\numberline {3.6.5}FBO reuse}{18}
+\contentsline {section}{\numberline {3.7}User Interface}{18}
+\contentsline {subsection}{\numberline {3.7.1}Editor}{18}
+\contentsline {subsection}{\numberline {3.7.2}Layout}{18}
+\contentsline {subsection}{\numberline {3.7.3}Improved Layout}{18}
+\contentsline {chapter}{\numberline {4}Evaluation}{19}
+\contentsline {section}{\numberline {4.1}Parser correctness}{19}
+\contentsline {section}{\numberline {4.2}Pipeline correctness}{20}
+\contentsline {section}{\numberline {4.3}Performance}{20}
+\contentsline {subsubsection}{Effect of modified shader detection}{20}
+\contentsline {subsection}{\numberline {4.3.1}Effect of FBO reuse}{20}
+\contentsline {section}{\numberline {4.4}Texture usage}{20}
+\contentsline {chapter}{\numberline {5}Conclusion}{21}
+\contentsline {section}{\numberline {5.1}Main Results}{21}
+\contentsline {section}{\numberline {5.2}Lessons learned}{21}
+\contentsline {section}{\numberline {5.3}Further work}{22}
+\contentsline {chapter}{Bibliography}{23}
+\contentsline {chapter}{\numberline {A}Project Proposal}{25}
+\contentsline {section}{\numberline {A.1}Timetable and Milestones}{29}
+\contentsline {subsection}{\numberline {A.1.1}Weeks 0-2: 22nd October – 11th November}{29}
+\contentsline {subsection}{\numberline {A.1.2}Weeks 3-5: 12th November – 2nd December}{29}
+\contentsline {subsection}{\numberline {A.1.3}Weeks 6-8: 3rd December – 23rd December}{29}
+\contentsline {subsection}{\numberline {A.1.4}Weeks 9-11: 24th December – 13th January}{29}
+\contentsline {subsection}{\numberline {A.1.5}Weeks 12-14: 14th January – 3rd Feburary}{29}
+\contentsline {subsection}{\numberline {A.1.6}Weeks 15-17: 4th February – 24th February}{29}
+\contentsline {subsection}{\numberline {A.1.7}Weeks 18-20: 25th February – 16th March}{30}
+\contentsline {subsection}{\numberline {A.1.8}Weeks 21-23: 17th March – 6th April}{30}
+\contentsline {subsection}{\numberline {A.1.9}Weeks 24-26: 7th April – 27th April}{30}
+\contentsline {subsection}{\numberline {A.1.10}Weeks 27-29: 28th April – 18th May}{30}

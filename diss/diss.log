@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2012/dev/Arch Linux) (format=pdflatex 2012.4.8)  15 APR 2012 23:55
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2012/dev/Arch Linux) (format=pdflatex 2012.4.8)  18 APR 2012 17:37
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -666,58 +666,59 @@ runsystem(rm diss.out.pyg)...executed.
 
 runsystem(rm diss.pyg)...executed.
 
- [2]
+ [2] [3] [4
+
+]
 Chapter 2.
-[3
+[5
 
-
-] [4]
-Underfull \hbox (badness 1478) in paragraph at lines 180--181
+] [6]
+Underfull \hbox (badness 1478) in paragraph at lines 202--203
 \OT1/cmr/m/n/12 fresh my-self be-fore em-bark-ing on a more com-plex project su
 ch as this
  []
 
 
-Underfull \hbox (badness 1215) in paragraph at lines 180--181
+Underfull \hbox (badness 1215) in paragraph at lines 202--203
 \OT1/cmr/m/n/12 one. I found par-tic-u-larly use-ful [REF http://eloquentjavasc
 ript.net] and
  []
 
 
-LaTeX Warning: Reference `jq' on page 5 undefined on input line 187.
+LaTeX Warning: Reference `jq' on page 7 undefined on input line 209.
 
 \openout3 = `diss.pyg'.
 
 runsystem(pygmentize -l javascript -f latex -F tokenmerge             -P "verbo
 ptions= " -o diss.out.pyg diss.pyg)...executed.
 
-(./diss.out.pyg)
+(./diss.out.pyg [7])
 runsystem(rm diss.out.pyg)...executed.
 
 runsystem(rm diss.pyg)...executed.
 
- [5] [6] [7] [8
+ [8] [9] [10
 
 ]
 Chapter 3.
-[9
+[11
 
 ]
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.238 ...khronos.org/registry/gles/specs/2.0/GLSL_
+l.261 ...khronos.org/registry/gles/specs/2.0/GLSL_
                                                   ES_Specification_1.0.17.pd...
 
 ? 
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.239 
+l.262 
       
 ? 
 
-Overfull \hbox (71.39595pt too wide) in paragraph at lines 238--239
+Overfull \hbox (71.39595pt too wide) in paragraph at lines 261--262
 \OT1/cmr/m/n/12 http://www.khronos.org/registry/gles/specs/2.0/GLSL$[]\OML/cmm/
 m/it/12 S[]pecification[]:\OT1/cmr/m/n/12 0\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 17
 \OML/cmm/m/it/12 :pdf\OT1/cmr/m/n/12 ]\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 [\OML/c
@@ -725,58 +726,143 @@ mm/m/it/12 REFhttp \OT1/cmr/m/n/12 :
  []
 
 
-Overfull \hbox (353.61725pt too wide) in paragraph at lines 238--239
+Overfull \hbox (353.61725pt too wide) in paragraph at lines 261--262
 \OML/cmm/m/it/12 ==www:khronos:org=registry=webgl=specs=latest\OT1/cmr/m/n/12 ]
 \OML/cmm/m/it/12 Thissimplifiestheconstructionoftheparser; sinceweneednotworrya
 boutdifferentGLSLversions:$ 
  []
 
-[10] [11]
+\openout3 = `diss.pyg'.
 
-LaTeX Warning: Citation `topsort' on page 12 undefined on input line 269.
+runsystem(pygmentize -l javascript -f latex -F tokenmerge             -P "verbo
+ptions= " -o diss.out.pyg diss.pyg)...executed.
+
+(./diss.out.pyg [12])
+runsystem(rm diss.out.pyg)...executed.
+
+runsystem(rm diss.pyg)...executed.
+
+\openout3 = `diss.pyg'.
+
+runsystem(pygmentize -l glsl -f latex -F tokenmerge             -P "verboptions
+= " -o diss.out.pyg diss.pyg)...executed.
+
+ (./diss.out.pyg)
+runsystem(rm diss.out.pyg)...executed.
+
+runsystem(rm diss.pyg)...executed.
+
+\openout3 = `diss.pyg'.
+
+runsystem(pygmentize -l glsl -f latex -F tokenmerge             -P "verboptions
+= " -o diss.out.pyg diss.pyg)...executed.
+
+ (./diss.out.pyg)
+runsystem(rm diss.out.pyg)...executed.
+
+runsystem(rm diss.pyg)...executed.
+
+ [13]
+\openout3 = `diss.pyg'.
+
+runsystem(pygmentize -l javascript -f latex -F tokenmerge             -P "verbo
+ptions= " -o diss.out.pyg diss.pyg)...executed.
+
+ (./diss.out.pyg
+[14])
+runsystem(rm diss.out.pyg)...executed.
+
+runsystem(rm diss.pyg)...executed.
+
+
+
+LaTeX Warning: Citation `topsort' on page 15 undefined on input line 329.
 
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no “ in font cmr12!
-[12] [13] [14] [15] [16
-
-]
+[15] [16] [17] [18]
 Chapter 4.
 PGFPlots: reading {parser.data}
-[17
-
-] [18]
-Chapter 5.
 [19
 
 
-] [20] (./diss.bbl
+] [20]
+Chapter 5.
+[21
+
+
+] [22] (./diss.bbl
 
 LaTeX Warning: Empty `thebibliography' environment on input line 3.
 
-) [21
+) [23
 
 
-] [22
+] [24
 
 ]
 Appendix A.
-[23
+(./propbody.tex [25
 
 
-] (./diss.aux)
+]
+Missing character: There is no â in font cmr12!
+Missing character: There is no € in font cmr12!
+Missing character: There is no “ in font cmr12!
+ [26]
+Missing character: There is no â in font cmr12!
+Missing character: There is no € in font cmr12!
+Missing character: There is no “ in font cmr12!
+ [27]
+Missing character: There is no â in font cmbx12!
+Missing character: There is no € in font cmbx12!
+Missing character: There is no “ in font cmbx12!
+ [28]
+Missing character: There is no â in font cmbx12!
+Missing character: There is no € in font cmbx12!
+Missing character: There is no “ in font cmbx12!
+Missing character: There is no â in font cmbx12!
+Missing character: There is no € in font cmbx12!
+Missing character: There is no “ in font cmbx12!
+Missing character: There is no â in font cmbx12!
+Missing character: There is no € in font cmbx12!
+Missing character: There is no “ in font cmbx12!
+Missing character: There is no â in font cmr12!
+Missing character: There is no € in font cmr12!
+Missing character: There is no “ in font cmr12!
+Missing character: There is no â in font cmbx12!
+Missing character: There is no € in font cmbx12!
+Missing character: There is no “ in font cmbx12!
+Missing character: There is no â in font cmbx12!
+Missing character: There is no € in font cmbx12!
+Missing character: There is no “ in font cmbx12!
+Missing character: There is no â in font cmbx12!
+Missing character: There is no € in font cmbx12!
+Missing character: There is no “ in font cmbx12!
+ [29]
+Missing character: There is no â in font cmbx12!
+Missing character: There is no € in font cmbx12!
+Missing character: There is no “ in font cmbx12!
+Missing character: There is no â in font cmbx12!
+Missing character: There is no € in font cmbx12!
+Missing character: There is no “ in font cmbx12!
+Missing character: There is no â in font cmbx12!
+Missing character: There is no € in font cmbx12!
+Missing character: There is no “ in font cmbx12!
+) [30] (./diss.aux)
 
 LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 18912 strings out of 493629
- 426211 string characters out of 3148779
+ 18923 strings out of 493629
+ 426349 string characters out of 3148779
  535371 words of memory out of 3000000
  21826 multiletter control sequences out of 15000+200000
  10711 words of font info for 38 fonts, out of 3000000 for 9000
  831 hyphenation exceptions out of 8191
- 56i,9n,93p,889b,1420s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 56i,10n,93p,1166b,1420s stack positions out of 5000i,500n,10000p,200000b,50000s
 </usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/
 texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texmf-dist/fo
 nts/type1/public/amsfonts/cm/cmitt10.pfb></usr/share/texmf-dist/fonts/type1/pub
@@ -787,10 +873,10 @@ dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texmf-dist/fonts/type1
 /public/amsfonts/cm/cmsl12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfon
 ts/cm/cmsy10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.p
 fb>
-Output written on diss.pdf (29 pages, 164466 bytes).
+Output written on diss.pdf (36 pages, 187117 bytes).
 PDF statistics:
- 145 PDF objects out of 1000 (max. 8388607)
- 101 compressed objects within 2 object streams
+ 167 PDF objects out of 1000 (max. 8388607)
+ 116 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  13 words of extra memory for PDF output out of 10000 (max. 10000000)
 
