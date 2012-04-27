@@ -11,7 +11,7 @@ function generateUI(nodes,structs,glow) {
     for (name in nodes) {
 	node = nodes[name];
 	if (node.qual != 'uniform' || glow[i]) continue;
-	var r = $('<div><h4>'+i+'</h4><span>'+node.type+'</span></div>')
+	var r = $('<div><h4>'+name+'</h4><span>'+node.type+'</span></div>')
 	r.attr('class',i);
 	if (typeof node.type == 'string') {
 	    if (match=node.type.match(/([bi]?)vec([234])/)) {

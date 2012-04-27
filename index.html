@@ -41,19 +41,19 @@
 <div id="vertexinfo"></div>
 <div id="fragmentinfo"></div>
 <textarea id="pipeline" cols="60" rows="20">
-output = new shader3(); //gaussh
+output = new gaussHShader("gaussh"); //gaussh
 output.vertices = GLOW.Geometry.Cube.vertices(500);
 output.uvs = GLOW.Geometry.Cube.uvs();
 output.cameraProjection = GLOW.defaultCamera.projection;
 output.cameraInverse = GLOW.defaultCamera.inverse;
 
-gaussv = new shader2();
+gaussv = new gaussVShader("gaussv");
 gaussv.vertices = GLOW.Geometry.Cube.vertices(500);
 gaussv.uvs = GLOW.Geometry.Cube.uvs();
 gaussv.cameraProjection = GLOW.defaultCamera.projection;
 gaussv.cameraInverse = GLOW.defaultCamera.inverse;
 
-input = new shader1();
+input = new textureShader("input");
 input.vertices = GLOW.Geometry.Cube.vertices(500);
 input.uvs = GLOW.Geometry.Cube.uvs();
 input.cameraProjection = GLOW.defaultCamera.projection;

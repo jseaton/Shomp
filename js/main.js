@@ -59,18 +59,18 @@ Shader.prototype.genParams = function(attr) {
     var p = this.parseData.params
     params = {}
     for (id in p) {
-	if (p[id].qual != 'uniform') continue;
-	switch(p[id].type) {
-	case "vec3":
-	    params[id] = new GLOW.Vector3(0,1,2);
-	    break;
-	case "mat4":
-	    params[id] = {cameraInverse:GLOW.defaultCamera.inverse,cameraProjection:GLOW.defaultCamera.projection,undefined:new GLOW.Matrix4()}[id];
-	    break;
-	case "sampler2D":
-	    params[id] = attr[id] ? lookup[attr[id]].fbo : new GLOW.Texture({ url:"cube.JPG" });
-	    break;
-	}
+    if (p[id].qual != 'uniform') continue;
+    switch(p[id].type) {
+    case "vec3":
+    params[id] = new GLOW.Vector3(0,1,2);
+    break;
+    case "mat4":
+    params[id] = {cameraInverse:GLOW.defaultCamera.inverse,cameraProjection:GLOW.defaultCamera.projection,undefined:new GLOW.Matrix4()}[id];
+    break;
+    case "sampler2D":
+    params[id] = attr[id] ? lookup[attr[id]].fbo : new GLOW.Texture({ url:"cube.JPG" });
+    break;
+    }
     }
     return params;
 }
@@ -79,12 +79,12 @@ Shader.prototype.genParams = function(attr) {
 //any potential usage
 function generateChainParams() {
     for (var i=0;i<chain.length;i++) {
-	//chain[i].genParams();
-	if (i<chain.length-1) chain[i].fbo = new GLOW.FBO();//chain[i].size || {});
-	for (j in chain[i].data) {
-	    if (chain[i].data[j].name) chain[i].data[j] = chain[i].data[j].fbo;
-	}
-	chain[i].glow = GLOW.Shader.call(chain[i].glow,chain[i]);
+    //chain[i].genParams();
+    if (i<chain.length-1) chain[i].fbo = new GLOW.FBO();//chain[i].size || {});
+    for (j in chain[i].data) {
+    if (chain[i].data[j].name) chain[i].data[j] = chain[i].data[j].fbo;
+    }
+    chain[i].glow = GLOW.Shader.call(chain[i].glow,chain[i]);
     }
 }
 
@@ -95,23 +95,31 @@ function generateChain() {
     //lookup = {} //This is also marks nodes
 
     clearLookup = function(node) {
-	if (!node.name) return;
-	node.lookup = false;
-	for (i in node.data) clearLookup(node.data[i])
+    if (!node.name) return;
+    node.lookup = false;
+    for (i in node.data) clearLookup(node.data[i])
     }
     clearLookup(tree);
 
     updateNode = function(node) {
-	if (!node.name || node.lookup) return;
-	node.lookup = true;
-	for (i in node.data) updateNode(node.data[i])
-	chain.push(node);
+    if (!node.name || node.lookup) return;
+    node.lookup = true;
+    for (i in node.data) updateNode(node.data[i])
+    chain.push(node);
     }
     updateNode(tree);
 }
 
 function updateShaders() {
     for (i in shaders) shaders[i].update();
+}
+
+function updateShader(name) {
+    shaders[name].update();
+    for (i in chain) {
+    if (chain[i].name != name) continue;
+    chain[i].glow = new GLOW.Shader(chain[i]);
+    }
 }
 
 function updateTree() {
@@ -147,11 +155,14 @@ function render() {
     chain[chain.length-1].glow.draw();
 }
 
-function newShader(vText,hText) {
-    var shaderName = 'shader';
-    var i=1;
-    while (shaders[shaderName+i]) i++;
-    shaderName += i;
+function newShader(vText,hText,name) {
+    var shaderName;
+    if (!name) {
+	shaderName = 'shader';
+	var i=1;
+	while (shaders[shaderName+i]) i++;
+	shaderName += i;
+    } else shaderName = name;
 
     var newTab = $('<h3><a href="#"></a></h3><div></div>');
     var shaderTag = $('<div><span>' + shaderName + '</span></div>');
@@ -204,7 +215,7 @@ varying mediump vec2 uv;\n\
 \n\
 void main() {\n\
   gl_FragColor = texture2D(img,uv);\n\
-}');
+}','textureShader');
 
     newShader('attribute vec3 vertices;\n\
 attribute vec2 uvs;\n\
@@ -233,7 +244,7 @@ void main(void) {\n\
   sum += texture2D(img, vec2(pixel.x, + 4.0*v + pixel.y) ) * 0.05;\n\
   gl_FragColor.xyz = sum.xyz/0.98;\n\
   gl_FragColor.a = 1.;\n\
-}');
+}','gaussVShader');
 
  newShader('attribute vec3 vertices;\n\
 attribute vec2 uvs;\n\
@@ -262,7 +273,7 @@ void main(void) {\n\
   sum += texture2D(img, vec2(+ 4.0*h + pixel.x, pixel.y)) * 0.05;\n\
   gl_FragColor.xyz = sum.xyz/0.98;\n\
   gl_FragColor.a = 1.;\n\
-}');
+}','gaussHShader');
 
     pipeline = CodeMirror.fromTextArea(document.getElementById('pipeline'),{'mode':'text/javascript'});
 
