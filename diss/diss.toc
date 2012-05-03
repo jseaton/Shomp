@@ -29,21 +29,21 @@
 \contentsline {subsection}{\numberline {3.3.1}Struct handling}{25}{subsection.3.3.1}
 \contentsline {section}{\numberline {3.4}Pipeline generation}{25}{section.3.4}
 \contentsline {section}{\numberline {3.5}Rendering}{26}{section.3.5}
-\contentsline {section}{\numberline {3.6}Optimisation}{26}{section.3.6}
+\contentsline {section}{\numberline {3.6}Optimisation}{27}{section.3.6}
 \contentsline {subsection}{\numberline {3.6.1}\textsc {glow} early initialization}{27}{subsection.3.6.1}
 \contentsline {subsection}{\numberline {3.6.2}Modified shader detection}{27}{subsection.3.6.2}
-\contentsline {subsection}{\numberline {3.6.3}Parameter value propagation}{27}{subsection.3.6.3}
+\contentsline {subsection}{\numberline {3.6.3}Parameter value propagation}{28}{subsection.3.6.3}
 \contentsline {subsection}{\numberline {3.6.4}\textsc {glow} cache}{28}{subsection.3.6.4}
 \contentsline {subsection}{\numberline {3.6.5}FBO reuse}{28}{subsection.3.6.5}
-\contentsline {section}{\numberline {3.7}User Interface}{28}{section.3.7}
-\contentsline {subsection}{\numberline {3.7.1}Editor}{28}{subsection.3.7.1}
+\contentsline {section}{\numberline {3.7}User Interface}{29}{section.3.7}
+\contentsline {subsection}{\numberline {3.7.1}Editor}{29}{subsection.3.7.1}
 \contentsline {subsection}{\numberline {3.7.2}Layout}{29}{subsection.3.7.2}
 \contentsline {subsection}{\numberline {3.7.3}Improved Layout}{29}{subsection.3.7.3}
 \contentsline {chapter}{\numberline {4}Evaluation}{31}{chapter.4}
 \contentsline {section}{\numberline {4.1}Parser correctness}{31}{section.4.1}
 \contentsline {section}{\numberline {4.2}Pipeline correctness}{32}{section.4.2}
-\contentsline {section}{\numberline {4.3}Performance}{32}{section.4.3}
-\contentsline {subsubsection}{Effect of modified shader detection}{32}{section*.31}
+\contentsline {section}{\numberline {4.3}Performance}{33}{section.4.3}
+\contentsline {subsubsection}{Effect of modified shader detection}{33}{section*.31}
 \contentsline {subsection}{\numberline {4.3.1}Effect of FBO reuse}{33}{subsection.4.3.1}
 \contentsline {section}{\numberline {4.4}Texture usage}{33}{section.4.4}
 \contentsline {chapter}{\numberline {5}Conclusion}{35}{chapter.5}

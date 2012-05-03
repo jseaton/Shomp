@@ -96,7 +96,7 @@ Part II Computer Science \\
 \chapter*{Proforma}
 
 {\large
-\begin{tabular}{ll}
+\begin{tabular}{@{\hspace{0em}}ll}
 Name:               & \bf \name    \\
 College:            & \bf \college \\
 Project Title:      & \bf \ptitle  \\
@@ -110,10 +110,10 @@ Supervisor:         & Christian Richardt                    \\
 
 
 \section*{Original aims of the project}
-The aim of this project was to produce a novel user interface for easy composition and testing of a certain class of graphical effects known as shaders. The user interface was to be highly interactive, and allow easy modification of the code for the effects themselves, the manner in which they are composited, and via graphical means, their associated parameters. Previews of these changes were to be provided as quickly as possible, therefore the project also included a number of optimisations.
+The aim of this project was to produce a novel user interface for easy composition and testing of a certain class of graphical effects known as shaders. The user interface was to be highly interactive and allow easy modification of the code for the effects themselves, the manner in which they are composed and, via graphical means, their associated parameters. Previews of these changes were to be provided as quickly as possible; therefore the project also included a number of optimisations.
 
 \section*{Work completed}
-The core of the project has been completed and works satisfactorily. Shaders can be created, and a tree of shaders can be specified using JavaScript, the result of which is shown in-browser. An interface for modifying shader parameters is correctly generated for all types of parameter that have been tested, and respects some annotations. A number of optimisations have been applied, including elimination of unnecessary shader recompilation and pipeline re-generation. The project is also now capable of reusing FrameBuffer Objects between pipeline changes where possible.
+The core of the project has been completed and works satisfactorily. Shaders can be created and a tree of shaders can be specified using JavaScript, the result of which is shown in-browser. An interface for modifying shader parameters is correctly generated for all types of parameter that have been tested, and respects some annotations. A number of optimisations have been applied, including elimination of unnecessary shader recompilation and pipeline re-generation. The project is also now capable of reusing framebuffer objects between pipeline changes where possible.
 
 \section*{Special difficulties}
 None.
@@ -149,10 +149,10 @@ extent for a comparable purpose.
 %\pagestyle{headings}
 
 \chapter{Introduction}
-My project provides a novel user interface for easily composing multiple graphical effects known as shaders together, in which individual shader parameters can be easily modified and the results viewed immediately. Furthermore the interface should be sufficiently optimised to provide a low round-trip time between making a change and seeing the effect of this change. I have successfully implemented the core of my project, as well as a number of proposed extensions, and a few optimisations not initially proposed.
+My project provides a novel user interface for easily composing multiple graphical effects known as shaders together, in which individual shader parameters can be easily modified and the results viewed immediately. Furthermore the interface is sufficiently optimised to provide a low round-trip time between making a change and seeing the effect of this change. I have successfully implemented the core of my project, as well as a number of proposed extensions, and a few optimisations not initially proposed.
 
 \section{Motivation}
-Working with raw OpenGL is undeniably messy. OpenGL is a verbose and complicated API. When developing shaders, developers tend not to be interested in writing large amounts of OpenGL API code just to tweak shader parameters or forward the texture output of one shader to the input of another. But this is exactly what developers have to do. Given that many graphics applications are written in compiled languages like C and C++, this significantly increases the length of a development cycle. Given that a large part of shader development constitutes small tweaks to (often subjectively) improve output, this is not ideal.
+Working with raw OpenGL is undeniably messy. OpenGL is a verbose and complicated API. When developing shaders, developers tend not to be interested in writing large amounts of OpenGL API code just to tweak shader parameters or forward the texture output of one shader to the input of another. But this is exactly what developers have to do. Given that many graphics applications are written in compiled languages like C and C++, this significantly increases the length of a development cycle. Since a large part of shader development constitutes small tweaks to (often subjectively) improve output, this is not ideal.
 
 For students learning about shaders, OpenGL is often an intimidating and confusing mess that gets in the way of understanding a fundamentally quite simple concept.
 
@@ -160,13 +160,13 @@ This project aims to provide a way of developing shaders that is both useful for
 \section{Brief introduction to shaders}
 \label{brief}
 In their modern incarnation, OpenGL shaders are quite a simple concept to understand at a high level. A shader is a simple program -- `simple' referring to certain constraints we shall ignore for now -- written in a dataflow style. Such programs take in one item of data at a time, for example a vertex, and output another item of data -- the new vertex location, or a pixel value.
-In a modern OpenGL implementation, there are two commonly used types of shader (and a few more which will not be discussed). These are vertex shaders, and fragment shaders. Vertex shaders operate on individual vertices, transforming the position and also attaching information such as a colour. Fragment shaders roughly speaking generate pixel values. Information can be passed from vertex shaders to fragment shaders using {\tt varying } parameters, the values of which are interpolated from those of the surrounding vertices.
+
+In a modern OpenGL implementation, there are two commonly used types of shader (and a few more which will not be discussed). These are vertex shaders and fragment shaders. Vertex shaders operate on individual vertices, transforming the position and also attaching information such as a colour. Fragment shaders roughly speaking generate pixel values. Information can be passed from vertex shaders to fragment shaders using {\tt varying } parameters, the values of which are interpolated from those of the surrounding vertices.
 
 \subsection{A look at some OpenGL calls}
 As discussed above, the use of shaders sounds simple. However, as we can see from Listing~\ref{ugly}, a short excerpt of the OpenGL calls from an actual WebGL program\cite{reaction-diffusion}, the paraphanalia of mostly boilerplate OpenGL calls required for compiling shader programs, specifying parameters and so on can result in a very large codebase for even the simplest program.
 
 \begin{listing}[H]
-\label{ugly}
 \begin{minted}{javascript}
 rawData = new Uint8Array(noisepixels);
 texture_noise_l = gl.createTexture();
@@ -178,6 +178,7 @@ gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
 gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
 \end{minted}
 \caption{Example WebGL calls}
+\label{ugly}
 \end{listing}
 
 \cleardoublepage
@@ -324,8 +325,7 @@ All of these other than the type may be left unspecified. The parser may also re
 Since GLSL's is (mostly) LALR, it was deemed sensible to use a parser generator rather than expend  effort writing a parser by hand. Initially I chose to use JS/CC \cite{js-cc}, since it seemed well-documented and quite popular. However, once I had used it to generate an appropriate parser for GLSL, it quickly became apparent that the parser was insufficiently fast to use for such a complicated grammar. In fact, I was unable to obtain any timing for the parser, as under Google Chrome, even with the simplest inputs it would fail to produce any output before Chrome itself decided to kill the process. While it may have been possible to obtain timing information, this was clearly too slow to be of any value. I then found Jison \cite{jison}, a JavaScript port of Bison. This was able to parse even quite complicated input in a reasonable amount of time, as is discussed in my evaluation.
 
 \subsubsection{Grammar conversion}
-The grammar for GLSL is provided for GLSL ES in the specification \cite{glsl-spec}, in BNF form. Since Jison's specification language is roughly based on BNF, the conversion is mostly straightforward as we can see in Listing~\ref{grammar-rules}. The additional annotations between curly braces are constructing parameter type objects to be passed upwards. Token specification is likewise mostly straightforward, with the exception of struct related tokens as discussed below, and integer / floating point literals which must be represented via regular expressions.
-
+The grammar for GLSL is provided for GLSL ES in the specification \cite{glsl-spec}, in BNF form. Since Jison's specification language is roughly based on BNF, the conversion is mostly straightforward as we can see in Listing~\ref{grammar-rules}. The additional annotations between curly braces are constructing parameter type objects to be passed upwards. Token specification is likewise mostly straightforward, with the exception of struct related tokens as discussed below, and integer / floating point literals which must be represented via regular expressions. Care must also be taken with the ordering of token definitions, in particular the IDENTIFIER token is capable of capturing most keywords and must be placed after them.
 \begin{listing}
 \label{grammar-rules}
 \begin{minted}[mathescape]{javascript}
@@ -355,15 +355,13 @@ GLSL contains a preprocessor language much like that used in C. It is very restr
 In addition to parsing raw GLSL, the parser was intended to be able to detect additional annotations to parameters, providing extra information for the parameter UI, for example the range of values taken by a parameter, or whether to provide a colour picking interface. In order to keep compatiability with GLSL, it was decided to provide these annotations via comments, as we can see in Listing~\ref{unannotated}. This is acheived by way of a preprocessor that translates GLSL into annotated GLSL, an example of which we can see in Listing~\ref{annotated}. Since the syntax of these annotations is quite simple, this can be done using regular expressions. This annotated GLSL can then be passed to the parser, the grammar of which is modified to accept these annotations. An example of the rule changes can be seen in [REF TODO broken].
 
 \begin{listing}
-\label{unannotated}
 \begin{minted}{glsl}
 uniform highp int x; //range 0,100
 \end{minted}
-\caption{Simple annotated GLSL parameter}
+\caption{Simple annotated GLSL parameter\label{unannotated}}
 \end{listing}
 
 \begin{listing}
-\label{annotated}
 \begin{minted}{glsl}
 //GLSL
 uniform highp float y; //range 0,100
@@ -371,14 +369,14 @@ uniform highp float y; //range 0,100
 //Annotated GLSL
 uniform highp float y RANGE 0,100;
 \end{minted}
-\caption{Transformation to annotated GLSL}
+\caption{Transformation to annotated GLSL\label{annotated}}
 \end{listing}
 
 \subsubsection{Struct parsing}
 \label{struct-parse}
 The GLSL Specification \cite{glsl-spec} allows a shader program to define and use new types of structures. These structures behave in essentially the same way as structs in C, subject to certain restrictions. Structure names and field names are subject to the same restrictions as normal identifiers. This makes parsing GLSL as parsed by e.g. Google Chrome technically context-sensitive. However, the parser used, Jison, only supports LALR grammars.
 
-The grammar as provided in the specification introduces extra tokens for structure and field names, ignoring the context sensitivity. Therefore by way of an initial, straightforward implementation of struct parsing, I chose to make the parser simply append new structure/field names to the appropriate part of the matching logic of the lexer. While this will fail to parse shaders that use e.g. some field name as the name of a variable, 
+The grammar as provided in the specification introduces extra tokens for structure and field names, ignoring the context sensitivity. Therefore by way of an initial, straightforward implementation of struct parsing, I chose to make the parser simply append new structure/field names to the appropriate part of the matching logic of the lexer. While this will fail to parse shaders that use e.g. some field name as the name of a variable, or more likely, some field name as a struct name, it was deemed to be sufficient for this project.
 
 \section{Pipeline specification}
 The purpose of the pipeline specification stage is to take input from the user specifying the shaders to be used, and the connections between them - that is, when a shader uses the output FBO of a previous shader as an input texture.
@@ -387,9 +385,8 @@ For the actual pipeline specification, I could either develop my own simple spec
 
 However, the objects used internally by my project are sufficiently complicated that I did not want to expose them directly to the user. Therefore, a simple environment containing methods for creating dummy shaders is created. These dummy shaders can then be converted into the internal format later.
 
-In Listing~\ref{pipe} we see a simple example of a pipeline specification as provided by a user. This corresponds to the shader graph in Figure~\ref{pipe-graph}. The variable ``output'' is special, in that it corresponds to the highest node in the tree and therefore the final node in the pipeline. Notice that some parameters are left blank -- these can be provided later via the parameter UI. Individual shader instances can be given names for identification within the UI, and the size of the FBO to which the shader is drawn can also be specified (with sensible defaults provided for both). Unfortunately, since JavaScript lacks a way to dynamically find the variable names within a given context, it is not possible to automatically infer shader instance names without using a JavaScript parser, which is beyond the scope of this project (and would not always be able to infer names since shader instances can be anonymous).
+In Listing~\ref{pipe} we see a simple example of a pipeline specification as provided by a user. This corresponds to the shader graph in Figure~\ref{pipe-graph}. The variable ``output'' is special, in that it corresponds to the highest node in the 'tree' and therefore the final node in the pipeline. Notice that some parameters are left blank -- these can be provided later via the parameter UI. Individual shader instances can be given names for identification within the UI, and the size of the FBO to which the shader is drawn can also be specified (with sensible defaults provided for both). Unfortunately, since JavaScript lacks a way to dynamically find the variable names within a given context, it is not possible to automatically infer shader instance names without using a JavaScript parser, which is beyond the scope of this project (and would not always be able to infer names since shader instances can be anonymous).
 \begin{listing}[H]
-\label{pipe}
 \begin{minted}{javascript}
 output = new gaussHShader("output");
 gaussv = new gaussVShader();
@@ -398,59 +395,52 @@ input = new textureShader("input",{width:800,height:600});
 output.img = gaussv;
 gaussv.img = input;
 \end{minted}
-\caption{Example pipeline specification}
+\caption{Example pipeline specification\label{pipe}}
 \end{listing}
 
 \begin{figure}
-\label{pipe-graph}
-\begin{tikzpicture}[node distance=1cm, auto,]
- %nodes
- %\node[punkt] (market) {Market (b)};
- %\node[punkt, inner sep=5pt,below=0.5cm of market]
- %(formidler) {Intermediaries (c)};
- % We make a dummy figure to make everything look nice.
- %\node[above=of market] (dummy) {};
- %\node[right=of dummy] (t) {Ultimate borrower}
- %  edge[pil,bend left=45] (market.east) % edges are used to connect two nodes
- %  edge[pil, bend left=45] (formidler.east); % .east since we want
- %                                            % consistent style
- %\node[left=of dummy] (g) {Ultimate lender}
- %  edge[pil, bend right=45] (market.west)
- %  edge[pil, bend right=45] (formidler.west)
- %  edge[pil,<->, bend left=45] node[auto] {Direct (a)} (t);
-\node[punkt] (texture) {texture};
-\node[punkt] (input) {input}
-edge[pil,<-] (texture.east);
-\node[punkt, right=of input] (gaussv) {gaussv}
-edge[pil,<-] (input.east);
-\node[punkt, right=of gaussv] (output) {output}
-edge[pil,<-] (gaussv.east);
-\node[punkt, right=of output] (screen) {screen}
-edge[pil,<-] (output.east);
 
-\node[punkt, below=of gaussv] (gaussv-sigma) {sigma}
-edge[pil] (gaussv.south);
-\node[punkt, below=of output] (output-sigma) {sigma}
-edge[pil] (output.south);
+\begin{tikzpicture}[->,node distance=1cm, auto,]
+\node[punkt] (input) {input};
+\node[punkt, below=of input] (texture) {texture};
+%edge[pil,->] (input.south);
+\node[punkt, right=of input] (gaussv) {gaussv};
+%edge[pil,<-] (input.east);
+\node[punkt, right=of gaussv] (output) {output};
+%edge[pil,<-] (gaussv.east);
+\node[punkt, right=of output] (screen) {screen};
+%edge[pil,<-] (output.east);
+
+\node[punkt, below=of gaussv] (gaussv-sigma) {sigma};
+%edge[pil] (gaussv.south);
+\node[punkt, below=of output] (output-sigma) {sigma};
+%edge[pil] (output.south);
+
+\path   (texture) edge              node {img} (input)
+        (input)   edge              node {img} (gaussv)
+        (gaussv)  edge              node {img} (output)
+        (output)  edge              node {} (screen)
+ (gaussv-sigma)   edge              node {sigma (V)} (gaussv)
+ (output-sigma)   edge              node {sigma (H)} (output);
 
 \end{tikzpicture}
-\caption{Shader graph [TODO labels]}
+\caption{Shader graph\label{pipe-graph}}
 \end{figure}
 
 \section{Parameter UI generation}
 \label{ui-params}
-This stage takes a tree of dummy shaders, and creates the appropriate HTML user interface. For each parameter of the shader which needs specifying - that is, is of type [TODO typeset rest]{\tt uniform} and is not already specified - it produces an appropriate set of input elements. 
+This stage takes a tree of dummy shaders, and creates the appropriate HTML user interface. For each parameter of the shader which needs specifying -- that is, is of type {\tt uniform} and is not already specified -- it produces an appropriate set of input elements. For each parameter a label based upon either the provided name or a hopefully informative generated name is generated, along with a type-specific label and widget.
 
 In the initial implementation, the appropriate shader values would be updated when a new render was requested. However this is inefficient, and makes the user interface less responsive. Later implementations therefore use a different method: each input element has associated event listeners that will update the value within the shader, and correctly invalidate the \textsc{glow} cache and request the preview be re-rendered.
 
 While simple text boxes provide complete control over the parameters, for certain types of parameter more useful widgets can be provided. The most obvious example is for {\tt vec3 } and {\tt vec4 } (vectors of length 3 and for) parameters, which are often used to specify colours. For such parameters, I constructed a colour picking widget based on the web colour picker by Stefan Petre \cite{color}, as can be seen in [TODO].
 
 \subsection{Struct handling}
-Since \textsc{glow} expects structure parameters to be specified by ordinary JavaScript objects, which are also used to specify parameters, structs can be easily and simply handled by recursing on the parameter generation function. While for languages like C, this could produce an infinite loop if the structure references itself, GLSL does not permit this. However [TODO test this].
+Since \textsc{glow} expects structure parameters to be specified by ordinary JavaScript objects, which are also used to specify parameters, structs can be easily and simply handled by recursing on the parameter generation function. While for languages like C, this could produce an infinite loop if the structure references itself, GLSL does not permit this. However, the parser will not reject such a self-referential structure definition, which would cause infinite recursion. This is avoided using a counter set to a sufficiently large value that no valid GLSL program could reach it. This is possible since GLSL programs are required to compile to a sufficiently small amount of instructions, due to the limitations of stream processors.
 
 \section{Pipeline generation}
 \subsection*{Pipeline linearisation}
-The primary task of the pipeline generation stage is converting the shader DAG into a list. This can be acheived using a topological sort. Initially the algorithm decribed by Cormen et al \cite{topsort} was used. The algorithm is shown in Listing~\ref{simpletopological}.
+At this stage in the process, we have essentially a Directed, Acyclic Graph (DAG) of shader instances, with connections representing dependencies between instances -- that is, instances that write to textures that will be read by other instances. In order to actually render the DAG, we must linearise such that the node labeled output is last. This is the primary task of the pipeline generation stage, namely converting the shader DAG into a list. This can be acheived using a topological sort. Initially the algorithm decribed by Cormen et al \cite{topsort} was used. The algorithm is shown in Listing~\ref{simpletopological}.
 \begin{algorithm}
 \label{simpletopological}
 \begin{algorithmic}
@@ -472,52 +462,57 @@ The primary task of the pipeline generation stage is converting the shader DAG i
 \end{algorithm}
 However, the algorithm shown in Listing~\ref{simpletopological} cannot detect when the graph contains a loop. This situation will only occur if the user inputs an invalid shader graph -- in such a case, the program should produce an error.
 
-\subsection*{Pipeline initialization}
+\subsection*{Pipeline initialisation}
 \label{pipe-init}
-In this stage, each shader object in the pipeline must be assigned an actual \textsc{glow} shader. This is the object that contains the actual compiled shader that will be called at rendertime. Initially, this was done in the most straightforward manner possible, by simply iterating through the pipeline and generating new \textsc{glow} objects after any modification. This was later modified such that changing parameters would not require this -- \textsc{glow} objects are created before the Parameter UI Generation stage, with dummy parameter values. 
+In this stage, each shader object in the pipeline must be assigned an actual \textsc{glow} shader. This is the object that contains the actual compiled shader that will be called at rendertime. Initially, this was done in the most straightforward manner possible, by simply iterating through the pipeline and generating new \textsc{glow} objects after any modification. All parameter values would be retrieved from the UI at this point. This required the user to manually request the pipeline be updated before rendering. 
+
+Recreating \textsc{glow} objects and reading in all parameter values after a single parameter change is very inefficient, especially since this process would run after each individual parameter change. Therefore this stage was later modified such that changing parameters would not require a complete update -- \textsc{glow} objects are created before the Parameter UI Generation stage, with dummy parameter values, and pipeline initialisation is only run after a change to the pipeline (as discussed in Section~\ref{opt}.
 
 \section{Rendering}
 The rendering process itself is kept simple, since we try to offload as much work as possible to other stages. This is important for later extensions involving animation, where we want the render loop to run as quickly as possible. The render loop simply iterates through the shader pipeline list, binding the FBO associated with each shader, rendering the shader, and then unbinding the FBO. The FBO binding is skipped for the final shader, which is instead rendered to the preview context. While the initial render function cleared the \textsc{glow} cache at the start of each call, we can avoid this as discussed under Section~\ref{glow-cache}.
 
 \section{Optimisation}
 \label{opt}
-As stated in the introduction, one of the main aims of this project is to make the User Interface as interactive as possible. To be more specific, the delay between making some change and seeing the effect of this change should be as short as possible. Since changes on this timescale will usually be quite small, by reusing existing state where possible this delay can be significantly reduced.
+As stated in the introduction, one of the main aims of this project is to make the User Interface as interactive as possible. To be more specific, the delay between making some change and seeing the effect of this change should be as short as possible. Since changes on this timescale will usually be quite small, for example changing a single parameter, or modifying a single shader, by reusing existing state where possible this delay can be significantly reduced.
 
 \subsection{\textsc{glow} early initialization}
-As discussed in Section~\ref{ui-params} and Section~\ref{pipe-init}, in the initial implementation all stages following Parameter UI Generation must be called, at the users request, following each change to a parameter. This also includes a step in which every parameter in the UI is updated. This is obviously suboptimal, both since all parameters must be updated and redundant steps be re-run, and since the user is required to request re-rendering, which reduces the level of interactivity.
+As discussed in Section~\ref{ui-params} and Section~\ref{pipe-init}, in the initial implementation all stages following Parameter UI Generation must be called, at the users request, following each change to a parameter. This includes a step in which every parameter in the UI is updated, initialisation of \textsc{glow} shader objects, and pipeline linearisation. This is obviously suboptimal, both since all parameters must be updated and redundant steps be re-run, and since the user is required to request re-rendering, which reduces the level of interactivity.
 
-The solution to this problem is briefly mentioned in Section~\ref{pipe-init}. Rather than creating \textsc{glow} objects -- and therefore incurring compilation overhead -- after all parameters have been specified, we substitute dummy parameters of the appropriate type, and create the \textsc{glow} objects during pipeline initialization. Dummy parameters are obtained by modifying the parameter UI generation stage to generate a dummy value for each parameter as well as the actual UI.
+The solution to this problem is briefly mentioned in Section~\ref{pipe-init}. Rather than creating \textsc{glow} objects -- and therefore incurring compilation overhead -- after all parameters have been specified, we substitute dummy parameters of the appropriate type, and create the \textsc{glow} objects during shader tree creation (that is, during the pipeline specification stage). Dummy parameters are obtained by modifying the parameter UI generation stage to generate a dummy value for each parameter as well as the actual UI. Parameter changes now generate events which update the relevant \textsc{glow} object's parameters, and request a new render. The entire pipeline initialisation stage can now be skipped. Updates also invalidate the relevant \textsc{glow} cache as discussed below.
 
 \subsection{Modified shader detection}
 \label{msd}
-The implementation as discussed above performs the entire shader parsing through pipeline initialization process, throwing away all previous data, whenever a shader program is modified. Since only one shader program can be modified at once, this is sub-optimal. This is particularly important since we would like to be able to render a new preview of the pipeline output as quickly as possible. The most obvious optimisation here is to only update shader instances in the pipeline that use the modified shader. This is achieved by tagging shader instances with the name of their shader. Shader update calls then only need to attach new \textsc{glow} shaders to the appropriate shaders, using their existing parameters.
+The implementation as discussed above performs the entire shader parsing through pipeline initialization process, throwing away all previous data, whenever a shader program is modified. Since only one shader program can be modified at once, this is sub-optimal. This is particularly important since we would like to be able to render a new preview of the pipeline output as quickly as possible. The most obvious optimisation here is to only update shader instances in the pipeline that use the modified shader. This is achieved by tagging shader instances with the name of their shader. Shader update calls then only need to attach new \textsc{glow} shaders to the appropriate shaders, using their existing parameters. Note that this is only applicable if the required shader parameters have not been added to or changed, since all parameters must be specified. In this case the old behaviour can be falled back on.
 
 \subsection{Parameter value propagation}
-Some of the advantages in interactivity introduced by the optimisations made in Section~\ref{msd} will be useless, since parameters specified for the modified shader will be lost, and will need to be re-entered by the user. However we cannot simply reuse the previous shader parameters since the parameters taken by said shader may have changed. The set of parameters for the modified shader must first be compared to the new required parameters, and dummy parameters generated where appropriate and any extra parameters must be discarded (although we could try to keep these parameters in case they are used in the future [TODO: if I get really bored]). 
+Some of the advantages in interactivity introduced by the optimisations made in Section~\ref{msd} will be useless, since parameters specified for the modified shader will be lost, and will need to be re-entered by the user. However we cannot simply reuse the previous shader parameters since the parameters taken by said shader may have changed. The set of parameters for the modified shader must first be compared to the new required parameters, and dummy parameters generated where appropriate and any extra parameters must be discarded (these extra parameters are ignored, and we could try to keep these parameters in case they are used in the future [TODO: if I get really bored]). 
 
 \subsection{\textsc{glow} cache}
 \label{glow-cache}
-For efficiency reasons, \textsc{glow} itself tries to cache as much as possible. In the initial implementation, the \textsc{glow} cache was cleared at the start of each render call. This is inefficient, and was soon modified such that the \textsc{glow} cache was only cleared after parameter changes and pipeline changes. However, this is still not particularly efficient, as these gains are mostly only noticable during animation. 
-[TODO: this is broken]
+For efficiency reasons, \textsc{glow} itself tries to cache as much as possible in GPU-accessible memory. In particular, parameter values are cached and updates to parameters must respect this and invalidate the cache before the next render call. In the initial implementation, the \textsc{glow} cache was cleared at the start of each render call. This is inefficient, and was soon modified such that the \textsc{glow} cache was only cleared after parameter changes and pipeline changes. However, this is still not particularly efficient, as these gains are mostly only noticable during animation. 
+[TODO: can do better?]
 
 \subsection{FBO reuse}
-In the initial implementation, FBOs are simply discarded and new FBOs are allocated after each pipeline change. This is time consuming and could be avoided. However, since FBOs come in different sizes, we cannot naively allocate some 'pool' of available FBOs. This is achieved by simply keeping separate pools of already allocated FBOs for each size of FBO that has been used in the past.
+In the initial implementation, FBOs are simply discarded and new FBOs are allocated after each pipeline change. This is time consuming and could be avoided. However, since FBOs come in different sizes, we cannot naively allocate some 'pool' of available FBOs. This is achieved by simply keeping separate pools of already allocated FBOs for each size of FBO that has been used in the past. Shader updates using the event-based system described above can reuse the existing FBO for each instance, this is an additional benefit of the optimisations discussed.
 
 \section{User Interface}
 \subsection{Editor}
 As discussed in \ref{cmirror}, I chose to use the CodeMirror text editor to provide GLSL syntax highlighting to users. While CodeMirror does not provide GLSL highlighting, it does provide a general, 'C-like' highlighting mode, and simple hooks for custom parsers. Initially, I based my syntax highlighting on the 'C-like' mode provided. This was a simple matter of providing the correct keywords. However, this only provides simple highlighting. Given that each shader is parsed anyway, it would seem sensible to modify the parser used for parameter extraction to also provide syntax highlighting information. [TODO: actually do this]
 
 \subsection{Layout}
-The initial layout of the UI was straightforward, consisting of a pair of text editors for each shader program, an editor for the pipeline and parameter specification, a sequence of control buttons and a preview box. [TODO picture]. While this layout was spartan and not user friendly, it was sufficient for initial testing.
+The initial layout of the UI was straightforward, consisting of a pair of text editors for each shader program, a text editor for the pipeline and parameter specification, a sequence of control buttons and a preview box. [TODO picture]. While this layout was spartan and not user friendly, it was sufficient for initial testing, and allowed for easy debugging of separate stages.
 \subsection{Improved Layout}
-The layout described above suffers from a number of usability problems. Firstly, the UI does not fit at all on an average-sized screen. This requires the user to be constantly scrolling to use it. Secondly, the control buttons are unintuitive, and increase the expected length of a user's development cycle. A new layout was designed, with inspiration taken from the typical construction of IDEs, where tiling is employed to maximize screen usage. From [TODO another picture] we can see the improved layout. Shader programs occupy the top left side of the screen, and can be switched between by clicking on the shader's name. The right hand side of the screen is occupied by the parameter specification UI at the bottom, and the preview at the top. The control buttons have been eliminated entirely using the hooks developed in Section~\ref{opt}. Compared to the old layout, this provides:
+The layout described above suffers from a number of usability problems. Firstly, the UI does not fit at all on an average-sized screen. This requires the user to be constantly scrolling to use it, adding a delay between the user making a change, and seeing its effect. Secondly, the control buttons are unintuitive, and the need for the user to use them whenever they wish to see the effect of a change further increases the expected length of a user's development cycle. A new layout was designed, with inspiration taken from the typical construction of IDEs, where tiling is employed to maximize screen usage. From [TODO another picture] we can see the improved layout. Shader programs occupy the top left side of the screen, and can be switched between by clicking on the shader's name. The right hand side of the screen is occupied by the parameter specification UI at the bottom, and the preview at the top. The control buttons have been eliminated entirely using the hooks developed in Section~\ref{opt}. Compared to the old layout, this provides:
 \begin{itemize}
 \item Minimal scrolling -- shaders/pipeline specification/parameters can be changed without having to scroll to see the result
+\item Improved interactivity -- updated render provided as soon as possible, rather than on request
+\item Improved usability -- no confusing buttons to press requiring knowledge of internal program workings 
 \item Error feedback -- introduction of an error popup means users are informed of errors, but screen space is not wasted otherwise
 \end{itemize}
 \cleardoublepage
 \chapter{Evaluation}
-[TODO intro]
+Evaluation of this project chiefly consists of two parts, correctness and performance. Correctness evaluation is intended to demonstrate correct functioning of the core project. Performance evaluation provides an analysis of the effect in terms of both performance and resource usage of some of the optimisations.
+
 \section{Parser correctness}
 In order to assist with development of the parser, and in particular to assist in regression testing, a test harness was developed for the testing the correctness of parameters returned by the parser. Since the parser does not access any browser-specific APIs, it was possible to perform this testing in a simple, automated way on the command line. Each test is specified by a shader program, and the result that should be returned by the parser -- the parameters and their associated information, any struct definitions, and whether the parser should fail to parse it and raise an exception, in the case of an invalid program. Parser output for each test specification is then compared against the actual output for a set of tests. These include correctly throwing/not raising an exception, returning the correct parameter names/a correct subset of the parameter names, all/some of the correct parameter types, the correct struct definitions, and so on. An additional script was written to perform these tests over all git revisions. 
 
@@ -534,6 +529,7 @@ In Section~\ref{parser-git} we see a graph showing the percentage of tests corre
 
 \section{Pipeline correctness}
 [TODO: don't really have this, getting output is a real pain. Possibly construct a set of demonstrations that clearly work? Good excuse to make pretty pictures.]
+In order to demonstrate visually correct shader pipeline output, a small number of example pipelines were constructed. This was achieved by taking a sample of simple WebGL example programs found online, and modifying them to work within my project. Output from the modified versions could then be compared with the originals. Ideal example programs would use a few different shaders connected together to produce a single visual effect. Below we can see samples of the output of the original programs alongside my reimplementations.
 
 \section{Performance}
 \subsubsection{Effect of modified shader detection}
@@ -542,9 +538,10 @@ In Section~\ref{opt}, we discussed the modification of the pipeline initializati
 Each test specification consists of a set of shaders, and a shader tree specification in which all necessary parameters are specified. Once a shader pipeline has been generated for a given specification, a shader update event is generated for a particular shader, and its completion timed. This is repeated 10 times to obtain an average and range. Similarly the completion of a complete re-generation of the shader pipeline is timed 10 times. This is repeated for each shader in the test specification. From [TODO graph] we can see the result of these tests for a particular test specification.
 
 \subsection{Effect of FBO reuse}
-Also in Section~\ref{opt}, we discuss the modification of the pipeline initialization process to reuse FBOs where possible. While the main motivation for this is to avoid allocating textures unnecessarily, this has possible speed benefits. [TODO graph]
+Also in Section~\ref{opt}, we discussed the modification of the pipeline initialization process to reuse FBOs where possible. While the main motivation for this is to avoid allocating textures unnecessarily, this has possible speed benefits. [TODO graph]
 
 \section{Texture usage}
+In Section~\ref{opt}, we discussed 
 
 \cleardoublepage
 \chapter{Conclusion}
