@@ -21,34 +21,33 @@
 \contentsline {chapter}{\numberline {3}Implementation}{19}{chapter.3}
 \contentsline {section}{\numberline {3.1}Parser}{20}{section.3.1}
 \contentsline {subsubsection}{Grammar conversion}{21}{section*.25}
-\contentsline {subsubsection}{Preprocessor}{21}{section*.26}
-\contentsline {subsubsection}{Annotations}{22}{section*.27}
-\contentsline {subsubsection}{Struct parsing}{22}{section*.28}
-\contentsline {section}{\numberline {3.2}Pipeline specification}{23}{section.3.2}
-\contentsline {section}{\numberline {3.3}Parameter UI generation}{24}{section.3.3}
-\contentsline {subsection}{\numberline {3.3.1}Struct handling}{25}{subsection.3.3.1}
-\contentsline {section}{\numberline {3.4}Pipeline generation}{25}{section.3.4}
-\contentsline {section}{\numberline {3.5}Rendering}{26}{section.3.5}
-\contentsline {section}{\numberline {3.6}Optimisation}{27}{section.3.6}
-\contentsline {subsection}{\numberline {3.6.1}\textsc {glow} early initialization}{27}{subsection.3.6.1}
-\contentsline {subsection}{\numberline {3.6.2}Modified shader detection}{27}{subsection.3.6.2}
-\contentsline {subsection}{\numberline {3.6.3}Parameter value propagation}{28}{subsection.3.6.3}
-\contentsline {subsection}{\numberline {3.6.4}\textsc {glow} cache}{28}{subsection.3.6.4}
-\contentsline {subsection}{\numberline {3.6.5}FBO reuse}{28}{subsection.3.6.5}
-\contentsline {section}{\numberline {3.7}User Interface}{29}{section.3.7}
-\contentsline {subsection}{\numberline {3.7.1}Editor}{29}{subsection.3.7.1}
-\contentsline {subsection}{\numberline {3.7.2}Layout}{29}{subsection.3.7.2}
-\contentsline {subsection}{\numberline {3.7.3}Improved Layout}{29}{subsection.3.7.3}
-\contentsline {chapter}{\numberline {4}Evaluation}{31}{chapter.4}
-\contentsline {section}{\numberline {4.1}Parser correctness}{31}{section.4.1}
-\contentsline {section}{\numberline {4.2}Pipeline correctness}{32}{section.4.2}
-\contentsline {section}{\numberline {4.3}Performance}{33}{section.4.3}
-\contentsline {subsubsection}{Effect of modified shader detection}{33}{section*.31}
-\contentsline {subsection}{\numberline {4.3.1}Effect of FBO reuse}{33}{subsection.4.3.1}
-\contentsline {section}{\numberline {4.4}Texture usage}{33}{section.4.4}
-\contentsline {chapter}{\numberline {5}Conclusion}{35}{chapter.5}
-\contentsline {section}{\numberline {5.1}Main Results}{35}{section.5.1}
-\contentsline {section}{\numberline {5.2}Lessons learned}{35}{section.5.2}
-\contentsline {section}{\numberline {5.3}Further work}{37}{section.5.3}
-\contentsline {chapter}{Bibliography}{39}{section.5.3}
-\contentsline {chapter}{\numberline {A}Project Proposal}{41}{appendix.A}
+\contentsline {subsubsection}{Preprocessor}{22}{section*.26}
+\contentsline {subsubsection}{Annotations}{23}{section*.27}
+\contentsline {subsubsection}{Struct parsing}{23}{section*.28}
+\contentsline {section}{\numberline {3.2}Pipeline specification}{24}{section.3.2}
+\contentsline {section}{\numberline {3.3}Parameter UI generation}{26}{section.3.3}
+\contentsline {subsection}{\numberline {3.3.1}Struct handling}{27}{subsection.3.3.1}
+\contentsline {section}{\numberline {3.4}Pipeline generation}{27}{section.3.4}
+\contentsline {section}{\numberline {3.5}Rendering}{28}{section.3.5}
+\contentsline {section}{\numberline {3.6}Optimisation}{29}{section.3.6}
+\contentsline {subsection}{\numberline {3.6.1}\textsc {glow} early initialization}{29}{subsection.3.6.1}
+\contentsline {subsection}{\numberline {3.6.2}Modified shader detection}{30}{subsection.3.6.2}
+\contentsline {subsection}{\numberline {3.6.3}Parameter value propagation}{30}{subsection.3.6.3}
+\contentsline {subsection}{\numberline {3.6.4}\textsc {glow} cache}{30}{subsection.3.6.4}
+\contentsline {subsection}{\numberline {3.6.5}FBO reuse}{31}{subsection.3.6.5}
+\contentsline {section}{\numberline {3.7}User Interface}{31}{section.3.7}
+\contentsline {subsection}{\numberline {3.7.1}Editor}{31}{subsection.3.7.1}
+\contentsline {subsection}{\numberline {3.7.2}Layout}{31}{subsection.3.7.2}
+\contentsline {subsection}{\numberline {3.7.3}Improved Layout}{32}{subsection.3.7.3}
+\contentsline {chapter}{\numberline {4}Evaluation}{33}{chapter.4}
+\contentsline {section}{\numberline {4.1}Parser correctness}{33}{section.4.1}
+\contentsline {section}{\numberline {4.2}Pipeline correctness}{36}{section.4.2}
+\contentsline {section}{\numberline {4.3}Performance}{37}{section.4.3}
+\contentsline {subsubsection}{Effect of modified shader detection}{37}{section*.31}
+\contentsline {subsection}{\numberline {4.3.1}Effect of FBO reuse}{38}{subsection.4.3.1}
+\contentsline {chapter}{\numberline {5}Conclusion}{39}{chapter.5}
+\contentsline {section}{\numberline {5.1}Main Results}{39}{section.5.1}
+\contentsline {section}{\numberline {5.2}Lessons learned}{39}{section.5.2}
+\contentsline {section}{\numberline {5.3}Further work}{41}{section.5.3}
+\contentsline {chapter}{Bibliography}{43}{section.5.3}
+\contentsline {chapter}{\numberline {A}Project Proposal}{45}{appendix.A}

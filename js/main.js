@@ -95,17 +95,17 @@ function generateChain() {
     //lookup = {} //This is also marks nodes
 
     clearLookup = function(node) {
-    if (!node.name) return;
-    node.lookup = false;
-    for (i in node.data) clearLookup(node.data[i])
+	if (!node.name) return;
+	node.lookup = false;
+	for (i in node.data) clearLookup(node.data[i])
     }
     clearLookup(tree);
 
     updateNode = function(node) {
-    if (!node.name || node.lookup) return;
-    node.lookup = true;
-    for (i in node.data) updateNode(node.data[i])
-    chain.push(node);
+	if (!node.name || node.lookup) return;
+	node.lookup = true;
+	for (i in node.data) updateNode(node.data[i])
+	chain.push(node);
     }
     updateNode(tree);
 }
@@ -117,8 +117,8 @@ function updateShaders() {
 function updateShader(name) {
     shaders[name].update();
     for (i in chain) {
-    if (chain[i].name != name) continue;
-    chain[i].glow = new GLOW.Shader(chain[i]);
+	if (chain[i].name != name) continue;
+	chain[i].glow = new GLOW.Shader(chain[i]);
     }
 }
 
