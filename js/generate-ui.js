@@ -4,15 +4,21 @@ function floatHex(f) {
 	Math.round(f[2].value*256)).toString(16);
 }
 
-function generateUI(nodes,structs,glow) {
+function generateUI(instance) {
+    console.log(instance);
+    var nodes = instance.shader.parseData.params;
+    var structs = {};
+    //var glow = instance.data;
+
     var ret = $('<div/>');
     var deflt = {};
-    
-    for (name in nodes) {
-	node = nodes[name];
-	if (node.qual != 'uniform' || glow[i]) continue;
+    for (var name in nodes) {
+	var node = nodes[name];
+	//console.log(node);
+	//console.log(instance.glow.uniforms);
+	if (node.qual != 'uniform' || instance.uniforms[name] || instance.children[name]) continue;
 	var r = $('<div><h4>'+name+'</h4><span>'+node.type+'</span></div>')
-	r.attr('class',i);
+	r.attr('class',name);
 	if (typeof node.type == 'string') {
 	    if (match=node.type.match(/([bi]?)vec([234])/)) {
 		deflt[name] = match[2]==2 ? new GLOW.Vector2() : (match[2]==3 ? new GLOW.Vector3() : new GLOW.Vector4());
@@ -28,7 +34,7 @@ function generateUI(nodes,structs,glow) {
 				rs[2].value = ns[2];
 				rs.css('backgroundColor', '#' + hex);
 				if (rs[3]) ns[3] = parseFloat(rs[3].value);
-				glow[name].set.apply(glow[name],ns);
+				instance.glow.uniforms[name].set.apply(instance.glow.uniforms[name],ns);
 				render();
 			    },
 			    onBeforeShow: function () {
@@ -41,17 +47,19 @@ function generateUI(nodes,structs,glow) {
 			    console.log(hex);
 			    rs.ColorPickerSetColor(hex);
 			    rs.css('backgroundColor', '#' + hex);
-			    glow[name].value[$(this).attr('n')] = parseFloat(this.value);
+			    instance.glow.uniforms[name].value[$(this).attr('n')] = parseFloat(this.value);
 			    render();
 			});
 		    }
 		    r.append(nextCell);
 		}	
 	    } else if (node.type == 'sampler2D') {
+		var n = name; //local
 		deflt[name] = new GLOW.Texture({ url:'cube.JPG' });
 		r.append($('<input type="text" />').change(
 		    function() {
-			glow[name] = new GLOW.Texture({ url:$(this).val() });
+			instance.glow.uniforms[n] = new GLOW.Texture({ url:$(this).val() });
+			//console.log(instance.glow.uniforms);
 			render();
 		    }
 		));

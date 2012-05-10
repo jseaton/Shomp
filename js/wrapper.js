@@ -8,7 +8,9 @@ function evalTree(text,shaders) {
     mat3 = GLOW.Matrix3;
     mat4 = GLOW.Matrix4;
 
-    function sampler2D(url) { GLOW.Texture.call(this,{url:url}); }
+    function sampler2D(url) { 
+	return new GLOW.Texture({url:url});
+    }
 
     eval(text);
     return output;
@@ -16,19 +18,40 @@ function evalTree(text,shaders) {
 
 function genShaderFunctions(shaders) {
     var fns = "";
-    for (name in shaders)
+    for (var name in shaders)
 	fns += "function " + name + "(id,size) { this.__name__ = '" + name + "'; this.__shader__ = true; this.__id__ = id || ('unnamed_' + this.__name__); this.__size__ = size;};";
     return fns;
 }
 
 function remapTree(shader,shaders) {
-    var args = {};
-    for (i in shader) {
-	if (i.slice(0,2) == '__') continue;
-	//console.log(shader);
-	//console.log(i);
-	//console.log(shader[i]);
-	args[i] = shader[i] && shader[i].__shader__ ? remapTree(shader[i],shaders) : shader[i];
+    var attr = {
+	uniforms:{},
+	others:{},
+	children:{}
+    };
+    var origin = shaders[shader.__name__];
+    if (!origin) {
+	console.log("Undefined shader");
+	return;
     }
-    return new ShaderInstance(shader.__name__,shader.__id__,shaders[shader.__name__],args,shader.__size__);
+    for (var name in shader) {
+	var param = shader[name];
+	if (name.slice(0,2) == '__') continue; //private blah
+	console.log(origin);
+	if (param && param.__shader__) { 
+	    attr.children[name] = remapTree(param,shaders)
+	} else if (origin.parseData.params[name].qual == "uniform") {
+	    attr.uniforms[name] = param;
+	} else {
+	    attr.others[name] = param;
+	}
+    }
+    console.log(shader);
+    var n = new ShaderInstance(shader.__name__,
+			       shader.__id__,
+			       origin,
+			       attr,
+			       shader.__size__);
+    console.log(n);
+    return n;
 }

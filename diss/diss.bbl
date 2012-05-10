@@ -20,6 +20,10 @@ Js/cc parser generator project homepage.
 three.js.
 \newblock \url{ https://github.com/mrdoob/three.js/ }.
 
+\bibitem{v8}
+V8 javascript engine.
+\newblock \url{ http://code.google.com/p/v8/ }.
+
 \bibitem{webgl-future}
 Webgl and html5 challenges for the future.
 \newblock \url{

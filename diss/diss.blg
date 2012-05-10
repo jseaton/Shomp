@@ -4,6 +4,7 @@ The top-level auxiliary file: diss.aux
 The style file: plain.bst
 Database file #1: refs.bib
 Warning--to sort, need author or key in webgl-spec
+Warning--to sort, need author or key in v8
 Warning--to sort, need author or key in three
 Warning--to sort, need author or key in glow
 Warning--to sort, need author or key in codemirror
@@ -11,45 +12,45 @@ Warning--to sort, need author or key in js-cc
 Warning--to sort, need author or key in jison
 Warning--to sort, need author or key in webgl-future
 Warning--empty publisher in glsl-spec
-You've used 15 entries,
+You've used 16 entries,
             2118 wiz_defined-function locations,
-            557 strings with 5550 characters,
-and the built_in function-call counts, 3266 in all, are:
-= -- 301
-> -- 100
+            560 strings with 5608 characters,
+and the built_in function-call counts, 3425 in all, are:
+= -- 316
+> -- 101
 < -- 2
-+ -- 46
++ -- 47
 - -- 30
-* -- 146
-:= -- 481
-add.period$ -- 39
-call.type$ -- 15
-change.case$ -- 57
+* -- 151
+:= -- 498
+add.period$ -- 41
+call.type$ -- 16
+change.case$ -- 60
 chr.to.int$ -- 0
-cite$ -- 23
-duplicate$ -- 136
-empty$ -- 356
+cite$ -- 25
+duplicate$ -- 143
+empty$ -- 379
 format.name$ -- 30
-if$ -- 744
+if$ -- 784
 int.to.chr$ -- 0
-int.to.str$ -- 15
+int.to.str$ -- 16
 missing$ -- 8
-newline$ -- 71
+newline$ -- 75
 num.names$ -- 16
-pop$ -- 126
+pop$ -- 134
 preamble$ -- 1
-purify$ -- 45
+purify$ -- 47
 quote$ -- 0
-skip$ -- 121
+skip$ -- 129
 stack$ -- 0
-substring$ -- 104
-swap$ -- 25
+substring$ -- 109
+swap$ -- 26
 text.length$ -- 2
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 52
-warning$ -- 8
+type$ -- 56
+warning$ -- 9
 while$ -- 18
-width$ -- 17
-write$ -- 131
-(There were 8 warnings)
+width$ -- 18
+write$ -- 138
+(There were 9 warnings)

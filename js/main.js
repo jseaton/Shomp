@@ -31,26 +31,43 @@ Shader.prototype.update = function() {
     this.parseData      = parse(this.vertexShader.split('\n').map(function (e) { if (e=='') blat=false; if (blat) {return e;} else {return '';}}).join('\n'));
 }
 
-Shader.prototype.create = function(name, attr) {
+/*Shader.prototype.create = function(name, attr) {
     return new ShaderInstance(name, attr, this);
-}
+}*/
 
 function ShaderInstance(name, id, shader, attr, size) {
     this.name           = name;
     this.id             = id;
-    this.vertexShader   = shader.vertexShader;
-    this.fragmentShader = shader.fragmentShader;
+//    this.vertexShader   = shader.vertexShader;
+//    this.fragmentShader = shader.fragmentShader;
     this.shader         = shader;
-    this.data           = attr; //TODO
+
+    this.uniforms       = attr.uniforms;
+    this.others         = attr.others;
+    this.children       = attr.children;
+
     this.elements       = GLOW.Geometry.Cube.elements(); //TODO
     this.size           = size;
+    this.glow           = {};
 }
 
-ShaderInstance.prototype.update = function() {
-    this.vertexShader   = this.shader.vertexShader;
-    this.fragmentShader = this.shader.fragmentShader;
+//ShaderInstance.prototype.update = function() {
+//    this.vertexShader   = this.shader.vertexShader;
+//    this.fragmentShader = this.shader.fragmentShader;
+//}
+
+ShaderInstance.prototype.updateGLOW = function() {
+    this.glow = new GLOW.Shader(
+	{
+	    vertexShader:this.shader.vertexShader,
+	    fragmentShader:this.shader.fragmentShader,
+	    elements:this.elements,
+	    data:$.extend(this.others,$.extend(this.uniforms,this.glow.uniforms))
+	}
+    );
 }
 
+/*
 ShaderInstance.prototype.genParams = function() { 
     this.data = $.extend(this.shader.genParams(this.attr),this.attr); //TODO separation
 }
@@ -73,18 +90,21 @@ Shader.prototype.genParams = function(attr) {
     }
     }
     return params;
-}
+}*/
 
 //Note order - fbo of node must be generated before 
 //any potential usage
 function generateChainParams() {
     for (var i=0;i<chain.length;i++) {
-    //chain[i].genParams();
-    if (i<chain.length-1) chain[i].fbo = new GLOW.FBO();//chain[i].size || {});
-    for (j in chain[i].data) {
-    if (chain[i].data[j].name) chain[i].data[j] = chain[i].data[j].fbo;
+	var node = chain[i];
+	if (i<chain.length-1) node.fbo = new GLOW.FBO();//chain[i].size || {});
     }
-    chain[i].glow = GLOW.Shader.call(chain[i].glow,chain[i]);
+    for (var i=0;i<chain.length;i++) {
+	var node = chain[i];
+	for (var j in node.children) {
+	    node.uniforms[j] = node.children[j].fbo;
+	}
+	node.updateGLOW();
     }
 }
 
@@ -97,28 +117,30 @@ function generateChain() {
     clearLookup = function(node) {
 	if (!node.name) return;
 	node.lookup = false;
-	for (i in node.data) clearLookup(node.data[i])
+	for (i in node.children) clearLookup(node.children[i])
     }
     clearLookup(tree);
 
     updateNode = function(node) {
 	if (!node.name || node.lookup) return;
 	node.lookup = true;
-	for (i in node.data) updateNode(node.data[i])
+	for (i in node.children) updateNode(node.children[i])
 	chain.push(node);
     }
     updateNode(tree);
 }
 
 function updateShaders() {
-    for (i in shaders) shaders[i].update();
+    for (i in shaders) updateShader(i);
 }
 
+//Note: updateShader must not be called unless a chain has already
+//been generated, ensuring FBO existance
 function updateShader(name) {
     shaders[name].update();
     for (i in chain) {
 	if (chain[i].name != name) continue;
-	chain[i].glow = new GLOW.Shader(chain[i]);
+	chain[i].data = new GLOW.Shader(chain[i]);
     }
 }
 
@@ -130,9 +152,12 @@ function updateTree() {
 	console.log(node);
 	if (!node || !node.name) return;
 	$('#params').append('<h3>' + node.id + '</h3>');
-	node.glow = node.data;
-	$('#params').append(generateUI(node.shader.parseData.params,{},node.glow).html);
-	for (i in node.data) genUI(node.data[i]);
+	//node.glow = node.data;
+	var gen = generateUI(node);
+	console.log(gen);
+	$('#params').append(gen.html);
+	node.others = $.extend(gen.deflt,node.others);
+	for (var i in node.children) genUI(node.children[i]);
     }
     genUI(tree);
 }
