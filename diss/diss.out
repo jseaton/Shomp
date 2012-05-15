@@ -6,39 +6,36 @@
 \BOOKMARK [1][-]{section.2.1}{Requirements analysis}{chapter.2}% 6
 \BOOKMARK [1][-]{section.2.2}{Preparatory learning}{chapter.2}% 7
 \BOOKMARK [2][-]{subsection.2.2.1}{A short introduction to OpenGL}{section.2.2}% 8
-\BOOKMARK [2][-]{subsection.2.2.2}{Background reading}{section.2.2}% 9
-\BOOKMARK [1][-]{section.2.3}{Development environment}{chapter.2}% 10
-\BOOKMARK [2][-]{subsection.2.3.1}{Libraries}{section.2.3}% 11
-\BOOKMARK [2][-]{subsection.2.3.2}{Version control and backup strategy}{section.2.3}% 12
-\BOOKMARK [1][-]{section.2.4}{Software development process}{chapter.2}% 13
-\BOOKMARK [0][-]{chapter.3}{Implementation}{}% 14
-\BOOKMARK [1][-]{section.3.1}{GLSL Parser}{chapter.3}% 15
-\BOOKMARK [2][-]{subsection.3.1.1}{Grammar conversion}{section.3.1}% 16
-\BOOKMARK [2][-]{subsection.3.1.2}{Preprocessor}{section.3.1}% 17
-\BOOKMARK [2][-]{subsection.3.1.3}{Annotations}{section.3.1}% 18
-\BOOKMARK [2][-]{subsection.3.1.4}{Struct parsing}{section.3.1}% 19
-\BOOKMARK [1][-]{section.3.2}{Pipeline specification}{chapter.3}% 20
-\BOOKMARK [1][-]{section.3.3}{Parameter UI generation}{chapter.3}% 21
-\BOOKMARK [1][-]{section.3.4}{Pipeline generation}{chapter.3}% 22
-\BOOKMARK [1][-]{section.3.5}{Rendering}{chapter.3}% 23
-\BOOKMARK [1][-]{section.3.6}{Optimisations}{chapter.3}% 24
-\BOOKMARK [2][-]{subsection.3.6.1}{glow early initialization}{section.3.6}% 25
-\BOOKMARK [2][-]{subsection.3.6.2}{Modified shader detection}{section.3.6}% 26
-\BOOKMARK [2][-]{subsection.3.6.3}{Parameter value propagation}{section.3.6}% 27
-\BOOKMARK [2][-]{subsection.3.6.4}{glow cache}{section.3.6}% 28
-\BOOKMARK [2][-]{subsection.3.6.5}{FBO reuse}{section.3.6}% 29
-\BOOKMARK [1][-]{section.3.7}{User Interface}{chapter.3}% 30
-\BOOKMARK [2][-]{subsection.3.7.1}{Editor}{section.3.7}% 31
-\BOOKMARK [2][-]{subsection.3.7.2}{Layout}{section.3.7}% 32
-\BOOKMARK [2][-]{subsection.3.7.3}{Improved Layout}{section.3.7}% 33
-\BOOKMARK [0][-]{chapter.4}{Evaluation}{}% 34
-\BOOKMARK [1][-]{section.4.1}{Parser correctness}{chapter.4}% 35
-\BOOKMARK [1][-]{section.4.2}{Pipeline correctness}{chapter.4}% 36
-\BOOKMARK [1][-]{section.4.3}{Performance}{chapter.4}% 37
-\BOOKMARK [2][-]{subsection.4.3.1}{Effect of FBO reuse}{section.4.3}% 38
-\BOOKMARK [0][-]{chapter.5}{Conclusion}{}% 39
-\BOOKMARK [1][-]{section.5.1}{Main Results}{chapter.5}% 40
-\BOOKMARK [1][-]{section.5.2}{Lessons learned}{chapter.5}% 41
-\BOOKMARK [1][-]{section.5.3}{Further work}{chapter.5}% 42
-\BOOKMARK [0][-]{section.5.3}{Bibliography}{}% 43
-\BOOKMARK [0][-]{appendix.A}{Project Proposal}{}% 44
+\BOOKMARK [1][-]{section.2.3}{Programming language and libraries}{chapter.2}% 9
+\BOOKMARK [1][-]{section.2.4}{Development environment}{chapter.2}% 10
+\BOOKMARK [1][-]{section.2.5}{Software development process}{chapter.2}% 11
+\BOOKMARK [0][-]{chapter.3}{Implementation}{}% 12
+\BOOKMARK [1][-]{section.3.1}{GLSL Parser}{chapter.3}% 13
+\BOOKMARK [2][-]{subsection.3.1.1}{Grammar conversion}{section.3.1}% 14
+\BOOKMARK [2][-]{subsection.3.1.2}{Preprocessor}{section.3.1}% 15
+\BOOKMARK [2][-]{subsection.3.1.3}{Annotations}{section.3.1}% 16
+\BOOKMARK [2][-]{subsection.3.1.4}{Struct parsing}{section.3.1}% 17
+\BOOKMARK [1][-]{section.3.2}{Pipeline specification}{chapter.3}% 18
+\BOOKMARK [1][-]{section.3.3}{Parameter UI generation}{chapter.3}% 19
+\BOOKMARK [1][-]{section.3.4}{Pipeline generation}{chapter.3}% 20
+\BOOKMARK [1][-]{section.3.5}{Rendering}{chapter.3}% 21
+\BOOKMARK [1][-]{section.3.6}{Optimisations}{chapter.3}% 22
+\BOOKMARK [2][-]{subsection.3.6.1}{glow early initialization}{section.3.6}% 23
+\BOOKMARK [2][-]{subsection.3.6.2}{Modified shader detection}{section.3.6}% 24
+\BOOKMARK [2][-]{subsection.3.6.3}{Parameter value propagation}{section.3.6}% 25
+\BOOKMARK [2][-]{subsection.3.6.4}{glow cache}{section.3.6}% 26
+\BOOKMARK [2][-]{subsection.3.6.5}{FBO reuse}{section.3.6}% 27
+\BOOKMARK [1][-]{section.3.7}{User Interface}{chapter.3}% 28
+\BOOKMARK [2][-]{subsection.3.7.1}{Editor}{section.3.7}% 29
+\BOOKMARK [2][-]{subsection.3.7.2}{Layout}{section.3.7}% 30
+\BOOKMARK [2][-]{subsection.3.7.3}{Improved Layout}{section.3.7}% 31
+\BOOKMARK [0][-]{chapter.4}{Evaluation}{}% 32
+\BOOKMARK [1][-]{section.4.1}{Parser correctness}{chapter.4}% 33
+\BOOKMARK [1][-]{section.4.2}{Pipeline correctness}{chapter.4}% 34
+\BOOKMARK [1][-]{section.4.3}{Performance}{chapter.4}% 35
+\BOOKMARK [0][-]{chapter.5}{Conclusion}{}% 36
+\BOOKMARK [1][-]{section.5.1}{Main Results}{chapter.5}% 37
+\BOOKMARK [1][-]{section.5.2}{Lessons learned}{chapter.5}% 38
+\BOOKMARK [1][-]{section.5.3}{Further work}{chapter.5}% 39
+\BOOKMARK [0][-]{section.5.3}{Bibliography}{}% 40
+\BOOKMARK [0][-]{appendix.A}{Project Proposal}{}% 41

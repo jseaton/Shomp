@@ -5,7 +5,7 @@ Codemirror.
 \newblock \url{ http://codemirror.net/ }.
 
 \bibitem{glow}
-I am glow.
+I am {GLOW}.
 \newblock \url{ http://i-am-glow.com/ }.
 
 \bibitem{jison}
@@ -13,7 +13,7 @@ Jison.
 \newblock \url{ http://zaach.github.com/jison/ }.
 
 \bibitem{js-cc}
-Js/cc parser generator project homepage.
+{JS/CC} parser generator project homepage.
 \newblock \url{ http://jscc.jmksf.com/ }.
 
 \bibitem{three}
@@ -21,11 +21,11 @@ three.js.
 \newblock \url{ https://github.com/mrdoob/three.js/ }.
 
 \bibitem{v8}
-V8 javascript engine.
+{V8} {JavaScript} engine.
 \newblock \url{ http://code.google.com/p/v8/ }.
 
 \bibitem{webgl-future}
-Webgl and html5 challenges for the future.
+{WebGL} and {HTML5} challenges for the future.
 \newblock \url{
   http://codeflow.org/entries/2011/sep/11/webgl-and-html5-challenges-for-the-future/
   }.
@@ -38,11 +38,11 @@ Webgl specification.
 Thomas~H. Cormen, Charles~E. Leiserson, Ronald~L. Rivest, and Clifford Stein.
 \newblock {\em Introduction to Algorithms}, chapter 22.4: Topological sort,
   pages 549--552.
-\newblock The MIT Press, 2 edition, 2001.
+\newblock The {MIT} Press, 2 edition, 2001.
 
 \bibitem{eloquent}
 M.~Haverbeke.
-\newblock {\em Eloquent JavaScript: A Modern Introduction to Programming}.
+\newblock {\em Eloquent {JavaScript}: A Modern Introduction to Programming}.
 \newblock No Starch Press Series. No Starch Press, 2011.
 
 \bibitem{emacs-js}
@@ -54,14 +54,14 @@ David Miller.
   }, May 2011.
 
 \bibitem{redbook}
-Opengl, D.~Shreiner, M.~Woo, J.~Neider, and T.~Davis.
-\newblock {\em {OpenGL(R) Programming Guide : The Official Guide to Learning
+{OpenGL}, D.~Shreiner, M.~Woo, J.~Neider, and T.~Davis.
+\newblock {\em {OpenGL Programming Guide : The Official Guide to Learning
   OpenGL(R), Version 2 (5th Edition)}}.
 \newblock Addison-Wesley Professional, August 2005.
 
 \bibitem{color}
 Stefan Petre.
-\newblock Colorpicker -- jquery plugin.
+\newblock {ColorPicker} -- {jQuery} plugin.
 \newblock \url{ http://www.eyecon.ro/colorpicker/ }.
 
 \bibitem{glsl-spec}
@@ -76,7 +76,7 @@ Sjoerd Visscher.
 
 \bibitem{reaction-diffusion}
 Felix Woitzel.
-\newblock Webgl shader lab reactor-diffusion mix.
+\newblock {WebGL} shader lab reactor-diffusion mix.
 \newblock \url{ http://cake23.de/diffusion-mix.html }.
 
 \end{thebibliography}

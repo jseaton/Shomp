@@ -58,7 +58,8 @@ function generateUI(instance) {
 		deflt[name] = new GLOW.Texture({ url:'cube.JPG' });
 		r.append($('<input type="text" />').change(
 		    function() {
-			instance.glow.uniforms[n] = new GLOW.Texture({ url:$(this).val() });
+			instance.uniforms[n] = new GLOW.Texture({ url:$(this).val() });
+			instance.updateGLOW();
 			//console.log(instance.glow.uniforms);
 			render();
 		    }

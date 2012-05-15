@@ -26,10 +26,22 @@
   <script type="text/javascript" src="js/wrapper.js"></script>
   <script type="text/javascript" src="js/main.js"></script>
   <script type="text/javascript" src="js/test.js"></script>
+  </script>
 </head>
 <body>
+<pre id="output">
+\begin{tikzpicture}
+\begin{axis}[
+    ybar,
+    enlargelimits=0.15,
+    legend style={at={(0.5,-0.15)},
+      anchor=north,legend columns=-1},
+    ylabel={avarage time (ms)},
+    xtick=data,
+    nodes near coords,
+    nodes near coords align={vertical},
+</pre>
 <div id="container" width="80" height="80"></div>
-<div id="results"></div>
 
 </body>
 </html>

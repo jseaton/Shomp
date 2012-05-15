@@ -2,51 +2,46 @@
 \contentsline {section}{\numberline {1.1}Motivation}{9}{section.1.1}
 \contentsline {section}{\numberline {1.2}Brief introduction to shaders}{10}{section.1.2}
 \contentsline {subsection}{\numberline {1.2.1}A look at some OpenGL calls}{10}{subsection.1.2.1}
-\contentsline {chapter}{\numberline {2}Preparation}{11}{chapter.2}
-\contentsline {section}{\numberline {2.1}Requirements analysis}{11}{section.2.1}
-\contentsline {section}{\numberline {2.2}Preparatory learning}{12}{section.2.2}
-\contentsline {subsection}{\numberline {2.2.1}A short introduction to OpenGL}{12}{subsection.2.2.1}
-\contentsline {subsection}{\numberline {2.2.2}Background reading}{12}{subsection.2.2.2}
-\contentsline {subsubsection}{OpenGL and GLSL}{12}{section*.7}
-\contentsline {subsubsection}{JavaScript}{13}{section*.8}
-\contentsline {section}{\numberline {2.3}Development environment}{13}{section.2.3}
-\contentsline {subsection}{\numberline {2.3.1}Libraries}{15}{subsection.2.3.1}
-\contentsline {subsubsection}{jQuery}{15}{section*.15}
-\contentsline {subsubsection}{Testing framework}{15}{section*.16}
-\contentsline {subsubsection}{WebGL toolkit}{16}{section*.17}
-\contentsline {subsubsection}{Editor}{16}{section*.18}
-\contentsline {subsubsection}{jQuery UI}{16}{section*.19}
-\contentsline {subsection}{\numberline {2.3.2}Version control and backup strategy}{17}{subsection.2.3.2}
-\contentsline {section}{\numberline {2.4}Software development process}{17}{section.2.4}
-\contentsline {chapter}{\numberline {3}Implementation}{19}{chapter.3}
-\contentsline {section}{\numberline {3.1}GLSL Parser}{21}{section.3.1}
-\contentsline {subsection}{\numberline {3.1.1}Grammar conversion}{22}{subsection.3.1.1}
-\contentsline {subsection}{\numberline {3.1.2}Preprocessor}{22}{subsection.3.1.2}
-\contentsline {subsection}{\numberline {3.1.3}Annotations}{23}{subsection.3.1.3}
-\contentsline {subsection}{\numberline {3.1.4}Struct parsing}{24}{subsection.3.1.4}
-\contentsline {section}{\numberline {3.2}Pipeline specification}{25}{section.3.2}
-\contentsline {section}{\numberline {3.3}Parameter UI generation}{27}{section.3.3}
-\contentsline {section}{\numberline {3.4}Pipeline generation}{29}{section.3.4}
-\contentsline {section}{\numberline {3.5}Rendering}{30}{section.3.5}
-\contentsline {section}{\numberline {3.6}Optimisations}{31}{section.3.6}
-\contentsline {subsection}{\numberline {3.6.1}\textsc {glow} early initialization}{31}{subsection.3.6.1}
-\contentsline {subsection}{\numberline {3.6.2}Modified shader detection}{31}{subsection.3.6.2}
-\contentsline {subsection}{\numberline {3.6.3}Parameter value propagation}{32}{subsection.3.6.3}
-\contentsline {subsection}{\numberline {3.6.4}\textsc {glow} cache}{32}{subsection.3.6.4}
-\contentsline {subsection}{\numberline {3.6.5}FBO reuse}{32}{subsection.3.6.5}
-\contentsline {section}{\numberline {3.7}User Interface}{33}{section.3.7}
-\contentsline {subsection}{\numberline {3.7.1}Editor}{33}{subsection.3.7.1}
-\contentsline {subsection}{\numberline {3.7.2}Layout}{33}{subsection.3.7.2}
-\contentsline {subsection}{\numberline {3.7.3}Improved Layout}{33}{subsection.3.7.3}
-\contentsline {chapter}{\numberline {4}Evaluation}{35}{chapter.4}
-\contentsline {section}{\numberline {4.1}Parser correctness}{35}{section.4.1}
-\contentsline {section}{\numberline {4.2}Pipeline correctness}{38}{section.4.2}
-\contentsline {section}{\numberline {4.3}Performance}{39}{section.4.3}
-\contentsline {subsubsection}{Effect of modified shader detection}{39}{section*.23}
-\contentsline {subsection}{\numberline {4.3.1}Effect of FBO reuse}{40}{subsection.4.3.1}
-\contentsline {chapter}{\numberline {5}Conclusion}{41}{chapter.5}
-\contentsline {section}{\numberline {5.1}Main Results}{41}{section.5.1}
-\contentsline {section}{\numberline {5.2}Lessons learned}{41}{section.5.2}
-\contentsline {section}{\numberline {5.3}Further work}{43}{section.5.3}
-\contentsline {chapter}{Bibliography}{45}{section.5.3}
-\contentsline {chapter}{\numberline {A}Project Proposal}{47}{appendix.A}
+\contentsline {chapter}{\numberline {2}Preparation}{13}{chapter.2}
+\contentsline {section}{\numberline {2.1}Requirements analysis}{13}{section.2.1}
+\contentsline {section}{\numberline {2.2}Preparatory learning}{14}{section.2.2}
+\contentsline {subsection}{\numberline {2.2.1}A short introduction to OpenGL}{14}{subsection.2.2.1}
+\contentsline {section}{\numberline {2.3}Programming language and libraries}{14}{section.2.3}
+\contentsline {subsubsection}{jQuery}{17}{section*.10}
+\contentsline {subsubsection}{Testing framework}{17}{section*.11}
+\contentsline {subsubsection}{WebGL toolkit}{17}{section*.12}
+\contentsline {subsubsection}{Editor}{18}{section*.13}
+\contentsline {subsubsection}{jQuery UI}{18}{section*.14}
+\contentsline {section}{\numberline {2.4}Development environment}{18}{section.2.4}
+\contentsline {section}{\numberline {2.5}Software development process}{20}{section.2.5}
+\contentsline {chapter}{\numberline {3}Implementation}{21}{chapter.3}
+\contentsline {section}{\numberline {3.1}GLSL Parser}{23}{section.3.1}
+\contentsline {subsection}{\numberline {3.1.1}Grammar conversion}{24}{subsection.3.1.1}
+\contentsline {subsection}{\numberline {3.1.2}Preprocessor}{24}{subsection.3.1.2}
+\contentsline {subsection}{\numberline {3.1.3}Annotations}{25}{subsection.3.1.3}
+\contentsline {subsection}{\numberline {3.1.4}Struct parsing}{26}{subsection.3.1.4}
+\contentsline {section}{\numberline {3.2}Pipeline specification}{28}{section.3.2}
+\contentsline {section}{\numberline {3.3}Parameter UI generation}{31}{section.3.3}
+\contentsline {section}{\numberline {3.4}Pipeline generation}{33}{section.3.4}
+\contentsline {section}{\numberline {3.5}Rendering}{34}{section.3.5}
+\contentsline {section}{\numberline {3.6}Optimisations}{35}{section.3.6}
+\contentsline {subsection}{\numberline {3.6.1}\textsc {glow} early initialization}{35}{subsection.3.6.1}
+\contentsline {subsection}{\numberline {3.6.2}Modified shader detection}{35}{subsection.3.6.2}
+\contentsline {subsection}{\numberline {3.6.3}Parameter value propagation}{36}{subsection.3.6.3}
+\contentsline {subsection}{\numberline {3.6.4}\textsc {glow} cache}{36}{subsection.3.6.4}
+\contentsline {subsection}{\numberline {3.6.5}FBO reuse}{36}{subsection.3.6.5}
+\contentsline {section}{\numberline {3.7}User Interface}{37}{section.3.7}
+\contentsline {subsection}{\numberline {3.7.1}Editor}{37}{subsection.3.7.1}
+\contentsline {subsection}{\numberline {3.7.2}Layout}{37}{subsection.3.7.2}
+\contentsline {subsection}{\numberline {3.7.3}Improved Layout}{37}{subsection.3.7.3}
+\contentsline {chapter}{\numberline {4}Evaluation}{41}{chapter.4}
+\contentsline {section}{\numberline {4.1}Parser correctness}{41}{section.4.1}
+\contentsline {section}{\numberline {4.2}Pipeline correctness}{44}{section.4.2}
+\contentsline {section}{\numberline {4.3}Performance}{46}{section.4.3}
+\contentsline {subsubsection}{Effect of modified shader detection}{46}{section*.25}
+\contentsline {chapter}{\numberline {5}Conclusion}{49}{chapter.5}
+\contentsline {section}{\numberline {5.1}Main Results}{49}{section.5.1}
+\contentsline {section}{\numberline {5.2}Lessons learned}{49}{section.5.2}
+\contentsline {section}{\numberline {5.3}Further work}{51}{section.5.3}
+\contentsline {chapter}{Bibliography}{53}{section.5.3}
+\contentsline {chapter}{\numberline {A}Project Proposal}{55}{appendix.A}

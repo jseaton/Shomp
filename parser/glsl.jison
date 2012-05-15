@@ -8,6 +8,8 @@
 
 %%
 \s+		/* whitespace */
+'__colour__annotation' return 'COLOUR';
+'__range__annotation' return 'RANGE';
 'attribute'	return 'ATTRIBUTE';
 'const'		return 'CONST';
 'bool'		return 'BOOL';
@@ -181,6 +183,7 @@ constructor_identifier:
         | MAT3
         | MAT4
 /*	| IDENTIFIER { if (!lexer.structs[$1]) yyerror(); }  TYPE_NAME */
+	| TYPE_NAME
 	;
 
 unary_expression:
@@ -346,20 +349,26 @@ parameter_type_specifier:
         | type_specifier LEFT_BRACKET constant_expression RIGHT_BRACKET
 	;
 
-init_declarator_list:
+init_declarator_list_unannotated:
         single_declaration
-        | init_declarator_list COMMA IDENTIFIER {
+        | init_declarator_list_unannotated COMMA IDENTIFIER {
 	  		       prev; for (i in $1) { prev = i; break; }
 	 		       $1[$3] = prev.type;
  	}
-        | init_declarator_list COMMA IDENTIFIER LEFT_BRACKET constant_expression RIGHT_BRACKET {
+        | init_declarator_list_unannotated COMMA IDENTIFIER LEFT_BRACKET constant_expression RIGHT_BRACKET {
 	  		       prev; for (i in $1) { prev = i; break; }
 			       $1[$3] = {type:prev.type,qual:prev.qual,prec:prev.prec,n:$4}
 	}
-        | init_declarator_list COMMA IDENTIFIER EQUAL initializer {
+        | init_declarator_list_unannotated COMMA IDENTIFIER EQUAL initializer {
 	  		       prev; for (i in $1) { prev = i; break; }
 			       $1[$3] = {type:prev.type,qual:prev.qual,prec:prev.prec,init:$4}
 	}
+	;
+
+init_declarator_list:
+	init_declarator_list_unannotated
+	| init_declarator_list_unannotated COLOUR { for (i in $$) { $$[i].colour = true; } }
+	| init_declarator_list_unannotated RANGE INTCONSTANT COMMA INTCONSTANT { for (i in $$) { $$[i].range = {bottom:$3,top:$5}; } }
 	;
 
 single_declaration:
@@ -378,7 +387,7 @@ single_declaration:
 	  $1.init = $4;
 	  $$[$2] = $1;
 	}
-        | INVARIANT IDENTIFIER  /* TODO Vertex only. */
+        | INVARIANT IDENTIFIER  /* Vertex only. */
 	;
 
 fully_specified_type:
@@ -388,7 +397,7 @@ fully_specified_type:
 
 type_qualifier:
         CONST 
-        | ATTRIBUTE   /* TODO Vertex only. */
+        | ATTRIBUTE   /* Vertex only. */
         | VARYING 
         | INVARIANT VARYING
         | UNIFORM
@@ -420,6 +429,7 @@ type_specifier_no_prec:
         | SAMPLERCUBE
         | struct_specifier
 //        | IDENTIFIER { if (!yy.structs[$1]) yy.errors.push("Struct not found"); } /* TYPE_NAME */
+        | TYPE_NAME
 	;
  
 precision_qualifier:
@@ -430,11 +440,13 @@ precision_qualifier:
 
 struct_specifier:
         STRUCT IDENTIFIER LEFT_BRACE struct_declaration_list RIGHT_BRACE { 
-	/*lexer.rules[36] = new RegExp(lexer.rules[36].toString().slice(1,-3).toString() + "\\b|^" + $2 + "\\b");*/
-	$$ = {struct:true,body:$4};
-	yy.structs[$2] = $4;
+	  lexer.rules[36] = new RegExp(lexer.rules[36].toString().slice(1,-3).toString() + "\\b|^" + $2 + "\\b");
+	  $$ = {struct:true,body:$4};
+	  yy.structs[$2] = $4;
 	}
-        | STRUCT LEFT_BRACE struct_declaration_list RIGHT_BRACE { $$ = $3; }
+        | STRUCT LEFT_BRACE struct_declaration_list RIGHT_BRACE { 
+	  $$ = $3; 
+	}
 	;
 
 struct_declaration_list:
@@ -511,7 +523,7 @@ statement_list:
 
 expression_statement:
         SEMICOLON 
-        | expression SEMICOLON { console.log("Expression statement!"); }
+        | expression SEMICOLON
 	;
 
 selection_statement:
@@ -554,7 +566,7 @@ jump_statement:
         | BREAK SEMICOLON 
         | RETURN SEMICOLON 
         | RETURN expression SEMICOLON 
-        | DISCARD SEMICOLON   /* TODO Fragment shader only. */
+        | DISCARD SEMICOLON   /* Fragment shader only. */
 	;
 
 translation_unit:

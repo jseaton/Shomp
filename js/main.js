@@ -62,7 +62,7 @@ ShaderInstance.prototype.updateGLOW = function() {
 	    vertexShader:this.shader.vertexShader,
 	    fragmentShader:this.shader.fragmentShader,
 	    elements:this.elements,
-	    data:$.extend(this.others,$.extend(this.uniforms,this.glow.uniforms))
+	    data:$.extend(this.others,this.uniforms)//$.extend(this.uniforms,this.glow.uniforms))
 	}
     );
 }
@@ -140,7 +140,7 @@ function updateShader(name) {
     shaders[name].update();
     for (i in chain) {
 	if (chain[i].name != name) continue;
-	chain[i].data = new GLOW.Shader(chain[i]);
+	chain[i].glow = new GLOW.Shader(chain[i]);
     }
 }
 
@@ -225,6 +225,6 @@ function initContext() {
     container = document.getElementById( "container" );
     container.appendChild( context.domElement );
 
-    GLOW.defaultCamera.localMatrix.setPosition( 0, 0, 1500 );
+    GLOW.defaultCamera.localMatrix.setPosition( 0, 0, 1000 );
     GLOW.defaultCamera.update();
 }
