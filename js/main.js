@@ -3,13 +3,13 @@ container = undefined;
 shaders = {};
 chain = [];
 tree = {};
-lookup = {};
 pipeline = undefined;
+fbos = {};
 
 function parse(s) {
     glsl.yy = {structs:{},params:[],errors:[]};
     try {
-	glsl.parse(s);
+	glsl.parse(s.replace(/;\/\/colour/gm," __colour__annotation;").replace(/;\/\/range ([0-9]+),([0-9]+)/gm," __range__annotation $1,$2;"));
     } catch(e) {
 	console.log(e.message);
 	glsl.yy.errors.unshift(e.message);
@@ -46,8 +46,8 @@ function ShaderInstance(name, id, shader, attr, size) {
     this.others         = attr.others;
     this.children       = attr.children;
 
-    this.elements       = GLOW.Geometry.Cube.elements(); //TODO
-    this.size           = size;
+    this.elements       = GLOW.Geometry.Plane.elements(); //TODO
+    this.size           = size || {width:400,height:400};
     this.glow           = {};
 }
 
@@ -62,9 +62,18 @@ ShaderInstance.prototype.updateGLOW = function() {
 	    vertexShader:this.shader.vertexShader,
 	    fragmentShader:this.shader.fragmentShader,
 	    elements:this.elements,
-	    data:$.extend(this.others,this.uniforms)//$.extend(this.uniforms,this.glow.uniforms))
+	    data:$.extend($.extend({},this.others),this.uniforms)//$.extend(this.uniforms,this.glow.uniforms))
 	}
     );
+}
+
+ShaderInstance.prototype.updateFBO = function() {
+    if(this.fbo == undefined) {
+	if (fbos[this.size])
+	    this.fbo = fbos[this.size].pop();
+	if (this.fbo == undefined)
+	    this.fbo = new GLOW.FBO(this.size);
+    }
 }
 
 /*
@@ -97,7 +106,7 @@ Shader.prototype.genParams = function(attr) {
 function generateChainParams() {
     for (var i=0;i<chain.length;i++) {
 	var node = chain[i];
-	if (i<chain.length-1) node.fbo = new GLOW.FBO();//chain[i].size || {});
+	if (i<chain.length-1) node.updateFBO(); //node.fbo = new GLOW.FBO({width:400,height:400});//chain[i].size || {});
     }
     for (var i=0;i<chain.length;i++) {
 	var node = chain[i];
@@ -112,22 +121,27 @@ function generateChainParams() {
 //Topological sort on tree
 function generateChain() {
     chain = []
-    //lookup = {} //This is also marks nodes
 
     clearLookup = function(node) {
 	if (!node.name) return;
 	node.lookup = false;
-	for (i in node.children) clearLookup(node.children[i])
+	for (var i in node.children) clearLookup(node.children[i])
     }
     clearLookup(tree);
 
-    updateNode = function(node) {
-	if (!node.name || node.lookup) return;
+    updateNode = function(node,prev) {
+	if (!node.name) return;
+	//if (prev[node.id] != undefined) {
+	//    alert("Graph contains a cycle");
+	//    return;
+	//}
 	node.lookup = true;
-	for (i in node.children) updateNode(node.children[i])
+	var nid = {};
+	nid[node.id] = true;
+	for (var i in node.children) updateNode(node.children[i]/*,$.extend(nid,prev)*/)
 	chain.push(node);
     }
-    updateNode(tree);
+    updateNode(tree,{});
 }
 
 function updateShaders() {
@@ -137,10 +151,20 @@ function updateShaders() {
 //Note: updateShader must not be called unless a chain has already
 //been generated, ensuring FBO existance
 function updateShader(name) {
+    var oldparams = shaders[name].parseData.params;
     shaders[name].update();
-    for (i in chain) {
+    for (var i in chain) {
 	if (chain[i].name != name) continue;
-	chain[i].glow = new GLOW.Shader(chain[i]);
+	for (var j in oldparams) {
+	    if (!shaders[name].parseData.params[j] || shaders[name].parseData.params[j] != oldparams[j]) {
+		chain[i].uniforms[j] = undefined;
+		$('#ui-'+chain[i].id+"-"+j).remove();
+	    }
+	}	
+	var gen = generateUI(chain[i]);
+	$.extend(chain[i].uniforms,gen.deflt);
+	$('#ui-'+chain[i].id).append(gen.html);
+	chain[i].updateGLOW();
     }
 }
 
@@ -156,7 +180,7 @@ function updateTree() {
 	var gen = generateUI(node);
 	console.log(gen);
 	$('#params').append(gen.html);
-	node.others = $.extend(gen.deflt,node.others);
+	$.extend(node.uniforms,gen.deflt);
 	for (var i in node.children) genUI(node.children[i]);
     }
     genUI(tree);
@@ -212,19 +236,19 @@ function newShader(vText,hText,name) {
 	shaders[shaderName].fragmentShaderEditor.refresh();
 	shaders[shaderName].vertexShaderEditor.refresh();
     }).append(shaderTag);
-    var newShader = new Shader(CodeMirror(newTab[1],{'mode':'text/x-glsl',value:vText}),
-			       CodeMirror(newTab[1],{'mode':'text/x-glsl',value:hText}));
+    var newShader = new Shader(CodeMirror(newTab[1],{'mode':'text/x-glsl',value:vText,onChange: function(cm) { updateShader(shaderName); updateTree(); }}),
+			       CodeMirror(newTab[1],{'mode':'text/x-glsl',value:hText,onChange: function(cm) { updateShader(shaderName); updateTree(); }}));
     newTab.find('textarea').attr('cols','60').attr('rows','20');
     $('#accordion').append(newTab).accordion('destroy').accordion();
     shaders[shaderName] = newShader;
 }
 
 function initContext() {
-    context = new GLOW.Context()//{viewport:{width:80,height:80}});
+    context = new GLOW.Context({width:400,height:400})//{viewport:{width:80,height:80}});
     context.setupClear( { red: 1, green: 1, blue: 1 } );
     container = document.getElementById( "container" );
     container.appendChild( context.domElement );
 
-    GLOW.defaultCamera.localMatrix.setPosition( 0, 0, 1000 );
+    GLOW.defaultCamera.localMatrix.setPosition( 0, 0, 800 );
     GLOW.defaultCamera.update();
 }

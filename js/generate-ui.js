@@ -10,15 +10,15 @@ function generateUI(instance) {
     var structs = {};
     //var glow = instance.data;
 
-    var ret = $('<div/>');
+    var ret = $('<div id="' + instance.name + '"/>');
     var deflt = {};
     for (var name in nodes) {
 	var node = nodes[name];
 	//console.log(node);
 	//console.log(instance.glow.uniforms);
 	if (node.qual != 'uniform' || instance.uniforms[name] || instance.children[name]) continue;
-	var r = $('<div><h4>'+name+'</h4><span>'+node.type+'</span></div>')
-	r.attr('class',name);
+	
+	//r.attr('class',name);
 	if (typeof node.type == 'string') {
 	    if (match=node.type.match(/([bi]?)vec([234])/)) {
 		deflt[name] = match[2]==2 ? new GLOW.Vector2() : (match[2]==3 ? new GLOW.Vector3() : new GLOW.Vector4());
@@ -34,7 +34,8 @@ function generateUI(instance) {
 				rs[2].value = ns[2];
 				rs.css('backgroundColor', '#' + hex);
 				if (rs[3]) ns[3] = parseFloat(rs[3].value);
-				instance.glow.uniforms[name].set.apply(instance.glow.uniforms[name],ns);
+				instance.uniforms[name].set.apply(instance.glow.uniforms[name],ns);
+				context.cache.clear();
 				render();
 			    },
 			    onBeforeShow: function () {
@@ -47,39 +48,64 @@ function generateUI(instance) {
 			    console.log(hex);
 			    rs.ColorPickerSetColor(hex);
 			    rs.css('backgroundColor', '#' + hex);
-			    instance.glow.uniforms[name].value[$(this).attr('n')] = parseFloat(this.value);
+			    instance.uniforms[name].value[$(this).attr('n')] = parseFloat(this.value);
+			    instance.updateGLOW();
+			    context.cache.clear();
 			    render();
 			});
 		    }
+		    var r = $('<div><h4>'+name+'</h4><span>'+node.type+'</span></div>')
 		    r.append(nextCell);
+		    ret.append(r);
 		}	
 	    } else if (node.type == 'sampler2D') {
 		var n = name; //local
 		deflt[name] = new GLOW.Texture({ url:'cube.JPG' });
+		var r = $('<div><h4>'+name+'</h4><span>'+node.type+'</span></div>')
 		r.append($('<input type="text" />').change(
 		    function() {
 			instance.uniforms[n] = new GLOW.Texture({ url:$(this).val() });
 			instance.updateGLOW();
 			//console.log(instance.glow.uniforms);
+			context.cache.clear();
 			render();
 		    }
 		));
+		ret.append(r);
 	    } else if (match=node.type.match(/mat([234])/)) {
 		deflt[name] = match[2]==2 ? new GLOW.Matrix2() : (match[2]==3 ? new GLOW.Matrix3() : new GLOW.Matrix4());
+		var r = $('<div><h4>'+name+'</h4><span>'+node.type+'</span></div>')
 		r.append($('<input type="text" />').change(
 		    function() {
-			callback[name] = eval($(this).val());
+			instance.uniforms[name] = eval($(this).val());
+			instance.updateGLOW();
+			context.cache.clear();
 			render();
 		    }
 		).val(name == 'cameraProjection' ? 'GLOW.defaultCamera.projection' : (name == 'cameraInverse' ? 'GLOW.defaultCamera.inverse' : '')));
-	    } else if (structs[node.type]) {
+		ret.append(r);
+	    } else if (node.type == 'float' || node.type == 'int') {
+		deflt[name] = node.type == 'float' ? new GLOW.Float(0.0) : new GLOW.Int(0);
+		var r = $('<div><h4>'+name+'</h4><span>'+node.type+'</span></div>')
+		r.append($('<input type="text" />').change(
+		    function() {
+			instance.uniforms[name] = node.type == 'float' ? new GLOW.Float($(this).val()) : new GLOW.Int($(this).val());
+			instance.updateGLOW();
+			context.cache.clear();
+			render();
+		    }
+		));
+		ret.append(r);
+	    } if (structs[node.type]) {
+		var r = $('<div><h4>'+name+'</h4><span>'+node.type+'</span></div>')
 		r.append(generateStructUI(structs[node.type],structs));
+		ret.append(r);
 	    }
 	} else {
-	    r = $('<span>struct</span>');
+	    var r = $('<span>struct</span>');
 	    r.append(generateStructUI(node.type,structs));
+	    ret.append(r);
 	}
-	ret.append(r);
     }
     return {deflt:deflt,html:r};
 }

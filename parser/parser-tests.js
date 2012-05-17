@@ -35,6 +35,18 @@ var tests = { uint:
 	      abool:
 	      { glsl: "attribute bool y;",
 		answer: { y:  {type:'bool',qual:'attribute'} }
+	      },
+	      color:
+	      { glsl: "uniform vec3 x __colour__annotation;",
+		answer: { x:  {type:'vec3',qual:'uniform',colour:true} }
+	      },
+	      range:
+	      { glsl: "uniform float y __range__annotation 0,10;",
+		answer: { y:  {type:'float',qual:'uniform',range:{top:10,bottom:0}} }
+	      },
+	      struct:
+	      { glsl: "uniform struct { int x; } f;",
+		answer: {type: { x: { type: 'int' } }, qual: 'uniform'}
 	      }
 	    };
 

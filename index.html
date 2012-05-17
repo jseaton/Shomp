@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="css/style.css">
 
   <script src="lib/jquery-1.6.4.js"></script>
+<script src="lib/jquery.layout.js"></script>
   <script src="lib/GLOW.js"></script>
 
   <script src="lib/codemirror.js"></script>  
@@ -27,6 +28,8 @@
   <script type="text/javascript" src="js/main.js"></script>
   <script type="text/javascript">
 $(document).ready(function() {
+    $('body').layout({ applyDefaultStyles: true });
+    $('body').layout().sizePane("west", 420);
     $('#accordion').accordion();
 
     shaders = {};
@@ -107,42 +110,37 @@ void main(void) {\n\
   gl_FragColor.a = 1.;\n\
 }','gaussHShader');
 
-    pipeline = CodeMirror.fromTextArea(document.getElementById('pipeline'),{'mode':'text/javascript'});
+    pipeline = CodeMirror.fromTextArea(document.getElementById('pipeline'),{'mode':'text/javascript',onChange: function(cm) { updateTree(); updateChain(); }});
     initContext();
+    updateShaders();
+    updateTree();
+    updateChain();
+    render();
 });
 
   </script>
 </head>
 <body>
 <br />
-<div id="accordion">
-</div>
-<button onclick="newShader();">New Shader</button>
-<div id="params"></div>
-<div>
-<button onclick="updateShaders();">Update Shaders</button>
-<button onclick="updateTree();">Update Shader Tree</button>
-<button onclick="updateChain();">Update Shader Chain</button>
-<button onclick="render();">Render</button>
-</div>
-<div id="vertexinfo"></div>
-<div id="fragmentinfo"></div>
+<!--<div class="ui-layout-center">-->
+<div class="ui-layout-west">
+<div id="container"></div>
 <textarea id="pipeline" cols="60" rows="20">
 output = new gaussHShader("gaussh"); //gaussh
-output.vertices = GLOW.Geometry.Cube.vertices(500);
-output.uvs = GLOW.Geometry.Cube.uvs();
+output.vertices = GLOW.Geometry.Plane.vertices(500);
+output.uvs = GLOW.Geometry.Plane.uvs();
 output.cameraProjection = GLOW.defaultCamera.projection;
 output.cameraInverse = GLOW.defaultCamera.inverse;
 
 gaussv = new gaussVShader("gaussv");
-gaussv.vertices = GLOW.Geometry.Cube.vertices(500);
-gaussv.uvs = GLOW.Geometry.Cube.uvs();
+gaussv.vertices = GLOW.Geometry.Plane.vertices(500);
+gaussv.uvs = GLOW.Geometry.Plane.uvs();
 gaussv.cameraProjection = GLOW.defaultCamera.projection;
 gaussv.cameraInverse = GLOW.defaultCamera.inverse;
 
 input = new textureShader("input");
-input.vertices = GLOW.Geometry.Cube.vertices(500);
-input.uvs = GLOW.Geometry.Cube.uvs();
+input.vertices = GLOW.Geometry.Plane.vertices(500);
+input.uvs = GLOW.Geometry.Plane.uvs();
 input.cameraProjection = GLOW.defaultCamera.projection;
 input.cameraInverse = GLOW.defaultCamera.inverse;
 
@@ -151,7 +149,24 @@ gaussv.img = input;
 
 
 </textarea>
-<div id="container" width="80" height="80"></div>
+</div>
+<div id="accordion" class="ui-layout-center">
+</div>
+<!--</div>-->
+<div class="ui-layout-east">
+<h3>Parameters</h3>
+<div id="params"></div>
+</div>
+<div class="ui-layout-south">
+<button onclick="newShader();">New Shader</button>
+<button onclick="updateShaders();">Update Shaders</button>
+<button onclick="updateTree();">Update Shader Tree</button>
+<button onclick="updateChain();">Update Shader Chain</button>
+<button onclick="render();">Render</button>
+</div>
 
+<div class="ui-layout-north">
+No errors.
+</div>
 </body>
 </html>

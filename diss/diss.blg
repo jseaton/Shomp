@@ -3,55 +3,46 @@ Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: diss.aux
 The style file: plain.bst
 Database file #1: refs.bib
-Warning--I didn't find a database entry for "opengl-pipe"
-Warning--to sort, need author or key in webgl-spec
-Warning--to sort, need author or key in three
-Warning--to sort, need author or key in glow
-Warning--to sort, need author or key in codemirror
-Warning--to sort, need author or key in v8
-Warning--to sort, need author or key in js-cc
-Warning--to sort, need author or key in jison
-Warning--to sort, need author or key in webgl-future
 Warning--empty publisher in glsl-spec
-You've used 16 entries,
+You've used 20 entries,
             2118 wiz_defined-function locations,
-            561 strings with 5640 characters,
-and the built_in function-call counts, 3425 in all, are:
-= -- 316
-> -- 101
-< -- 2
-+ -- 47
-- -- 30
-* -- 151
-:= -- 498
-add.period$ -- 41
-call.type$ -- 16
-change.case$ -- 60
+            582 strings with 5982 characters,
+and the built_in function-call counts, 4479 in all, are:
+= -- 409
+> -- 189
+< -- 0
++ -- 79
+- -- 58
+* -- 164
+:= -- 766
+add.period$ -- 61
+call.type$ -- 20
+change.case$ -- 85
 chr.to.int$ -- 0
-cite$ -- 25
-duplicate$ -- 143
-empty$ -- 379
-format.name$ -- 30
-if$ -- 784
+cite$ -- 21
+duplicate$ -- 160
+empty$ -- 441
+format.name$ -- 58
+if$ -- 965
 int.to.chr$ -- 0
-int.to.str$ -- 16
+int.to.str$ -- 20
 missing$ -- 8
-newline$ -- 75
-num.names$ -- 16
-pop$ -- 134
+newline$ -- 103
+num.names$ -- 40
+pop$ -- 166
 preamble$ -- 1
-purify$ -- 47
+purify$ -- 68
 quote$ -- 0
-skip$ -- 129
+skip$ -- 152
 stack$ -- 0
-substring$ -- 109
-swap$ -- 26
-text.length$ -- 2
+substring$ -- 101
+swap$ -- 20
+text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 56
-warning$ -- 9
-while$ -- 18
-width$ -- 18
-write$ -- 138
-(There were 10 warnings)
+type$ -- 72
+warning$ -- 1
+while$ -- 40
+width$ -- 22
+write$ -- 189
+(There was 1 warning)
