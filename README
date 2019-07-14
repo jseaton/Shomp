@@ -1,4 +1,3 @@
 This is my Part II project, a WebGL tool for composing together simple shaders.
 
-Please note that this code is currently quite broken unless you have a quite specific version of Chrome installed. 
-A new version using a more recent version of GLOW is being worked on.
+Please note that this code is *really* awful and probably broken on modern browsers.
